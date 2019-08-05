@@ -69,12 +69,22 @@ function App() {
       <option key={desc}  value="desc">{desc}</option>
     );
   });
- 
+  const moves = ccyPairs.map(({  
+    symbol,
+    index  
+  }) => {
+    const desc = symbol ? symbol : 'symbol';
+    return ( 
+      <li key={desc}>
+        <button onClick={() => jumpTo(desc)}>{desc}</button>
+      </li>
+    );
+  });
+
   return (
     <div className="price-tile">
     <div className="velocity-icon vi-chevron">
-      <select className="ccypair-select" id="ccypair-select">{options}
-      </select>
+      <select className="ccypair-select" id="ccypair-select">{options}</select>
     </div>
     </div>
   );
