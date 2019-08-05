@@ -1,33 +1,78 @@
-.App {
-  text-align: center;
+@import '../node_modules/font-awesome/css/font-awesome.css';
+
+body {
+  --odd-row-background-color: #CFD8DC;
+  background: #000000;
+  color: #DDDDDD;
+  font-family: Arial, Helvetica, blottersans-serif;
+  /* font-family: 'Roboto', sans-serif */
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.price-tile {
+  margin: 10px;
+  border: solid rgba(0, 0, 255, 0.50) 1px;
+  padding: 5px;
+  height: 200px;
+  width: 300px;
+  position: relative;
+}
+.price-tile:hover {
+  border: solid rgba(0, 0, 255, 1.0) 1px;
+ }
+
+.vi-chevron {
+  margin-left: 1px;
+  margin-top: 6px;
+  width: 17px;
+  height: 11px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.vi-chevron {
+  width: 17px;
+  height: 11px;
+  background-image: url("data:image/svg+xml;utf8, \
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 19'> \
+      <path fill='red' d='M 0.37,0 C0.37,0 13.83,0 13.83,0 13.83,0 30,9.57 30,9.57 30,9.57 13.60,19 13.60,19 13.60,19 0,19 0,19 0,19 16.01,9.50 16.01,9.50 16.01,9.50 0.37,0 0.37,0 z'/> \
+  </svg>");
 }
 
-.App-link {
-  color: #61dafb;
+.vi-chevron {
+  width: 30px;
+  height: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+select {
+  margin-left: 4px;
+  left: 130px;
+  width: 120px;
+  height: 30px;
+  border: 1 solid #777777 30%;
+  font-size: 120%;
+  font-weight: 600;
 }
+
+select {
+  margin-bottom: 5px;
+  background: #000000;
+  color: #ffffff;
+ border: solid #696969 1px;
+}
+
+.ccypair-select {
+  margin-top: -5px;
+  margin-left: 40px;
+}
+
+.close {
+  cursor: pointer;
+  padding: 4px;
+  position: absolute;
+  right: 1px;
+  top: 6px;
+  color: lightcoral;
+}
+
+.close:hover {
+  color:blue;
+}
+
