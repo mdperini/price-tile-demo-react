@@ -1,101 +1,38 @@
 import React from 'react';
+import CurrencyPickerComponent from './components/ccy-pair-picker/CurrencyPickerComponent';
+import NotionalInputComponent from './components/notional/NotionalInputComponent';
+import PriceQuoteComponent from './components/price-quote/PriceQuoteComponent';
+
+import C2 from './components/test/C2';
 import './App.css';
 
-
-function App() {
-  const ccyPairs = [
-    {  
-      "symbol": "EURUSD",  
-      "bid": "EUR",  
-      "term": "USD",  
-      "totalFractionalDigits": 5,  
-      "pipStartIdx": 4,  
-      "pipLength": 2,  
-      "basePrice": 1.1423  
-    },
-    {  
-      "symbol": "EURGBP",  
-      "bid": "EUR",  
-      "term": "GBP",  
-      "totalFractionalDigits": 5,  
-      "pipStartIdx": 3,  
-      "pipLength": 2,  
-      "basePrice": 1.1423  
-    },
-    {  
-      "symbol": "USDJPY",  
-      "bid": "USD",  
-      "term": "JPY",  
-      "totalFractionalDigits": 5,  
-      "pipStartIdx": 3,  
-      "pipLength": 2,  
-      "basePrice": 107.7556  
-    },
-    {  
-      "symbol": "USDCAD",  
-      "bid": "USD",  
-      "term": "CAD",  
-      "totalFractionalDigits": 5,  
-      "pipStartIdx": 3,  
-      "pipLength": 2,  
-      "basePrice": 107.7556  
-    },
-    {  
-      "symbol": "USDMXN",  
-      "bid": "USD",  
-      "term": "CAD",  
-      "totalFractionalDigits": 5,  
-      "pipStartIdx": 3,  
-      "pipLength": 2,  
-      "basePrice": 107.7556  
-    },
-    {  
-      "symbol": "EURJPY",  
-      "bid": "EUR",  
-      "term": "JPY",  
-      "totalFractionalDigits": 5,  
-      "pipStartIdx": 3,  
-      "pipLength": 2,  
-      "basePrice": 107.7556  
-    }  
-  ]
- 
-  const options = ccyPairs.map(({  
-    symbol,
-    index  
-  }) => {
-    const desc = symbol ? symbol : 'symbol';
-    return ( 
-      <option key={desc}  value="desc">{desc}</option>
-    );
-  });
-  const moves = ccyPairs.map(({  
-    symbol,
-    index  
-  }) => {
-    const desc = symbol ? symbol : 'symbol';
-    return ( 
-      <li key={desc}>
-        <button onClick={() => jumpTo(desc)}>{desc}</button>
-      </li>
-    );
-  });
-
-  return (
-    <div className="price-tile">
-    <div className="velocity-icon vi-chevron">
-      <select className="ccypair-select" id="ccypair-select">{options}</select>
-    </div>
-    </div>
-  );
+export default class PriceTile extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state =  { symbol: 'USD/MXN',
+                    notional: 100000 }
+  }
+  
+  onCCYUpdate (symbol) {this.setState({symbol: symbol }); }
+  
+  onNotionalUpdate (notional) { this.setState({ notional }) }
+  
+  render () {
+    return (
+      <div>
+      <div className="price-tile">
+        <CurrencyPickerComponent value={this.props.symbol} onUpdate={this.onCCYUpdate.bind(this)}/>
+        <NotionalInputComponent onUpdate={this.onNotionalUpdate.bind(this)}/>
+        <div className="price-quotes">
+          <PriceQuoteComponent side={'Join Bid'} direction={'up'} ></PriceQuoteComponent>
+          <PriceQuoteComponent side={'Pay Offer'} direction={'down'}></PriceQuoteComponent>
+        </div>
+       </div>
+       <div> 
+        <C2 data={(this.state.symbol ? this.state.symbol : '')}/>
+        <C2 data={(this.state.notional ? this.state.notional : '')}/>
+      </div>
+      </div>
+    )
+  }
 }
-
-function jumpTo(ccyPair) {
-  alert(ccyPair);
-  // this.setState({
-  //   stepNumber: step,
-  //   xIsNext: (step % 2) === 0
-  // });
-}
-
-export default App;

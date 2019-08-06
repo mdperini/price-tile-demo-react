@@ -10,10 +10,10 @@ body {
 
 .price-tile {
   margin: 10px;
-  border: solid rgba(0, 0, 255, 0.50) 1px;
+  border: solid rgba(119,119, 119, 0.50) 1px;
   padding: 5px;
-  height: 200px;
-  width: 300px;
+  height: 25vh;
+  width: 46vw;
   position: relative;
 }
 .price-tile:hover {
@@ -46,7 +46,7 @@ select {
   left: 130px;
   width: 120px;
   height: 30px;
-  border: 1 solid #777777 30%;
+  border: solid rgba(119,119, 119, 0.50) 1px;
   font-size: 120%;
   font-weight: 600;
 }
@@ -56,6 +56,79 @@ select {
   background: #000000;
   color: #ffffff;
  border: solid #696969 1px;
+}
+
+.ccypair-picker {
+  margin-left: 8px;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ccypair-input, .notional {
+  border: 1px solid rgba(119, 119, 119, 0.75);
+  padding-left: 2px;
+  width: 30%;
+}
+.div-notional {
+  margin-left: -25px;
+}
+.notional {
+  width: 85.5%;
+}
+
+.ccypair-input:hover, .notional:hover {
+  border: solid rgba(0, 0, 255, 1.0) 1px;
+}
+
+.notional {
+  margin-left: 35px;
+}
+
+input {
+  margin-left: 4px;
+  left: 550px;
+  width: 120px;
+  height: 30px;
+  border: 1 solid #777777 30%;
+  font-size: 120%;
+  font-weight: 600;
+}
+
+input {
+  margin-bottom: 5px;
+  background: #000000;
+  color: #ffffff;
+ border: solid #696969 1px;
+}
+
+.price-quote, .price-quotes {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1px;
+  margin-left: 5px;
+  margin-right: 4px;
+}
+.price-quote-inner {
+  border: 1px solid rgba(119, 119, 119, 0.75);
+  padding: 5px;;
+   width: 123px;
+ }
+
+.price-quote-inner:hover {
+  border: solid blue 1px;
+  background: linear-gradient(black, blue);
+  cursor: url(./assets/Target.cur), auto;
+}
+
+.side {
+  font-size: 70%;
+  text-align: center;
+}
+
+.pips {
+  text-align: center;
+  padding: 2px;
 }
 
 .ccypair-select {
@@ -76,3 +149,20 @@ select {
   color:blue;
 }
 
+.price-tile-pips-sm {
+  font-size: 16px;
+  vertical-align: top;
+}
+
+.price-tile-pips-lg {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.down {
+  color: red;
+}
+
+.up {
+  color: green;
+}
