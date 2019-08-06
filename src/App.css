@@ -13,7 +13,7 @@ body {
   border: solid rgba(119,119, 119, 0.50) 1px;
   padding: 5px;
   height: 25vh;
-  width: 46vw;
+  width: 52vw;
   position: relative;
 }
 .price-tile:hover {
@@ -74,7 +74,7 @@ select {
   margin-left: -25px;
 }
 .notional {
-  width: 85.5%;
+  width: 85%;
 }
 
 .ccypair-input:hover, .notional:hover {

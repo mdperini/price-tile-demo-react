@@ -1,16 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 export default class PriceQuoteComponent extends React.Component {
   part1 = 0.87;
   part2 = 50;
   part3 = 8;
   
+  side=this.props.side;
+
   render () {
     return (
-      <div className="price-quote">
+      <div className="price-quote" onClick={this.update.bind(this)}>
         <div className="price-quote-inner">
-          <div className="side">{this.props.side}</div>
+          <div ref='selectedSide'  
+               className="side" 
+               value={this.side}>{this.side}
+          </div>
           <div className="pips">          
             <span className="price-tile-pips-sm">{this.part1}</span>
             <span className="price-tile-pips-lg">
@@ -24,8 +28,7 @@ export default class PriceQuoteComponent extends React.Component {
   }
 
   update () {
-    var ccypairInput = ReactDOM.findDOMNode(this.refs.ccypairInput)
-    this.props.onUpdate(ccypairInput.value);
+    this.props.onUpdate(this.side);
   }
  }
 
