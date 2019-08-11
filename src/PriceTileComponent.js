@@ -7,12 +7,12 @@ import NotionalInputComponent from './components/notional/NotionalInputComponent
 import PriceQuoteComponent from './components/price-quote/PriceQuoteComponent';
 
 import C2 from './components/test/C2';
-import './App.css';
+import './PriceTileComponents.css';
 
 export default class PriceTile extends React.Component {
   constructor (props) {
     super(props)
-    this.state =  { symbol: 'USD/MXN',
+    this.state =  { symbol: 'USDMXN',
                     notional: 100000 ,
                     side: 'Pay Offer',
                     bidRate: 0.87508,
@@ -51,14 +51,11 @@ export default class PriceTile extends React.Component {
   }
 
   componentDidMount() {
-    const symbol = this.state.symbol.replace('/', '');  
- //   console.log('componentDidMount', symbol);
-    // this.getLivePrices(symbol);
-    this.priceSubscription = this.getLivePrices(symbol)
+    this.priceSubscription = this.getLivePrices(this.state.symbol)
     .subscribe((x) => {
       this.setState({bidRate: x.bidRate.toFixed(5) });
       this.setState({termRate: x.termRate.toFixed(5) });
-      console.log(`quote ${x.symbol} ${this.state.bidRate} ${this.state.termRate} `);
+      // console.log(`quote ${x.symbol} ${this.state.bidRate} ${this.state.termRate} `);
     });
   }
 
@@ -80,17 +77,19 @@ export default class PriceTile extends React.Component {
           <PriceQuoteComponent price={this.state.bidRate}
                                side={'Join Bid'} 
                                direction={'up'}
-                               onUpdate={this.onSendQuote.bind(this)}></PriceQuoteComponent>
+                               onUpdate={this.onSendQuote.bind(this)}/>
           <PriceQuoteComponent price={this.state.termRate}
                                side={'Pay Offer'} 
                                direction={'down'}
-                               onUpdate={this.onSendQuote.bind(this)}></PriceQuoteComponent>
+                               onUpdate={this.onSendQuote.bind(this)}/>
         </div>
        </div>
        <div> 
         <C2 data={(this.state.symbol ? this.state.symbol : '')}/>
         <C2 data={(this.state.notional ? this.state.notional : '')}/>
         <C2 data={(this.state.side ? this.state.side : '')}/>
+        <C2 data={(this.state.bidRate ? this.state.bidRate : '')}/>
+        <C2 data={(this.state.termRate ? this.state.termRate : '')}/>
       </div>
       </div>
     )

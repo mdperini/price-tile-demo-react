@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import PriceTile from './App';
+import PriceTile from './PriceTileComponent'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<PriceTile />, document.getElementById('root'));

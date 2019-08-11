@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import PriceTileComponent from './PriceTileComponent';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+  ReactDOM.render(<PriceTileComponent />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
