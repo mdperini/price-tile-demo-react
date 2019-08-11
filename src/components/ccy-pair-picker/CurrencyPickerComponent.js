@@ -4,61 +4,46 @@ import axios from 'axios';
 
 export default class CurrencyPickerComponent extends React.Component {
   symbol = this.props.symbol;
+  constructor(props) {
+    super(props);
 
-  // getCCY() {
-  //   return new Promise((resolve) => {
-  //     if (!this.ccyPairs) {
-  //       this.http
-  //         .get(this.serverUrl)
-  //         .toPromise()
-  //         .then((result: any) => {
-  //           this.ccyPairs = result;
-  //           resolve(this.ccyPairs);
-  //         });
-  //     } else {
-  //       resolve(this.ccyPairs);
-  //     }
-  //   });
-componentDidMount() {
-    // axios.get('http://jsonplaceholder.typicode.com/posts')
-    //axios.get('http://localhost:3333')
-    //http://localhost:3333
+    this.state = {
+        ccyPairs: [],
+        value: this.props.symbol
+    };
+    
+  }
 
-    const instance = axios.create({
-      baseURL: 'http://localhost:3333',
-      timeout: 1000,
+  componentDidMount() {
+    console.log(`this.props.symbol ${this.props.symbol}`);
+    const httpClient = axios.create({
       headers: {'userid': 'michael'}
     })
 
-    // setHeaders: {
-    //   userid: 'michael'
-    // }
-    
-    instance.get('http://localhost:3333/currencypairs')
+    httpClient.get('http://localhost:3333/currencypairs')
         .then(res => {
-            const faqs = res.data.slice(0,10);
-            console.log(`ccy pairs ${JSON.stringify(faqs)}`)
-            this.setState({ faqs });
-        })
-}
+            const ccyPairs = res.data.slice();
+            this.setState({ ccyPairs });
+    })
+  }
 
+  renderSymbol(symbol) {
+    return `${symbol.substring(0, 3)}/${symbol.substring(3, 6)}`;
+  }
 
   render () {
+    const options = this.state.ccyPairs.map( (ccyPair) => {
+      return (
+        <option key={ccyPair.uuidv1} value={this.renderSymbol(ccyPair.symbol)}
+        >{this.renderSymbol(ccyPair.symbol)}</option>
+      );
+    });
+
     return (
       <div className="ccypair-picker">
-        <div className="velocity-icon vi-chevron"></div>
-        <input className="ccypair-input"
-        ref='ccypairInput' 
-        type='text'
-        onChange={this.update.bind(this)}
-        value={this.props.symbol} />
-        <select name="ccypairs" 
+        <select value={this.props.symbol} name="ccypairs" 
                 ref='ccypairs'
-                onChange={this.update.bind(this)}>
-          <option value="EUR/USD">EUR/USD</option>
-          <option value="USD/CAD">USD/CAD</option>
-          <option value="USD/MXN">USD/MXN</option>
-        </select>
+                onChange={this.update.bind(this)}>{options}</select>
       </div>           
     )
   }
