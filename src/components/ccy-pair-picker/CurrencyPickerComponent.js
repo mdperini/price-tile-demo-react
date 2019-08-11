@@ -8,8 +8,7 @@ export default class CurrencyPickerComponent extends React.Component {
     super(props);
 
     this.state = {
-        ccyPairs: [],
-        value: this.props.symbol
+        ccyPairs: []
     };
     
   }
