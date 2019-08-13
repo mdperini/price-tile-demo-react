@@ -1,5 +1,4 @@
 import React from 'react';
-//import axios from 'axios';
 import * as nes from '@hapi/nes/lib/client';
 import { Subject } from 'rxjs';
 
@@ -48,30 +47,30 @@ export default class PriceTile extends React.Component {
 
   onNotionalUpdate (notional) { this.setState({ notional }) }
 
-  postData(url = '', data = {}) {
+  async postData(url = '', data = {}) {
     // Default options are marked with *
-      return fetch(url, {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, cors, *same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-              'Content-Type': 'application/json',
-              'userid': 'maria'
-              // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          redirect: 'follow', // manual, *follow, error
-          referrer: 'no-referrer', // no-referrer, *client
-          body: JSON.stringify(data), // body data type must match "Content-Type" header
-      })
-      .then((response) => {
-              //handle success
-              console.log(response);
-          })
-          .catch((response) => {
-              //handle error
-              console.log(response);
-          });      
+      try {
+      const response = await fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'userid': 'maria'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow',
+        referrer: 'no-referrer',
+        body: JSON.stringify(data),
+      });
+      //handle success
+      console.log(response);
+    }
+    catch (response_1) {
+      //handle error
+      console.log(response_1);
+    }      
   }
 
   postTransaction(symbol, side, amount) {
