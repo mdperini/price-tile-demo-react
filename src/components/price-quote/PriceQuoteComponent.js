@@ -1,6 +1,8 @@
 import React from 'react';
+
 export default class PriceQuoteComponent extends React.Component {
-    
+  side = this.props.side;
+
   getPriceSubString(price, part) {
     if (!price) {
       // display dashes until data is received
@@ -25,8 +27,7 @@ export default class PriceQuoteComponent extends React.Component {
       <div className="price-quote" onClick={this.update.bind(this)}>
         <div className="price-quote-inner">
           <div ref='selectedSide'  
-               className="side" 
-               value={this.props.side}>{this.props.side}
+               className="side">{this.props.subTitle}
           </div>
           <div className="pips">          
             <span className="price-tile-pips-sm">{this.getPriceSubString(this.props.price, 1)}</span>
@@ -41,7 +42,7 @@ export default class PriceQuoteComponent extends React.Component {
   }
 
   update () {
-    this.props.onUpdate(this.props.side);
+    this.props.onUpdate(this.side === 'Sell'? 'SELL' : 'BUY');
   }
  }
 

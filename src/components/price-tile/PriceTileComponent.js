@@ -1,4 +1,5 @@
 import React from 'react';
+//import axios from 'axios';
 import * as nes from '@hapi/nes/lib/client';
 import { Subject } from 'rxjs';
 
@@ -14,7 +15,7 @@ export default class PriceTile extends React.Component {
     super(props)
     this.state =  { symbol: 'USDMXN',
                     notional: 100000 ,
-                    side: 'Pay Offer',
+                    side: undefined,
                     bidRate: undefined,
                     termRate: undefined,
                     prevBidRate: undefined,
@@ -38,11 +39,52 @@ export default class PriceTile extends React.Component {
   onCCYUpdate (symbol) {
     this.setState({symbol: symbol });
     this.resetPrices(); 
-    this.getLivePrices(this.state.symbol);
+    this.getLivePrices(symbol);
   }  
 
   onNotionalUpdate (notional) { this.setState({ notional }) }
-  onSendQuote(side) { this.setState({ side }) }
+
+  postData(url = '', data = {}) {
+    // Default options are marked with *
+      return fetch(url, {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, cors, *same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+              'Content-Type': 'application/json',
+              'userid': 'maria'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          redirect: 'follow', // manual, *follow, error
+          referrer: 'no-referrer', // no-referrer, *client
+          body: JSON.stringify(data), // body data type must match "Content-Type" header
+      })
+      .then((response) => {
+              //handle success
+              console.log(response);
+          })
+          .catch((response) => {
+              //handle error
+              console.log(response);
+          });      
+  }
+
+  postTransaction(symbol, side, amount) {
+    const payload = {
+      symbol: symbol,
+      priceType: 'SPOT',
+      side: side,
+      amount
+    };
+
+    this.postData('http://localhost:3333/transactions', payload);  
+  }
+
+  onSendQuote(side) { 
+    this.setState({ side });
+    this.postTransaction(this.state.symbol, side, this.state.notional);
+  }
 
   async connect() {
     if (!this.client) {
@@ -112,6 +154,10 @@ export default class PriceTile extends React.Component {
     alert(symbol);
   }
 
+  renderSide(side) {
+    return `${side} ${this.state.symbol.substr(0, 3)}`;
+  }
+
   render () {
     return (
       <div className="navbar-header">
@@ -120,18 +166,20 @@ export default class PriceTile extends React.Component {
                                   onUpdate={this.onCCYUpdate.bind(this)}/>
           <div className="close"
                 onClick={() => this.handleClick(this.state.symbol)}>
-            <i class="fa fa-close"></i></div>
+            <i className="fa fa-close"></i></div>
           <NotionalInputComponent notional={this.state.notional} 
                                   onUpdate={this.onNotionalUpdate.bind(this)}/>
           <div className="price-quotes">
               <PriceQuoteComponent price={this.state.bidRate}
-                                  side={'Join Bid'} 
-                                  direction={this.state.directionBidRate}
-                                  onUpdate={this.onSendQuote.bind(this)}/>
+                                   subTitle={this.renderSide('Buy')}
+                                   side={'Buy'} 
+                                   direction={this.state.directionBidRate}
+                                   onUpdate={this.onSendQuote.bind(this)}/>
               <PriceQuoteComponent price={this.state.termRate}
-                                  side={'Pay Offer'} 
-                                  direction={this.state.directionTermRate}
-                                  onUpdate={this.onSendQuote.bind(this)}/>
+                                   subTitle={this.renderSide('Buy')}
+                                   side={'Sell'} 
+                                   direction={this.state.directionTermRate}
+                                   onUpdate={this.onSendQuote.bind(this)}/>
           </div>
        </div>
        <div>
