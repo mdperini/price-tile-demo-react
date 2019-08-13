@@ -10,7 +10,11 @@ import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
 import C2 from '../test/C2';
 import './PriceTileComponents.css';
 
+const Buy = 'Buy';
+const Sell = 'Sell';
 export default class PriceTile extends React.Component {
+  
+
   constructor (props) {
     super(props)
     this.state =  { symbol: 'USDMXN',
@@ -171,13 +175,13 @@ export default class PriceTile extends React.Component {
                                   onUpdate={this.onNotionalUpdate.bind(this)}/>
           <div className="price-quotes">
               <PriceQuoteComponent price={this.state.bidRate}
-                                   subTitle={this.renderSide('Buy')}
-                                   side={'Buy'} 
+                                   subTitle={this.renderSide(Buy)}
+                                   side={Buy} 
                                    direction={this.state.directionBidRate}
                                    onUpdate={this.onSendQuote.bind(this)}/>
               <PriceQuoteComponent price={this.state.termRate}
-                                   subTitle={this.renderSide('Buy')}
-                                   side={'Sell'} 
+                                   subTitle={this.renderSide(Sell)}
+                                   side={Sell} 
                                    direction={this.state.directionTermRate}
                                    onUpdate={this.onSendQuote.bind(this)}/>
           </div>
@@ -186,7 +190,9 @@ export default class PriceTile extends React.Component {
         <C2 data={(this.state.symbol ? this.state.symbol : '')}/>
         <span>&nbsp;</span>
         <C2 data={(this.state.notional ? this.state.notional : '')}/>
+        <span>&nbsp;</span>
         <C2 data={(this.state.side ? this.state.side : '')}/>
+        <span>&nbsp;</span>
         <C2 data={(this.state.bidRate ? this.state.bidRate : '')}/>
         <span>&nbsp;</span>
         <C2 data={(this.state.termRate ? this.state.termRate : '')}/>
