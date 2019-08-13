@@ -1,13 +1,9 @@
+@import '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
+@import '../node_modules/font-awesome/css/font-awesome.css';
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  --odd-row-background-color: #CFD8DC;
+  background: #000000;
+  color: #DDDDDD;
+  font-family: Arial, Helvetica, blottersans-serif;
+  /* font-family: 'Roboto', sans-serif */
 }

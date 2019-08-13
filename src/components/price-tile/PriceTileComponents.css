@@ -1,23 +1,28 @@
-@import '../node_modules/font-awesome/css/font-awesome.css';
+@import '../../../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
+@import '../../../node_modules//font-awesome/css/font-awesome.css';
 
 body {
   --odd-row-background-color: #CFD8DC;
   background: #000000;
-  color: #DDDDDD;
-  font-family: Arial, Helvetica, blottersans-serif;
-  /* font-family: 'Roboto', sans-serif */
+  /* color: #DDDDDD;
+  font-family: Arial, Helvetica, blottersans-serif; */
+  font-family: 'Roboto', sans-serif;
+  cursor: auto;
+}
+
+.navbar-header {
+  float: left;
 }
 
 .price-tile {
-  margin: 10px;
-  border: solid rgba(119,119, 119, 0.50) 1px;
+  border: solid rgba(0, 0, 255, 0.50) 1px;
   padding: 5px;
-  height: 6-vh;
-  width: 52vw;
+  width: 300px;
   position: relative;
 }
+
 .price-tile:hover {
-  border: solid rgba(0, 0, 255, 1.0) 1px;
+  border: solid rgba(0, 0, 255, 1.0) 2px;
  }
 
 .vi-chevron {
@@ -42,7 +47,7 @@ body {
 }
 
 select {
-  margin-left: 4px;
+  margin-left: 6px;
   left: 130px;
   width: 120px;
   height: 30px;
@@ -60,9 +65,15 @@ select {
 
 .ccypair-picker {
   margin-left: 8px;
+  border: 1px solid rgba(119, 119, 119, 0.75);
   margin-bottom: 2px;
   display: flex;
   justify-content: flex-start;
+}
+
+.ccypair-picker:hover, .notional:hover {
+  border: solid rgba(0, 0, 255, 1.0) 1px;
+  cursor: pointer;
 }
 
 .ccypair-input, .notional {
@@ -70,55 +81,49 @@ select {
   padding-left: 2px;
   width: 30%;
 }
+
 .div-notional {
-  margin-left: -25px;
-}
-.notional {
-  width: 85%;
-}
-
-.ccypair-input:hover, .notional:hover {
-  border: solid rgba(0, 0, 255, 1.0) 1px;
+  margin-left: 2px;
 }
 
 .notional {
-  margin-left: 35px;
+  width: 98%;
 }
 
 input {
-  margin-left: 4px;
-  left: 550px;
-  width: 120px;
-  height: 30px;
-  border: 1 solid #777777 30%;
   font-size: 120%;
-  font-weight: 600;
-}
-
-input {
+  font-weight: 600;  
+  margin-top: 5px;
   margin-bottom: 5px;
   background: #000000;
   color: #ffffff;
- border: solid #696969 1px;
+  border: solid #696969 1px;
+}
+
+
+.price-tile-quotes {
+  display: flex;
+  justify-content: space-between;
 }
 
 .price-quote, .price-quotes {
-  display: flex;
+  display: flex;  
+  justify-content: space-between;
   flex-direction: row;
   margin-top: 1px;
-  margin-left: 5px;
+  margin-left: 1px;
   margin-right: 4px;
 }
 .price-quote-inner {
   border: 1px solid rgba(119, 119, 119, 0.75);
-  padding: 5px;;
-   width: 123px;
+  padding: 0px;
+  width: 144px;
  }
 
 .price-quote-inner:hover {
   border: solid blue 1px;
   background: linear-gradient(black, blue);
-  cursor: url(./assets/Target.cur), auto;
+  cursor: url(../../assets/Target.cur), auto;
 }
 
 .side {

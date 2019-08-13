@@ -6,11 +6,9 @@ export default class CurrencyPickerComponent extends React.Component {
   symbol = this.props.symbol;
   constructor(props) {
     super(props);
-
     this.state = {
         ccyPairs: []
-    };
-    
+    };    
   }
 
   componentDidMount() {
@@ -33,16 +31,19 @@ export default class CurrencyPickerComponent extends React.Component {
   render () {
     const options = this.state.ccyPairs.map( (ccyPair) => {
       return (
-        <option key={ccyPair.uuidv1} value={ccyPair.symbol}
-        >{this.renderSymbol(ccyPair.symbol)}</option>
+        <option key={ccyPair.uuidv1} value={ccyPair.symbol}>{this.renderSymbol(ccyPair.symbol)}</option>
       );
     });
 
     return (
-      <div className="ccypair-picker">
-        <select value={this.props.symbol} name="ccypairs" 
-                ref='ccypairs'
-                onChange={this.update.bind(this)}>{options}</select>
+      <div>
+        <div className="navbar-header">
+          <div className="velocity-icon vi-chevron"></div>  
+        </div>
+
+          <select className="ccypair-picker" value={this.props.symbol} name="ccypairs" 
+                  ref='ccypairs'
+                  onChange={this.update.bind(this)}>{options}</select>
       </div>           
     )
   }
