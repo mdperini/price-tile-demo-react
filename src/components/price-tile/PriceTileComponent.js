@@ -16,6 +16,7 @@ export default class PriceTileComponent extends React.Component {
   constructor (props) {
     super(props)
     this.state =  { symbol: !this.props.symbol ? 'EURUSD' : this.props.symbol,
+                    id: !this.props.id ? '1' : this.props.id,
                     notional: 100000 ,
                     side: undefined,
                     bidRate: undefined,
@@ -152,10 +153,6 @@ export default class PriceTileComponent extends React.Component {
     this.unsubscribePriceSubscription();
   }
 
-  handleClick(symbol) {
-    alert(symbol);
-  }
-
   renderSide(side) {
     return `${side} ${this.state.symbol.substr(0, 3)}`;
   }
@@ -167,7 +164,7 @@ export default class PriceTileComponent extends React.Component {
           <CurrencyPickerComponent symbol={this.state.symbol} 
                                   onUpdate={this.onCCYUpdate.bind(this)}/>
           <div className="close"
-                onClick={() => this.handleClick(this.state.symbol)}>
+               onClick={this.update.bind(this)}>
             <i className="fa fa-close"></i></div>
           <NotionalInputComponent notional={this.state.notional} 
                                   onUpdate={this.onNotionalUpdate.bind(this)}/>
@@ -197,5 +194,10 @@ export default class PriceTileComponent extends React.Component {
       </div>
       </div>
     )
+  }
+
+  update() {
+    console.log(`update ${this.state.id}`)
+    this.props.onUpdate(this.state.id);
   }
 }

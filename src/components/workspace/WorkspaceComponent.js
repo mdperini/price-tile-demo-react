@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid'
 import PriceTileComponent from '../price-tile/PriceTileComponent';
 import './WorkspaceComponent.css';
 
@@ -28,20 +29,24 @@ export default class WorkspaceComponent extends React.Component {
             return response.json();
           })
           .then(data => {
-            if (data) {
+            if (!data) {
               console.log(`No user preferences for maria`);
               return;
             }
 
-            const layoutConfig = data.slice();
-            console.log(`WorkspaceComponent ${layoutConfig}`);
+            const layoutConfig = data.map(layout => {
+                                layout['key'] = uuid.v1(); // ⇨ '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e'
+                                return layout;
+                              });
+          
+            console.log(`WorkspaceComponent ${JSON.stringify(layoutConfig)}`);
             this.setState({ layoutConfig });
           });      
       }
 
     componentDidMount() {
         console.log(`WorkspaceComponent`);
-      //  this.fetchUserPreferences('http://localhost:3333/preferences');
+        this.fetchUserPreferences('http://localhost:3333/preferences');
     }
 
     async postData(url = '', data = {}) {
@@ -62,6 +67,7 @@ export default class WorkspaceComponent extends React.Component {
           body: JSON.stringify(data),
         });
         //handle success
+        this.fetchUserPreferences('http://localhost:3333/preferences');
         console.log(response);
       }
       catch (response_1) {
@@ -72,55 +78,61 @@ export default class WorkspaceComponent extends React.Component {
 
     savePreferences(tempLayout) {
       const payload = tempLayout.slice();
-      console.log(`preferences ${payload}`);
-//      this.postData('http://localhost:3333/preferences', payload);  
+      console.log(`preferences ${JSON.stringify(payload)}`);
+      this.postData('http://localhost:3333/preferences', payload);  
     }  
      
     componentWillUnmount() {
     }
 
     onAdd() {
-      // let tempLayout = this.state.layoutConfig;
-      // if (tempLayout === undefined) {
-      //   tempLayout = [];
-      // }
+      let layoutConfig = this.state.layoutConfig;
+      if (layoutConfig === undefined) {
+        layoutConfig = [];
+      }
 
-      // tempLayout.push(
-      //   {
-      //     symbol: 'EURUSD'
-      //   });
-     
-      // this.setState({layoutConfig: tempLayout.slice()});
-      // console.log(`preferences ${this.state.layoutConfig}`);
+      layoutConfig.push(
+        {
+          symbol: 'EURUSD'
+        });
 
-      //this.savePreferences(tempLayout);
+      this.savePreferences(layoutConfig);
+    }
+
+    onRemove(priceTile) {
+      console.log(`onRemove layoutConfig ${ JSON.stringify(priceTile)}`);
+      const layoutConfig = this.state.layoutConfig.filter((x) => x.key !== priceTile);
+      console.log(`onRemove layoutConfig ${JSON.stringify(layoutConfig) }`);
+      this.savePreferences(layoutConfig);      
+    }
+    
+    renderPriceTiles(layoutConfig) {
+      if (!layoutConfig) {
+        return;
+      }
+
+      const priceTiles = layoutConfig.map((priceTile) => {
+        return (
+          <PriceTileComponent 
+                key={priceTile.key}
+                id={priceTile.key}
+                symbol={priceTile.symbol}
+                onUpdate={this.onRemove.bind(this)} />
+        );
+      });      
+    
+      return priceTiles;
     }
 
     render () {
-      let priceTiles = '';
-      const layoutConfig = [{'uuidv1': '1',
-                             'symbol':'USDCAD'},
-                            {'uuidv1': '2',
-                             'symbol':'EURUSD'}];
-
-          priceTiles = layoutConfig.map((priceTile) => {
-            return (
-              <PriceTileComponent 
-                    key={priceTile.uuidv1}
-                    symbol={priceTile.symbol} />
-            );
-          });      
-
-            
         return (
           <div className="price-tiles"> 
-            {priceTiles}
+            {this.renderPriceTiles(this.state.layoutConfig)}
             <span className="add"
-                  onClick={this.onAdd(this)}>
+                  onClick={this.onAdd.bind(this)}>
                   <i className="fa fa-plus-circle fa-5x add-inner"></i>
             </span>
-          </div>
-                     
+          </div>                     
         )
       }
 }

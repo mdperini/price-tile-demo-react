@@ -45,7 +45,7 @@ export default class CurrencyPickerComponent extends React.Component {
   render () {
     const options = this.state.ccyPairs.map( (ccyPair) => {
       return (
-        <option key={ccyPair.uuidv1} value={ccyPair.symbol}>{this.renderSymbol(ccyPair.symbol)}</option>
+        <option key={ccyPair.key} value={ccyPair.symbol}>{this.renderSymbol(ccyPair.symbol)}</option>
       );
     });
 
