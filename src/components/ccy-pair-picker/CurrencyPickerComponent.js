@@ -55,7 +55,9 @@ export default class CurrencyPickerComponent extends React.Component {
           <div className="velocity-icon vi-chevron"></div>  
         </div>
 
-          <select className="ccypair-picker" value={this.props.symbol} name="ccypairs" 
+          <select className="ccypair-picker" 
+                  value={this.props.symbol} 
+                  name="ccypairs" 
                   ref='ccypairs'
                   onChange={this.update.bind(this)}>{options}</select>
       </div>           

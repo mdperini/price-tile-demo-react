@@ -11,12 +11,11 @@ import './PriceTileComponents.css';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
-export default class PriceTile extends React.Component {
+export default class PriceTileComponent extends React.Component { 
   
-
   constructor (props) {
     super(props)
-    this.state =  { symbol: 'USDMXN',
+    this.state =  { symbol: !this.props.symbol ? 'EURUSD' : this.props.symbol,
                     notional: 100000 ,
                     side: undefined,
                     bidRate: undefined,

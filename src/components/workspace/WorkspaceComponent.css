@@ -1,0 +1,22 @@
+@import '../../../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
+@import '../../../node_modules//font-awesome/css/font-awesome.css';
+
+.price-tiles {
+  display: flex;
+/* or inline-flex */
+  flex-wrap: wrap;
+}
+
+.add {
+  cursor: pointer; 
+}
+
+.add-inner {
+  margin: 30px;
+  color: green; 
+}
+
+.add-inner:hover {
+  color: blue;  
+}
+
