@@ -1,6 +1,9 @@
 import React from 'react';
 import uuid from 'uuid'
+
 import PriceTileComponent from '../price-tile/PriceTileComponent';
+import TransactonGridComponent from '../transaction-grid/transaction-grid.component';
+
 import './WorkspaceComponent.css';
 
 export default class WorkspaceComponent extends React.Component {
@@ -154,6 +157,7 @@ export default class WorkspaceComponent extends React.Component {
               </span>
             </div>
             <hr></hr>
+            <TransactonGridComponent></TransactonGridComponent>
           </div>                     
         )
       }
