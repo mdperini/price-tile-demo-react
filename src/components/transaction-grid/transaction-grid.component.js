@@ -1,7 +1,9 @@
+import {AgGridReact} from 'ag-grid-react';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import React from 'react';
 
-import { AgGridReact } from 'ag-grid-react';
-import { ColDef } from 'ag-grid-community';
+// import { ColDef } from 'ag-grid-community';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
@@ -13,15 +15,24 @@ export default class TransactonGridComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            columnDefs: ColDef,
-            defaultColDef: [],
-            gridOptions: undefined,
-            rowData: []
-          
+        //   columnDefs: [{
+        //     headerName: "Make", field: "make"
+        //   }, {
+        //     headerName: "Model", field: "model"
+        //   }, {
+        //     headerName: "Price", field: "price"
+        //   }],
+        //   rowData: [{
+        //     make: "Toyota", model: "Celica", price: 35000
+        //   }, {
+        //     make: "Ford", model: "Mondeo", price: 32000
+        //   }, {
+        //     make: "Porsche", model: "Boxter", price: 72000
+        //   }]
         }
-      }
+      } 
 
-      columnDefinitions = [
+  columnDefinitions = [
         {
           header: 'Symbol',
           name: 'symbol',
@@ -58,9 +69,9 @@ export default class TransactonGridComponent extends React.Component {
     
         }];
 
-      async fetchTransactions(url = '') {
+      fetchTransactions(url = '') {
         // Default options are marked with *
-          await fetch(url, {
+          fetch(url, {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
@@ -72,94 +83,93 @@ export default class TransactonGridComponent extends React.Component {
             redirect: 'follow',
             referrer: 'no-referrer'
           })
-          .then(response =>  {
-            return response.json();
-          })
-          .then(data => {
-            if (!data) {
-              console.log(`No transactons`);
-              return;
-            }
-
-            // const rowData = data.map(row => {
-            //                     row['key'] = uuid.v1(); // ⇨ '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e'
-            //                     return row;
-            //                   });
-
-            console.log(JSON.stringify(data));
-
-            // this.setState({ rowData: data });
-          });      
+          .then(result => result.json())
+          .then(rowData =>{
+            console.log(`fetchTransactions rowData ${JSON.stringify(rowData)}`);
+            this.setState({rowData: [{"symbol":"USDJPY","priceType":"SPOT","side":"BUY","amount":100000,"date":"2019-08-13T05:15:41.329Z","rate":107.77891930642828,"total":10777891.930642828}]})
+         
+          }
+          );      
       }
 
       renderColumnDefinitions(columnDefinitions) {
-        let columnDefs = [];
-        columnDefinitions.forEach((columnDefinition) => {
-          const definition = {};
-          definition.headerName = columnDefinition.header;
-          definition.field = columnDefinition.name;
+        this.setState({ columnDefs: [{
+            headerName: "Make", field: "make"
+          }, {
+            headerName: "Model", field: "model"
+          }, {
+            headerName: "Price", field: "price"
+          }] });
+        // let columnDefs = []
+        // columnDefinitions.forEach((columnDefinition) => {
+        //   const definition = {};
+        //   definition.headerName = columnDefinition.header;
+        //   definition.field = columnDefinition.name;
     
-          if (columnDefinition.valueFormatter) {
-            definition.valueFormatter = columnDefinition.valueFormatter;
-          }
+        //   if (columnDefinition.valueFormatter) {
+        //     definition.valueFormatter = columnDefinition.valueFormatter;
+        //   }
     
-          if (columnDefinition.cellClassRules) {
-            definition.cellClassRules = columnDefinition.cellClassRules;
-          }
+        //   if (columnDefinition.cellClassRules) {
+        //     definition.cellClassRules = columnDefinition.cellClassRules;
+        //   }
     
-          if (columnDefinition.sort) {
-            definition.sort = columnDefinition.sort;
-          }
+        //   if (columnDefinition.sort) {
+        //     definition.sort = columnDefinition.sort;
+        //   }
     
-          columnDefs.push(definition);
-        });
-        this.setState({columnDefs: columnDefs} );
-        this.setState({defaultColDef:  {
-                            // all columns sortable
-                            sortable: true,
-                            // all columns resizable
-                            resizable: true,
+        //   columnDefs.push(definition);
+        // });
+        // this.setState({columnDefs: columnDefs} );
+        // this.setState({defaultColDef:  {
+        //                     // all columns sortable
+        //                     sortable: true,
+        //                     // all columns resizable
+        //                     resizable: true,
                     
-                            rowSelection: 'single',
+        //                     rowSelection: 'single',
                     
-                            minWidth: 120
-                        }
-        });
+        //                     minWidth: 120
+        //                 }
+        // });
       
-        this.setState({gridOptions:  {
-                        /* Label columns */
-                        headerHeight: 20
-                      }
-                   });
+        // this.setState({gridOptions:  {
+        //                 /* Label columns */
+        //                 headerHeight: 20
+        //               }
+        //            });
        
     
      }
   
+//     componentDidMount() {
+//    //     this.renderColumnDefinitions(this.columnDefinitions);
+//     }
+
     componentDidMount() {
-        console.log(`fetchTransactions`);
         this.renderColumnDefinitions(this.columnDefinitions);
-        this.fetchTransactions('http://localhost:3333/transactions');
+         fetch('https://api.myjson.com/bins/15psn9')
+         .then(result => result.json())
+         .then(rowData => this.setState({rowData}))
+         }
+   
+    renderTransactions() {
+        console.log(`renderTransactions`);
+        // this.fetchTransactions('http://localhost:3333/transactions');
+        this.setState({rowData: [{"symbol":"USDJPY","priceType":"SPOT","side":"BUY","amount":100000,"date":"2019-08-13T05:15:41.329Z","rate":107.77891930642828,"total":10777891.930642828}]})
+         
     }
 
-    
-      render() {
+    render() {
         return (
-            <div 
-            className="ag-theme-balham"
-            style={{ 
-            height: '500px', 
-            width: '600px' }} 
-          >
-          <div className="blotter">
-
-            <AgGridReact className="ag-grid-react"
-              columnDefs={this.state.columnDefs}
-              rowData={this.state.rowData}
-              defaultColDef={this.state.defaultColDef}
-              gridOptions={this.state.gridOptions}>
-            </AgGridReact>
-          </div>
-          </div>
-          );
-      }
+        <div className="blotter">
+            <div className="ag-grid-react">
+                <AgGridReact
+                columnDefs={this.state.columnDefs}
+                rowData={this.state.rowData}>
+                </AgGridReact>
+            </div>
+        </div>
+        );
+    }
 }
