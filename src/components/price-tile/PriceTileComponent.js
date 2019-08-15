@@ -1,12 +1,13 @@
 import React from 'react';
 import * as nes from '@hapi/nes/lib/client';
 import { Subject } from 'rxjs';
+import NumberFormat from 'react-number-format';
 
 import CurrencyPickerComponent from '../ccy-pair-picker/CurrencyPickerComponent';
 import NotionalInputComponent from '../notional/NotionalInputComponent';
 import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
 
-import C2 from '../test/C2';
+import StatusBar from '../statusbar/StatusBar';
 import './PriceTileComponents.css';
 
 const Buy = 'Buy';
@@ -17,10 +18,12 @@ export default class PriceTileComponent extends React.Component {
     super(props)
     this.state =  { symbol: this.props.symbol,
                     id: this.props.id,
-                    notional: 100000 ,
+                    notional: this.props.notional,
                     side: undefined,
                     bidRate: undefined,
                     termRate: undefined,
+                    bidRateFull: undefined,
+                    termRateFull: undefined,
                     prevBidRate: undefined,
                     prevTermRate: undefined,
                     directionBidRate: undefined,
@@ -33,6 +36,8 @@ export default class PriceTileComponent extends React.Component {
   resetPrices() {
     this.setState({bidRate: undefined} );
     this.setState({termRate: undefined} );
+    this.setState({bidRateFull: undefined} );
+    this.setState({termRateFull: undefined} );
     this.setState({prevBidRate: undefined} );
     this.setState({prevTermRate: undefined} );
     this.setState({directionBidRate: undefined} );
@@ -118,7 +123,9 @@ export default class PriceTileComponent extends React.Component {
     .subscribe((x) => {
       this.setPrevPrice();
       this.setState({bidRate: x.bidRate.toFixed(5) });
+      this.setState({bidRateFull: x.bidRate.toFixed(12) });
       this.setState({termRate: x.termRate.toFixed(5) });
+      this.setState({termRateFull: x.termRate.toFixed(12) });
       this.setState({directionBidRate: 
         this.setDirection(this.state.prevBidRate, this.state.bidRate) });
       this.setState({directionTermRate: 
@@ -154,6 +161,10 @@ export default class PriceTileComponent extends React.Component {
     this.unsubscribePriceSubscription();
   }
 
+  renderSymbol(symbol) {
+    return symbol ? `${this.state.symbol.substr(0, 3)}/${this.state.symbol.substr(3, 6)}` : '';
+  }
+
   renderSide(side) {
     return `${side} ${this.state.symbol.substr(0, 3)}`;
   }
@@ -182,16 +193,20 @@ export default class PriceTileComponent extends React.Component {
                                    onUpdate={this.onSendQuote.bind(this)}/>
           </div>
        </div>
-       <div>
-        <C2 data={(this.state.symbol ? this.state.symbol : '')}/>
+       <div className="statusBar">
+        <StatusBar data={(this.renderSymbol(this.state.symbol))}/>
         <span>&nbsp;</span>
-        <C2 data={(this.state.notional ? this.state.notional : '')}/>
+        
+        <StatusBar data={(<NumberFormat value={this.state.notional} 
+                                 displayType={'text'}
+                                 readOnly 
+                                 thousandSeparator={true} />)}/>
         <span>&nbsp;</span>
-        <C2 data={(this.state.side ? this.state.side : '')}/>
+        <StatusBar data={(this.state.side ? this.state.side : '')}/>
         <span>&nbsp;</span>
-        <C2 data={(this.state.bidRate ? this.state.bidRate : '')}/>
+        <span className={this.state.directionBidRate}><StatusBar data={(this.state.bidRateFull ? this.state.bidRateFull : '--')}/></span>
         <span>&nbsp;</span>
-        <C2 data={(this.state.termRate ? this.state.termRate : '')}/>
+        <span className={this.state.directionTermRate}><StatusBar data={(this.state.termRateFull ? this.state.termRateFull : '--')}/></span>        
       </div>
       </div>
     )
@@ -201,9 +216,4 @@ export default class PriceTileComponent extends React.Component {
     console.log(`click ${this.state.id}`)
     this.props.onClick(this.state.id);
   }
-
-  // update() {
-  //   console.log(`update ${this.state.id}`)
-  //   this.props.onUpdate(this.state.id);
-  // }
 }

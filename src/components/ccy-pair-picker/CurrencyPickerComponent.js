@@ -29,8 +29,12 @@ export default class CurrencyPickerComponent extends React.Component {
       })
       .then(data => {
         const ccyPairs = data.slice();
-        this.setState({ ccyPairs });
+        this.updateCCYPairs(ccyPairs)
       });      
+  }
+
+  updateCCYPairs(ccyPairs) {
+    this.setState({ ccyPairs });
   }
 
   componentDidMount() {

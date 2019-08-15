@@ -171,3 +171,15 @@ input {
 .up {
   color: green;
 }
+
+hr {
+  border:solid rgba(0, 0, 255, 0.50) .5px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.statusBar {
+  color: rgba(119, 119, 119, 0.60);
+  font-size: 70%;
+  text-align: center;
+}

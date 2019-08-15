@@ -134,6 +134,7 @@ export default class WorkspaceComponent extends React.Component {
                 key={priceTile.key}
                 id={priceTile.key}
                 symbol={priceTile.symbol}
+                notional={25000}
                 onClick={this.onRemove.bind(this)}
                 onUpdate={this.onSave.bind(this)} />
         );
@@ -144,12 +145,15 @@ export default class WorkspaceComponent extends React.Component {
 
     render () {
         return (
-          <div className="price-tiles"> 
-            {this.renderPriceTiles(this.state.layoutConfig)}
-            <span className="add"
-                  onClick={this.onAdd.bind(this)}>
-                  <i className="fa fa-plus-circle fa-5x add-inner"></i>
-            </span>
+          <div>
+            <div className="price-tiles"> 
+              {this.renderPriceTiles(this.state.layoutConfig)}
+              <span className="add"
+                    onClick={this.onAdd.bind(this)}>
+                    <i className="fa fa-plus-circle fa-5x add-inner"></i>
+              </span>
+            </div>
+            <hr></hr>
           </div>                     
         )
       }
