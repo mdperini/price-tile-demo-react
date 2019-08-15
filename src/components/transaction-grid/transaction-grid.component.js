@@ -15,20 +15,6 @@ export default class TransactonGridComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        //   columnDefs: [{
-        //     headerName: "Make", field: "make"
-        //   }, {
-        //     headerName: "Model", field: "model"
-        //   }, {
-        //     headerName: "Price", field: "price"
-        //   }],
-        //   rowData: [{
-        //     make: "Toyota", model: "Celica", price: 35000
-        //   }, {
-        //     make: "Ford", model: "Mondeo", price: 32000
-        //   }, {
-        //     make: "Porsche", model: "Boxter", price: 72000
-        //   }]
         }
       } 
 
@@ -86,7 +72,14 @@ export default class TransactonGridComponent extends React.Component {
           .then(result => result.json())
           .then(rowData =>{
             console.log(`fetchTransactions rowData ${JSON.stringify(rowData)}`);
-            this.setState({rowData: [{"symbol":"USDJPY","priceType":"SPOT","side":"BUY","amount":100000,"date":"2019-08-13T05:15:41.329Z","rate":107.77891930642828,"total":10777891.930642828}]})
+            this.setState({rowData: 
+                // [{"symbol":"USDJPY","priceType":"SPOT","side":"BUY","amount":100000,"date":"2019-08-13T05:15:41.329Z","rate":107.77891930642828,"total":10777891.930642828}]
+                rowData.map(row => {
+                        row['make'] = row.symbol;
+                        row['model'] = row.side;
+                        row['price'] = row.rate;
+                    return row;
+                  })})
          
           }
           );      
@@ -94,12 +87,34 @@ export default class TransactonGridComponent extends React.Component {
 
       renderColumnDefinitions(columnDefinitions) {
         this.setState({ columnDefs: [{
-            headerName: "Make", field: "make"
-          }, {
-            headerName: "Model", field: "model"
-          }, {
-            headerName: "Price", field: "price"
-          }] });
+            headerName: "Symbol", field: "symbol"
+          },
+          {
+            headerName: "Type", field: "priceType"
+          },
+          {
+            headerName: "Side", field: "side",       
+                cellClassRules: {
+                    'rag-green': 'x == "BUY"',
+                    'rag-red': 'x == "SELL"'
+                }
+
+          },
+          {
+            headerName: "Notional", field: "amount"
+          },
+          {
+            headerName: "Trade Date", field: "date"
+          },
+          {
+            headerName: "Rate", field: "rate"
+          },
+          {
+            headerName: "Total", field: "total"
+          }
+        ]});
+      
+      
         // let columnDefs = []
         // columnDefinitions.forEach((columnDefinition) => {
         //   const definition = {};
@@ -142,21 +157,26 @@ export default class TransactonGridComponent extends React.Component {
     
      }
   
-//     componentDidMount() {
-//    //     this.renderColumnDefinitions(this.columnDefinitions);
-//     }
 
     componentDidMount() {
         this.renderColumnDefinitions(this.columnDefinitions);
-         fetch('https://api.myjson.com/bins/15psn9')
-         .then(result => result.json())
-         .then(rowData => this.setState({rowData}))
-         }
+        this.renderTransactions();
+        // fetch('https://api.myjson.com/bins/15psn9')
+        // .then(result => result.json())
+        // .then(rowData => this.setState({rowData}))
+    }
    
     renderTransactions() {
         console.log(`renderTransactions`);
-        // this.fetchTransactions('http://localhost:3333/transactions');
-        this.setState({rowData: [{"symbol":"USDJPY","priceType":"SPOT","side":"BUY","amount":100000,"date":"2019-08-13T05:15:41.329Z","rate":107.77891930642828,"total":10777891.930642828}]})
+        this.fetchTransactions('http://localhost:3333/transactions');
+        // this.setState({rowData: 
+        //     [{"symbol":"USDJPY","priceType":"SPOT","side":"BUY","amount":100000,"date":"2019-08-13T05:15:41.329Z","rate":107.77891930642828,"total":10777891.930642828}]
+        //         .map(row => {
+        //             row['make'] = row.symbol;
+        //             row['model'] = row.side;
+        //             row['price'] = row.rate;
+        //         return row;
+        //       })})
          
     }
 

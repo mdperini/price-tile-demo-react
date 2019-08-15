@@ -52,7 +52,7 @@
     box-shadow: none;
   }
   .ag-row:hover {
-    background-color: rgba(13, 189, 255, 0.35);
+    background-color: rgba(13, 189, 255, 0.50);
   }
   
   .ag-row:last-of-type {
