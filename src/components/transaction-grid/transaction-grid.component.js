@@ -18,6 +18,10 @@ export default class TransactonGridComponent extends React.Component {
         }
       } 
 
+      renderSymbol(value) {
+          return value ? `${value.substr(0,3)}/${value.substr(3,6)}`: value;
+      }
+
   columnDefinitions = [
         {
           header: 'Symbol',
@@ -87,7 +91,9 @@ export default class TransactonGridComponent extends React.Component {
 
       renderColumnDefinitions(columnDefinitions) {
         this.setState({ columnDefs: [{
-            headerName: "Symbol", field: "symbol"
+            headerName: "Symbol", 
+            field: "symbol",
+            valueFormatter: (data) => this.renderSymbol(data.value) 
           },
           {
             headerName: "Type", field: "priceType"
@@ -160,26 +166,9 @@ export default class TransactonGridComponent extends React.Component {
 
     componentDidMount() {
         this.renderColumnDefinitions(this.columnDefinitions);
-        this.renderTransactions();
-        // fetch('https://api.myjson.com/bins/15psn9')
-        // .then(result => result.json())
-        // .then(rowData => this.setState({rowData}))
+        this.fetchTransactions('http://localhost:3333/transactions');
     }
    
-    renderTransactions() {
-        console.log(`renderTransactions`);
-        this.fetchTransactions('http://localhost:3333/transactions');
-        // this.setState({rowData: 
-        //     [{"symbol":"USDJPY","priceType":"SPOT","side":"BUY","amount":100000,"date":"2019-08-13T05:15:41.329Z","rate":107.77891930642828,"total":10777891.930642828}]
-        //         .map(row => {
-        //             row['make'] = row.symbol;
-        //             row['model'] = row.side;
-        //             row['price'] = row.rate;
-        //         return row;
-        //       })})
-         
-    }
-
     render() {
         return (
         <div className="blotter">
