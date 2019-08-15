@@ -2,183 +2,126 @@ import {AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import React from 'react';
-
-// import { ColDef } from 'ag-grid-community';
+import 'moment-timezone';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
 // import uuid from 'uuid'
 import './transaction-grid.component.css';
+import moment  from 'moment';
 
 export default class TransactonGridComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
-      } 
+        } 
 
-      renderSymbol(value) {
-          return value ? `${value.substr(0,3)}/${value.substr(3,6)}`: value;
-      }
+        renderSymbol(value) {
+            return value ? `${value.substr(0,3)}/${value.substr(3,6)}`: value;
+        }
 
-  columnDefinitions = [
-        {
-          header: 'Symbol',
-          name: 'symbol',
-        },
-        {
-          header: 'Type',
-          name: 'priceType'
-        },
-        {
-          header: 'Side',
-          name: 'side',
-          cellClassRules: {
-                           'rag-green': 'x == "BUY"',
-                           'rag-red': 'x == "SELL"'
-                          }
-        },
-        {
-          header: 'Notional',
-          name: 'amount',
-          type: 'currency',
-          valueFormatter: (data) => this.numericFormatter.transform(data.value)
-        },
-        {
-          header: 'Rate',
-          name: 'rate',
-          type: 'price',
-          valueFormatter: (data) => this.decimalPipe.transform(data.value, '1.2-5')
-        },
-        {
-          header: 'Transaction',
-          name: 'date',
-          type: 'date',
-          sort: 'desc'
-    
-        }];
+        numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
-      fetchTransactions(url = '') {
-        // Default options are marked with *
-          fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'userid': 'maria'
-            },
-            redirect: 'follow',
-            referrer: 'no-referrer'
-          })
-          .then(result => result.json())
-          .then(rowData =>{
-            console.log(`fetchTransactions rowData ${JSON.stringify(rowData)}`);
-            this.setState({rowData: 
-                // [{"symbol":"USDJPY","priceType":"SPOT","side":"BUY","amount":100000,"date":"2019-08-13T05:15:41.329Z","rate":107.77891930642828,"total":10777891.930642828}]
-                rowData.map(row => {
-                        row['make'] = row.symbol;
-                        row['model'] = row.side;
-                        row['price'] = row.rate;
-                    return row;
-                  })})
-         
-          }
-          );      
-      }
-
-      renderColumnDefinitions(columnDefinitions) {
-        this.setState({ columnDefs: [{
-            headerName: "Symbol", 
-            field: "symbol",
-            valueFormatter: (data) => this.renderSymbol(data.value) 
-          },
-          {
-            headerName: "Type", field: "priceType"
-          },
-          {
-            headerName: "Side", field: "side",       
-                cellClassRules: {
-                    'rag-green': 'x == "BUY"',
-                    'rag-red': 'x == "SELL"'
+        renderDate(x) {
+            // return moment(x).format('DD-MMM-YYYY hh:mm:SS');
+            return moment.utc(x).format("DD-MMM-YYYY HH:mm:ss")
+        }
+        
+        fetchTransactions(url = '') {
+            fetch(url, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'userid': 'maria'
+                },
+                redirect: 'follow',
+                referrer: 'no-referrer'
+                })
+                .then(result => result.json())
+                .then(rowData =>{ this.setState({ rowData })     
                 }
+            );      
+        }
 
-          },
-          {
-            headerName: "Notional", field: "amount"
-          },
-          {
-            headerName: "Trade Date", field: "date"
-          },
-          {
-            headerName: "Rate", field: "rate"
-          },
-          {
-            headerName: "Total", field: "total"
-          }
-        ]});
-      
-      
-        // let columnDefs = []
-        // columnDefinitions.forEach((columnDefinition) => {
-        //   const definition = {};
-        //   definition.headerName = columnDefinition.header;
-        //   definition.field = columnDefinition.name;
-    
-        //   if (columnDefinition.valueFormatter) {
-        //     definition.valueFormatter = columnDefinition.valueFormatter;
-        //   }
-    
-        //   if (columnDefinition.cellClassRules) {
-        //     definition.cellClassRules = columnDefinition.cellClassRules;
-        //   }
-    
-        //   if (columnDefinition.sort) {
-        //     definition.sort = columnDefinition.sort;
-        //   }
-    
-        //   columnDefs.push(definition);
-        // });
-        // this.setState({columnDefs: columnDefs} );
-        // this.setState({defaultColDef:  {
-        //                     // all columns sortable
-        //                     sortable: true,
-        //                     // all columns resizable
-        //                     resizable: true,
-                    
-        //                     rowSelection: 'single',
-                    
-        //                     minWidth: 120
-        //                 }
-        // });
-      
-        // this.setState({gridOptions:  {
-        //                 /* Label columns */
-        //                 headerHeight: 20
-        //               }
-        //            });
-       
-    
-     }
-  
+        renderColumnDefinitions() {
+            this.setState({ columnDefs: [{
+                headerName: "Symbol", 
+                field: "symbol",
+                valueFormatter: (data) => this.renderSymbol(data.value) 
+            },
+            {
+                headerName: "Type", field: "priceType"
+            },
+            {
+                headerName: "Side", field: "side",       
+                    cellClassRules: {
+                        'rag-green': 'x == "BUY"',
+                        'rag-red': 'x == "SELL"'
+                    }
+            },
+            {
+                headerName: "Notional", 
+                field: "amount",             
+                type: 'currency',                
+                valueFormatter: (data) => this.numberWithCommas(data.value)
+            },
+            {
+                headerName: "Trade Date", 
+                field: "date",
+                type: 'date',
+                valueFormatter: (data) => this.renderDate(data.value),
+                sort: 'desc'
+            },
+            {
+                headerName: "Rate", 
+                field: "rate",
+                type: 'price',     
+                valueFormatter: (data) => data.value.toFixed(5)
+            },
+            {
+                headerName: "Total", 
+                field: "total",
+                valueFormatter: (data) => this.numberWithCommas(data.value)
+            }
+            ]});
 
-    componentDidMount() {
-        this.renderColumnDefinitions(this.columnDefinitions);
-        this.fetchTransactions('http://localhost:3333/transactions');
-    }
-   
-    render() {
-        return (
-        <div className="blotter">
-            <div className="ag-grid-react">
-                <AgGridReact
-                columnDefs={this.state.columnDefs}
-                rowData={this.state.rowData}>
-                </AgGridReact>
+            this.setState({ defaultColDef:  {
+                                                // all columns sortable
+                                                sortable: true,
+                                                // all columns resizable
+                                                resizable: true,
+                                        
+                                                rowSelection: 'single',
+                                        
+                                                minWidth: 120
+                                            }
+            })
+          
+        }  
+
+        componentDidMount() {
+            this.renderColumnDefinitions();
+            this.fetchTransactions('http://localhost:3333/transactions');
+        }
+    
+        render() {
+            return (
+            <div className="blotter">
+                <div className="ag-grid-react">
+                    <AgGridReact
+                    columnDefs={this.state.columnDefs}
+                    rowData={this.state.rowData}
+                    defaultColDef={this.state.defaultColDef} >
+                    </AgGridReact>
+                </div>
             </div>
-        </div>
-        );
-    }
+            );
+        }
 }
