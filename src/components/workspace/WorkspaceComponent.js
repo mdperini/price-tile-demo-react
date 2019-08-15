@@ -39,7 +39,6 @@ export default class WorkspaceComponent extends React.Component {
                                 return layout;
                               });
           
-            console.log(`WorkspaceComponent ${JSON.stringify(layoutConfig)}`);
             this.setState({ layoutConfig });
           });      
       }
@@ -98,13 +97,31 @@ export default class WorkspaceComponent extends React.Component {
 
       this.savePreferences(layoutConfig);
     }
-
+    
     onRemove(priceTile) {
-      console.log(`onRemove layoutConfig ${ JSON.stringify(priceTile)}`);
       const layoutConfig = this.state.layoutConfig.filter((x) => x.key !== priceTile);
-      console.log(`onRemove layoutConfig ${JSON.stringify(layoutConfig) }`);
       this.savePreferences(layoutConfig);      
     }
+
+    onSave(pricetile) {
+      const layoutConfig = this.state.layoutConfig.filter((x) => x.key === pricetile.id);     
+      if (layoutConfig) {
+        let layouts = this.state.layoutConfig;
+         
+        for( var i = 0; i < layouts.length; i++){ 
+          if ( layouts[i].key === pricetile.id) {
+            layouts.splice(i, 1); 
+          }
+        }
+    
+        layouts.push({
+                        'symbol': pricetile.symbol,
+                        'key': pricetile.id
+                     });
+
+        this.savePreferences(layouts);
+      }      
+    }    
     
     renderPriceTiles(layoutConfig) {
       if (!layoutConfig) {
@@ -117,7 +134,8 @@ export default class WorkspaceComponent extends React.Component {
                 key={priceTile.key}
                 id={priceTile.key}
                 symbol={priceTile.symbol}
-                onUpdate={this.onRemove.bind(this)} />
+                onClick={this.onRemove.bind(this)}
+                onUpdate={this.onSave.bind(this)} />
         );
       });      
     

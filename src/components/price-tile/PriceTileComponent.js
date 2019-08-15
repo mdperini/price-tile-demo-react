@@ -15,8 +15,8 @@ export default class PriceTileComponent extends React.Component {
   
   constructor (props) {
     super(props)
-    this.state =  { symbol: !this.props.symbol ? 'EURUSD' : this.props.symbol,
-                    id: !this.props.id ? '1' : this.props.id,
+    this.state =  { symbol: this.props.symbol,
+                    id: this.props.id,
                     notional: 100000 ,
                     side: undefined,
                     bidRate: undefined,
@@ -43,7 +43,8 @@ export default class PriceTileComponent extends React.Component {
     this.setState({symbol: symbol });
     this.resetPrices(); 
     this.getLivePrices(symbol);
-  }  
+    this.props.onUpdate({'id': this.state.id, symbol});
+ }  
 
   onNotionalUpdate (notional) { this.setState({ notional }) }
 
@@ -164,7 +165,7 @@ export default class PriceTileComponent extends React.Component {
           <CurrencyPickerComponent symbol={this.state.symbol} 
                                   onUpdate={this.onCCYUpdate.bind(this)}/>
           <div className="close"
-               onClick={this.update.bind(this)}>
+               onClick={this.click.bind(this)}>
             <i className="fa fa-close"></i></div>
           <NotionalInputComponent notional={this.state.notional} 
                                   onUpdate={this.onNotionalUpdate.bind(this)}/>
@@ -196,8 +197,13 @@ export default class PriceTileComponent extends React.Component {
     )
   }
 
-  update() {
-    console.log(`update ${this.state.id}`)
-    this.props.onUpdate(this.state.id);
+  click() {
+    console.log(`click ${this.state.id}`)
+    this.props.onClick(this.state.id);
   }
+
+  // update() {
+  //   console.log(`update ${this.state.id}`)
+  //   this.props.onUpdate(this.state.id);
+  // }
 }
