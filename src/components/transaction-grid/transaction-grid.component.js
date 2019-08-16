@@ -11,7 +11,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import './transaction-grid.component.css';
 import moment  from 'moment';
 
-export default class TransactonGridComponent extends React.Component {
+export default class TransactionGridComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -108,6 +108,10 @@ export default class TransactonGridComponent extends React.Component {
 
         componentDidMount() {
             this.renderColumnDefinitions();
+            this.refresh();
+        }
+
+        refresh() {
             this.fetchTransactions('http://localhost:3333/transactions');
         }
     

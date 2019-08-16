@@ -2,13 +2,14 @@ import React from 'react';
 import uuid from 'uuid'
 
 import PriceTileComponent from '../price-tile/PriceTileComponent';
-import TransactonGridComponent from '../transaction-grid/transaction-grid.component';
+import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
 
 import './WorkspaceComponent.css';
 
 export default class WorkspaceComponent extends React.Component {
    constructor (props) {
         super(props)
+        window.TransactionGridComponent = this;
         this.state =  {  
             layoutConfig: undefined  
         }
@@ -101,6 +102,11 @@ export default class WorkspaceComponent extends React.Component {
       this.savePreferences(layoutConfig);
     }
     
+    onSendQuote(priceTile) {
+      alert('onSendQuote');
+      window.TransactionGridComponent.refresh();
+    }
+
     onRemove(priceTile) {
       const layoutConfig = this.state.layoutConfig.filter((x) => x.key !== priceTile);
       this.savePreferences(layoutConfig);      
@@ -138,6 +144,7 @@ export default class WorkspaceComponent extends React.Component {
                 id={priceTile.key}
                 symbol={priceTile.symbol}
                 notional={25000}
+                onSendQuote={this.onSendQuote.bind(this)}
                 onClick={this.onRemove.bind(this)}
                 onUpdate={this.onSave.bind(this)} />
         );
@@ -157,7 +164,7 @@ export default class WorkspaceComponent extends React.Component {
               </span>
             </div>
             <hr></hr>
-            <TransactonGridComponent></TransactonGridComponent>
+            <TransactionGridComponent></TransactionGridComponent>
           </div>                     
         )
       }

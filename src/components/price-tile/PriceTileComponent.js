@@ -72,6 +72,7 @@ export default class PriceTileComponent extends React.Component {
       });
       //handle success
       console.log(response);
+      this.props.onSendQuote('trade was executed');
     }
     catch (response_1) {
       //handle error
@@ -166,7 +167,7 @@ export default class PriceTileComponent extends React.Component {
   }
 
   renderSide(side) {
-    return `${side} ${this.state.symbol.substr(0, 3)}`;
+    return `${side} ${this.state.symbol ?this.state.symbol.substr(0, 3) : ''}`;
   }
 
   render () {
