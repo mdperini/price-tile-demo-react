@@ -1,15 +1,29 @@
 import React from 'react';
-import uuid from 'uuid'
-
 import PriceTileComponent from '../price-tile/PriceTileComponent';
 import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
-
+import notificationService from '../../services/notificationService';
 import './WorkspaceComponent.css';
+
+const preferences = 'http://localhost:3333/preferences';
+const userid = 'maria';
+
+const httpGetConfig =  {
+  method: 'GET',
+  mode: 'cors',
+  cache: 'no-cache',
+  credentials: 'same-origin',
+  headers: {
+    'Content-Type': 'application/json',
+    'userid': userid
+  },
+  redirect: 'follow',
+  referrer: 'no-referrer'
+}
+
 
 export default class WorkspaceComponent extends React.Component {
    constructor (props) {
         super(props)
-        window.TransactionGridComponent = this;
         this.state =  {  
             layoutConfig: undefined  
         }
@@ -17,18 +31,7 @@ export default class WorkspaceComponent extends React.Component {
 
     async fetchUserPreferences(url = '') {
         // Default options are marked with *
-          await fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'userid': 'maria'
-            },
-            redirect: 'follow',
-            referrer: 'no-referrer'
-          })
+          await fetch(url,httpGetConfig)
           .then(response =>  {
             return response.json();
           })
@@ -38,50 +41,48 @@ export default class WorkspaceComponent extends React.Component {
               return;
             }
 
-            const layoutConfig = data.map(layout => {
-                                layout['key'] = uuid.v1(); // ⇨ '45745c60-7b1a-11e8-9c9c-2d42b21b1a3e'
-                                return layout;
-                              });
-          
+            const layoutConfig = data;
             this.setState({ layoutConfig });
           });      
       }
 
     componentDidMount() {
         console.log(`WorkspaceComponent`);
-        this.fetchUserPreferences('http://localhost:3333/preferences');
+        this.fetchUserPreferences(preferences);
+    }
+
+    renderHTTPPostConfig(data) {
+      return  {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'userid': userid
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow',
+        referrer: 'no-referrer',
+        body: JSON.stringify(data),
+      };      
     }
 
     async postData(url = '', data = {}) {
-      // Default options are marked with *
         try {
-        const response = await fetch(url, {
-          method: 'POST',
-          mode: 'cors',
-          cache: 'no-cache',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json',
-            'userid': 'maria'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          redirect: 'follow',
-          referrer: 'no-referrer',
-          body: JSON.stringify(data),
-        });
-        //handle success
-        this.fetchUserPreferences('http://localhost:3333/preferences');
+        const response = await fetch(url, this.postConfig(data));
+        // handle success
+        this.fetchUserPreferences(preferences);
         console.log(response);
       }
       catch (response_1) {
-        //handle error
+        // handle error
         console.log(response_1);
       }      
     }
 
     savePreferences(tempLayout) {
       const payload = tempLayout.slice();
-      console.log(`preferences ${JSON.stringify(payload)}`);
       this.postData('http://localhost:3333/preferences', payload);  
     }  
      
@@ -101,10 +102,9 @@ export default class WorkspaceComponent extends React.Component {
 
       this.savePreferences(layoutConfig);
     }
-    
+
     onSendQuote(priceTile) {
-      alert('onSendQuote');
-      window.TransactionGridComponent.refresh();
+      notificationService.sendMessage('Order was executed!');
     }
 
     onRemove(priceTile) {

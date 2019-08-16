@@ -11,12 +11,14 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import './transaction-grid.component.css';
 import moment  from 'moment';
 
+import notificationService from '../../services/notificationService';
+
 export default class TransactionGridComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
-        } 
+     } 
 
         renderSymbol(value) {
             return value ? `${value.substr(0,3)}/${value.substr(3,6)}`: value;
@@ -109,6 +111,11 @@ export default class TransactionGridComponent extends React.Component {
         componentDidMount() {
             this.renderColumnDefinitions();
             this.refresh();
+                    // subscribe to home component messages
+            this.subscription = notificationService.getMessage().subscribe(message => {
+                this.refresh();          
+        });
+
         }
 
         refresh() {
