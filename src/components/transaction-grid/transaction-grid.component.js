@@ -6,9 +6,8 @@ import 'moment-timezone';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-
-// import uuid from 'uuid'
 import './transaction-grid.component.css';
+
 import moment  from 'moment';
 
 import notificationService from '../../services/notificationService';

@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid'
 import PriceTileComponent from '../price-tile/PriceTileComponent';
 import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
 import notificationService from '../../services/notificationService';
@@ -19,7 +20,6 @@ const httpGetConfig =  {
   redirect: 'follow',
   referrer: 'no-referrer'
 }
-
 
 export default class WorkspaceComponent extends React.Component {
    constructor (props) {
@@ -70,7 +70,7 @@ export default class WorkspaceComponent extends React.Component {
 
     async postData(url = '', data = {}) {
         try {
-        const response = await fetch(url, this.postConfig(data));
+        const response = await fetch(url, this.renderHTTPPostConfig(data));
         // handle success
         this.fetchUserPreferences(preferences);
         console.log(response);
@@ -81,9 +81,8 @@ export default class WorkspaceComponent extends React.Component {
       }      
     }
 
-    savePreferences(tempLayout) {
-      const payload = tempLayout.slice();
-      this.postData('http://localhost:3333/preferences', payload);  
+    savePreferences(layoutConfig) {
+      this.postData('http://localhost:3333/preferences', layoutConfig);  
     }  
      
     componentWillUnmount() {
@@ -95,11 +94,16 @@ export default class WorkspaceComponent extends React.Component {
         layoutConfig = [];
       }
 
+      const v1 = uuid.v1();
+
       layoutConfig.push(
         {
+          key: v1,
+          id: v1,
           symbol: 'EURUSD'
         });
 
+     
       this.savePreferences(layoutConfig);
     }
 
@@ -138,6 +142,7 @@ export default class WorkspaceComponent extends React.Component {
       }
 
       const priceTiles = layoutConfig.map((priceTile) => {
+        console.log(`priceTile ${JSON.stringify(priceTile)}`)
         return (
           <PriceTileComponent 
                 key={priceTile.key}
