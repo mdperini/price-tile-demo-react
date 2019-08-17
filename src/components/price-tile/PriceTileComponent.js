@@ -12,6 +12,7 @@ import './PriceTileComponents.css';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
+const userid = 'maria'
 export default class PriceTileComponent extends React.Component { 
   
   constructor (props) {
@@ -53,30 +54,34 @@ export default class PriceTileComponent extends React.Component {
 
   onNotionalUpdate (notional) { this.setState({ notional }) }
 
+  renderHttpPostConfig(data) {
+    return {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'userid': userid
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow',
+      referrer: 'no-referrer',
+      body: JSON.stringify(data),
+    }
+  }
+
   async postData(url = '', data = {}) {
     // Default options are marked with *
       try {
-      const response = await fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'userid': 'maria'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow',
-        referrer: 'no-referrer',
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(url, this.renderHttpPostConfig(data));
       //handle success
       console.log(response);
       this.props.onSendQuote('trade was executed');
     }
-    catch (response_1) {
+    catch (errorResponse) {
       //handle error
-      console.log(response_1);
+      console.log(errorResponse);
     }      
   }
 
@@ -101,6 +106,7 @@ export default class PriceTileComponent extends React.Component {
       this.client = new nes.Client('ws://localhost:3333');
       await this.client.connect();
     }
+
     return this.client;
   }
 
