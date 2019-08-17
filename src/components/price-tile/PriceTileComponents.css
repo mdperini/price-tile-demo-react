@@ -141,13 +141,26 @@ input {
   margin-left: 40px;
 }
 
+.bars {
+  cursor: pointer;
+  padding: 1px;
+  padding-right: 7px;
+  position: absolute;
+  right: 1px;
+  top: 0px;
+  color: rgba(255, 255, 255, 0.50);
+}
+.bars:hover {
+  color: rgba(13, 189, 255, 0.80)
+}
+
 .close {
   cursor: pointer;
   padding: 4px;
   position: absolute;
-  right: 1px;
-  top: 6px;
   color: lightcoral;
+  right: 4px;
+  top: -1px;
 }
 
 .close:hover {
@@ -183,3 +196,51 @@ hr {
   font-size: 70%;
   text-align: center;
 }
+
+#nav {
+  list-style:none inside;
+  margin:0;
+  padding:0;
+  text-align:center;
+  }
+
+#nav li {
+  display:block;
+  position:relative;
+  float:left;
+  }
+
+#nav li a {
+  display:block;
+  padding:0;
+  text-decoration:none;
+  width:200px; /* this is the width of the menu items */
+  line-height:35px; /* this is the hieght of the menu items */
+  color:#ffffff; /* list item font color */
+  }
+      
+#nav li li a {font-size:80%;} /* smaller font size for sub menu items */
+  
+#nav li:hover {border:1px white;} /* highlights current hovered list item and the parent list items when hovering over sub menues */
+
+
+
+/*--- Sublist Styles ---*/
+#nav ul {
+  position:absolute;
+  padding:0;
+  left:0;
+  display:none; /* hides sublists */
+  }
+
+#nav li:hover ul ul {display:none;} /* hides sub-sublists */
+
+#nav li:hover ul {display:block;} /* shows sublist on hover */
+
+#nav li li:hover ul {
+  display:block; /* shows sub-sublist on hover */
+  margin-left:200px; /* this should be the same width as the parent list item */
+  margin-top:-35px; /* aligns top of sub menu with top of list item */
+  }
+
+  

@@ -182,9 +182,21 @@ export default class PriceTileComponent extends React.Component {
         <div className="price-tile">
           <CurrencyPickerComponent symbol={this.state.symbol} 
                                   onUpdate={this.onCCYUpdate.bind(this)}/>
-          <div className="close"
-               onClick={this.click.bind(this)}>
-            <i className="fa fa-close"></i></div>
+                           
+          <div className="bars">
+              <ul id="nav">
+                <li>
+                  <i className="fa fa-bars"></i>           
+                  <ul>
+                    <li className="close">  
+                      <div onClick={this.click.bind(this)}>
+                        <i className="fa fa-close"></i>
+                      </div>
+                    </li>
+                  </ul>
+                </li>                      
+              </ul>
+          </div>
           <NotionalInputComponent notional={this.state.notional} 
                                   onUpdate={this.onNotionalUpdate.bind(this)}/>
           <div className="price-quotes">
@@ -215,7 +227,7 @@ export default class PriceTileComponent extends React.Component {
         <span>&nbsp;</span>
         <span className={this.state.directionTermRate}><StatusBar data={(this.state.termRateFull ? this.state.termRateFull : '--')}/></span>        
       </div>
-      </div>
+     </div>
     )
   }
 
