@@ -28,11 +28,10 @@
   
   .ag-header-cell {
     color: #a3a3a3;
-    font-family: 'roboto';
-    font-weight: 300;
-    padding-top: 5px;
-    margin: -6px;
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 90%;
+    font-weight: 400;
+    padding-top: 5px;  
   }
   
   .ag-header-cell:first-child {
@@ -46,18 +45,29 @@
     box-shadow: inset 0 1px 0 black;
   }
   
-  .ag-row-selected {
-    background-color: rgba(13, 189, 255, 0.65);
-    border-color: #0dbdff;
-    box-shadow: none;
-  }
-  .ag-row:hover {
-    background-color: rgba(13, 189, 255, 0.50);
+  .ag-row {
+    border-top: 1px solid rgba(74, 74, 74, 0.40);
+    -moz-box-shadow: 0 1px 0 0 rgba(74, 74, 74, 0.40);
+    -webkit-box-shadow: 0 1px 0 0 rgba(74, 74, 74, 0.40);
+    box-shadow: 0  1px 0 0 rgba(74, 74, 74, 0.40);
   }
   
+  .ag-row-selected {
+    background-color: rgba(13, 189, 255, 0.65);
+    box-shadow:none;
+  }
+
+  .ag-row:hover {
+    border-top: 1px solid rgba(13, 189, 255, 0.80);
+    border-bottom: 1px solid rgba(13, 189, 255, 0.80) !important;
+    box-shadow:none;
+    font-size: 110%;
+  }
+    
   .ag-row:last-of-type {
     border-bottom: 1px solid  #4a4a4a;
   }
+  
   .ag-row:last-of-type:hover {
     border-color:  #0dbdff !important;
   }

@@ -74,22 +74,17 @@ export default class TransactionGridComponent extends React.Component {
                 valueFormatter: (data) => this.numberWithCommas(data.value)
             },
             {
-                headerName: "Trade Date", 
-                field: "date",
-                type: 'date',
-                valueFormatter: (data) => this.renderDate(data.value),
-                sort: 'desc'
-            },
-            {
                 headerName: "Rate", 
                 field: "rate",
                 type: 'price',     
                 valueFormatter: (data) => data.value.toFixed(5)
             },
             {
-                headerName: "Total", 
-                field: "total",
-                valueFormatter: (data) => this.numberWithCommas(data.value)
+                headerName: "Trade Date", 
+                field: "date",
+                type: 'date',
+                valueFormatter: (data) => this.renderDate(data.value),
+                sort: 'desc'
             }
             ]});
 

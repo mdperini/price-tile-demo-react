@@ -4,6 +4,6 @@ body {
   --odd-row-background-color: #CFD8DC;
   background: #000000;
   color: #DDDDDD;
-  font-family: Arial, Helvetica, blottersans-serif;
-  /* font-family: 'Roboto', sans-serif */
+  /* font-family: Arial, Helvetica, blottersans-serif; */
+  font-family: 'Roboto', sans-serif
 }
