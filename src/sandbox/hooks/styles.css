@@ -1,0 +1,12 @@
+.spin {
+    display: inline-block;
+    animation: spin 1s infinite linear;
+    font-size: 20px;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

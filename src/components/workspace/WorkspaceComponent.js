@@ -5,7 +5,7 @@ import TransactionGridComponent from '../transaction-grid/transaction-grid.compo
 import notificationService from '../../services/notificationService';
 import './WorkspaceComponent.css';
 
-const preferences = 'http://localhost:3333/preferences';
+const preferences = 'http://localhost:3383/preferences';
 const userid = 'maria';
 
 const httpGetConfig =  {
@@ -82,7 +82,7 @@ export default class WorkspaceComponent extends React.Component {
     }
 
     savePreferences(layoutConfig) {
-      this.postData('http://localhost:3333/preferences', layoutConfig);  
+      this.postData('http://localhost:3383/preferences', layoutConfig);  
     }  
      
     componentWillUnmount() {

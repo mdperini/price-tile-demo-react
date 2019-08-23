@@ -3,6 +3,9 @@ import * as nes from '@hapi/nes/lib/client';
 import { Subject } from 'rxjs';
 import NumberFormat from 'react-number-format';
 
+import CurrencyPairSelector from '../ccy-pair-picker/CurrencyPairSelector';
+
+
 import CurrencyPickerComponent from '../ccy-pair-picker/CurrencyPickerComponent';
 import NotionalInputComponent from '../notional/NotionalInputComponent';
 import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
@@ -93,7 +96,7 @@ export default class PriceTileComponent extends React.Component {
       amount
     };
 
-    this.postData('http://localhost:3333/transactions', payload);  
+    this.postData('http://localhost:3383/transactions', payload);  
   }
 
   onSendQuote(side) { 
@@ -103,7 +106,7 @@ export default class PriceTileComponent extends React.Component {
 
   async connect() {
     if (!this.client) {
-      this.client = new nes.Client('ws://localhost:3333');
+      this.client = new nes.Client('ws://localhost:3383');
       await this.client.connect();
     }
 
@@ -180,6 +183,9 @@ export default class PriceTileComponent extends React.Component {
     return (
       <div className="navbar-header">
         <div className="price-tile">
+
+        
+          <CurrencyPairSelector></CurrencyPairSelector>
           <CurrencyPickerComponent symbol={this.state.symbol} 
                                   onUpdate={this.onCCYUpdate.bind(this)}/>
                            

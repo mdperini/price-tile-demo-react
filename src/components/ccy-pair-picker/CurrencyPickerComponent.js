@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import uuid from 'uuid'
 
 export default class CurrencyPickerComponent extends React.Component {
   symbol = this.props.symbol;
@@ -28,7 +29,7 @@ export default class CurrencyPickerComponent extends React.Component {
         return response.json();
       })
       .then(data => {
-        const ccyPairs = data.slice();
+       const ccyPairs = data.slice();
         this.updateCCYPairs(ccyPairs)
       });      
   }
@@ -39,7 +40,7 @@ export default class CurrencyPickerComponent extends React.Component {
 
   componentDidMount() {
     console.log(`this.props.symbol ${this.props.symbol}`);
-    this.fetchCCYPairs('http://localhost:3333/currencypairs');
+    this.fetchCCYPairs('http://localhost:3383/currencypairs');
   }
 
   renderSymbol(symbol) {
@@ -48,8 +49,9 @@ export default class CurrencyPickerComponent extends React.Component {
 
   render () {
     const options = this.state.ccyPairs.map( (ccyPair) => {
+      const key = ccyPair.key ? ccyPair.key : uuid.v1();
       return (
-        <option key={ccyPair.key} value={ccyPair.symbol}>{this.renderSymbol(ccyPair.symbol)}</option>
+        <option key={key} value={ccyPair.symbol}>{this.renderSymbol(ccyPair.symbol)}</option>
       );
     });
 
@@ -72,5 +74,4 @@ export default class CurrencyPickerComponent extends React.Component {
     var ccypairs = ReactDOM.findDOMNode(this.refs.ccypairs)
     this.props.onUpdate(ccypairs.value);
   }
- }
-
+}

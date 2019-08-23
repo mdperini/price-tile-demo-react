@@ -111,7 +111,7 @@ export default class TransactionGridComponent extends React.Component {
     }
 
     refresh() {
-        this.fetchTransactions('http://localhost:3333/transactions');
+        this.fetchTransactions('http://localhost:3383/transactions');
     }
     
     render() {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import StateHookExample from './state.hook.example';
 import EffectHookExample from './effect.hook.example';
+import CurrencyPairSelector from '../../components/ccy-pair-picker/CurrencyPairSelector';
 
 export default function HookExamples() {
  
@@ -9,6 +10,7 @@ export default function HookExamples() {
     <div>
      <StateHookExample></StateHookExample>
      <EffectHookExample></EffectHookExample>
-    </div>
+     <CurrencyPairSelector></CurrencyPairSelector>
+     </div>
   );
 }
