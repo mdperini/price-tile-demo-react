@@ -1,6 +1,6 @@
-export const config = {
+export const HTTPGetConfig = {
     URL: 'http://localhost:3383/currencypairs',
-    HTTPGetConfig : {
+    GetConfig : {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',

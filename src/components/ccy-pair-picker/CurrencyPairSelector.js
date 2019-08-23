@@ -1,21 +1,6 @@
-
-
 import React from "react";
 import Loading from "../../sandbox/hooks/Loading";
-
-const URL = 'http://localhost:3383/currencypairs';
-const HTTPGetConfig =  {
-  method: 'GET',
-  mode: 'cors',
-  cache: 'no-cache',
-  credentials: 'same-origin',
-  headers: {
-    'Content-Type': 'application/json',
-    'userid': 'maria'
-  },
-  redirect: 'follow',
-  referrer: 'no-referrer'
-}
+import { HTTPGetConfig } from '../services/ccypair.config'
 
 export default function CurrencyPairSelector() {
   let [symbol, setSymbol] = React.useState('');
@@ -25,7 +10,7 @@ export default function CurrencyPairSelector() {
   React.useEffect(() => {
     setSymbol('EURJPY');
     setLoading(true);
-    fetch(URL, HTTPGetConfig)
+    fetch(HTTPGetConfig.URL, HTTPGetConfig.GetConfig)
     .then(response =>  {
       return response.json();
     })
@@ -41,10 +26,14 @@ export default function CurrencyPairSelector() {
   }
 
   return (
-    <select value={symbol}>
+    <select className="ccypair-picker" 
+            value={symbol}
+            name="ccypairs" 
+            onChange={(value) => setSymbol(value)}>
       {ccyPairs.map(({ symbol }) => (
         <option key={symbol} value={symbol}>{symbol}</option >
       ))}
     </select>
-  );
+  );  
 }
+
