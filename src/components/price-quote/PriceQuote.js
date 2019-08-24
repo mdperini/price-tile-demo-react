@@ -22,7 +22,7 @@ const getPriceSubString = (price, part) => {
     
   const handleClick = event => {
     // Here, we invoke the callback with the new value
-    params.onClick(event.target.value);
+    params.onClick(params.side);
   }
 
   return (

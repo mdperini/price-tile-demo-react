@@ -8,10 +8,11 @@ import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
 
 import StatusBar from '../statusbar/StatusBar';
 import './PriceTileComponents.css';
+import { postTransaction } from '../../services/transaction.service';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
-const userid = 'maria'
+// const userid = 'maria'
 export default class PriceTileComponent extends React.Component { 
   
   constructor (props) {
@@ -53,51 +54,51 @@ export default class PriceTileComponent extends React.Component {
 
   onNotionalUpdate (notional) { this.setState({ notional }) }
 
-  renderHttpPostConfig(data) {
-    return {
-      method: 'POST',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        'userid': userid
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow',
-      referrer: 'no-referrer',
-      body: JSON.stringify(data),
-    }
-  }
+  // renderHttpPostConfig(data) {
+  //   return {
+  //     method: 'POST',
+  //     mode: 'cors',
+  //     cache: 'no-cache',
+  //     credentials: 'same-origin',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'userid': userid
+  //       // 'Content-Type': 'application/x-www-form-urlencoded',
+  //     },
+  //     redirect: 'follow',
+  //     referrer: 'no-referrer',
+  //     body: JSON.stringify(data),
+  //   }
+  // }
 
-  async postData(url = '', data = {}) {
-    // Default options are marked with *
-      try {
-      const response = await fetch(url, this.renderHttpPostConfig(data));
-      //handle success
-      console.log(response);
-      this.props.onSendQuote('trade was executed');
-    }
-    catch (errorResponse) {
-      //handle error
-      console.log(errorResponse);
-    }      
-  }
+  // async postData(url = '', data = {}) {
+  //   // Default options are marked with *
+  //     try {
+  //     const response = await fetch(url, this.renderHttpPostConfig(data));
+  //     //handle success
+  //     console.log(response);
+  //     this.props.onSendQuote('trade was executed');
+  //   }
+  //   catch (errorResponse) {
+  //     //handle error
+  //     console.log(errorResponse);
+  //   }      
+  // }
 
-  postTransaction(symbol, side, amount) {
-    const payload = {
-      symbol: symbol,
-      priceType: 'SPOT',
-      side: side,
-      amount
-    };
+  // postTransaction(symbol, side, amount) {
+  //   const payload = {
+  //     symbol: symbol,
+  //     priceType: 'SPOT',
+  //     side: side,
+  //     amount
+  //   };
 
-    this.postData('http://localhost:3383/transactions', payload);  
-  }
+  //   this.postData('http://localhost:3383/transactions', payload);  
+  // }
 
   onSendQuote(side) { 
     this.setState({ side });
-    this.postTransaction(this.state.symbol, side, this.state.notional);
+    postTransaction(this.state.symbol, side, this.state.notional);
   }
 
   getLivePrices(symbol) {

@@ -2,7 +2,7 @@ import React from 'react';
 import uuid from 'uuid'
 import PriceTileComponent from '../price-tile/PriceTileComponent';
 import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
-import notificationService from '../../services/notificationService';
+import notificationService from '../../services/notification.service';
 import './WorkspaceComponent.css';
 
 const preferences = 'http://localhost:3383/preferences';

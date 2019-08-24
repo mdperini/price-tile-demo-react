@@ -5,13 +5,15 @@ import { StatusBarNew } from '../statusbar/StatusBarNew';
 import { PriceQuote } from '../price-quote/PriceQuote';
 
 import { subscribeForLivePrices } from '../../services/pricing.service';
+import { postTransaction } from '../../services/transaction.service';
+import notificationService from '../../services/notification.service';
+
 // import NumberFormat from 'react-number-format';
 
 import './PriceTileComponents.css';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
-// const userid = 'maria'
 
 export default function PriceTile() {
     let [symbol, setSymbol] = React.useState('');
@@ -27,7 +29,7 @@ export default function PriceTile() {
     let [directionTermRate, setDirectionTermRate] = React.useState('');
   
     let priceSubscription;
-   
+
     const unsubscribePriceSubscription = () => {
         if (priceSubscription) {
         priceSubscription.unsubscribe();
@@ -53,13 +55,19 @@ export default function PriceTile() {
         priceSubscription = subscribeForLivePrices(symbol)
             .subscribe((x) => {
                 console.log(`price {x}`);
-            setPrevPrice();
-            setBidRate(x.bidRate.toFixed(5));
-            setBidRateFull(x.bidRate.toFixed(12));
-            setTermRate(x.termRate.toFixed(5));
-            setTermRateFull(x.termRate.toFixed(12));
-            setDirectionBidRate(setDirection(prevBidRate, bidRate));
-            setDirectionTermRate(setDirection(prevTermRate, termRate));
+                setPrevPrice();
+                setBidRate(x.bidRate.toFixed(5));
+                setBidRateFull(x.bidRate.toFixed(12));
+                setTermRate(x.termRate.toFixed(5));
+                setTermRateFull(x.termRate.toFixed(12));
+                setDirectionBidRate(setDirection(prevBidRate, bidRate));
+                setDirectionTermRate(setDirection(prevTermRate, termRate));
+        });
+      }
+
+      const subcribeToNotifications = () => {
+        notificationService.getMessage().subscribe(message => {
+            alert(JSON.stringify(message));  
         });
       }
 
@@ -72,7 +80,7 @@ export default function PriceTile() {
       setDirectionBidRate('up');
       setDirectionTermRate('down');
       getLivePrices($symbol);
- 
+      subcribeToNotifications();
     }, []);   
 
     const onSymbolChange = newValue => {
@@ -89,8 +97,10 @@ export default function PriceTile() {
       }
 
    const onSendQuote = newValue => {
-    }
-  
+       setSide(newValue);
+       postTransaction(symbol, newValue, notional);
+ 
+   }  
     
     return (
         <div className="navbar-header">
@@ -111,7 +121,7 @@ export default function PriceTile() {
                                    subTitle={renderSide(Sell)}
                                    side={Sell} 
                                    direction={directionTermRate}
-                                   onUpdate={onSendQuote}/>
+                                   onClick={onSendQuote}/>
           </div>
             </div>
             <div className="statusBar">

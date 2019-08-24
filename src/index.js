@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import PriceTile from './components/price-tile/PriceTile'
 
-import WorkspaceComponent from './components/workspace/WorkspaceComponent'
+// import WorkspaceComponent from './components/workspace/WorkspaceComponent'
 import * as serviceWorker from './serviceWorker';
 
 // // sandbox hooks

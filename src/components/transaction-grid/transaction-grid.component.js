@@ -1,7 +1,7 @@
 import React from 'react';
-import {AgGridReact} from 'ag-grid-react';
+import { AgGridReact } from 'ag-grid-react';
 import moment  from 'moment';
-import notificationService from '../../services/notificationService';
+import notificationService from '../../services/notification.service';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
