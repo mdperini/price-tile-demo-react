@@ -1,10 +1,6 @@
 import React from 'react';
-import * as nes from '@hapi/nes/lib/client';
-import { Subject } from 'rxjs';
+import { subscribeForLivePrices } from '../../services/pricing.service';
 import NumberFormat from 'react-number-format';
-
-import CurrencyPairSelector from '../ccy-pair-picker/CurrencyPairSelector';
-
 
 import CurrencyPickerComponent from '../ccy-pair-picker/CurrencyPickerComponent';
 import NotionalInputComponent from '../notional/NotionalInputComponent';
@@ -104,32 +100,9 @@ export default class PriceTileComponent extends React.Component {
     this.postTransaction(this.state.symbol, side, this.state.notional);
   }
 
-  async connect() {
-    if (!this.client) {
-      this.client = new nes.Client('ws://localhost:3383');
-      await this.client.connect();
-    }
-
-    return this.client;
-  }
-
-  subscribeForLivePrices(symbol) {
-    const subject = new Subject();
-    console.log('getLivePrices', symbol);
-   
-    this.connect().then(() => {
-      const handler = (update, flags) => {
-        subject.next(update);
-      };
-      this.client.subscribe('/price/' + symbol, handler);
-    });
-
-    return subject;
-  }
-
   getLivePrices(symbol) {
     this.unsubscribePriceSubscription();
-    this.priceSubscription = this.subscribeForLivePrices(symbol)
+    this.priceSubscription = subscribeForLivePrices(symbol)
     .subscribe((x) => {
       this.setPrevPrice();
       this.setState({bidRate: x.bidRate.toFixed(5) });
@@ -183,9 +156,6 @@ export default class PriceTileComponent extends React.Component {
     return (
       <div className="navbar-header">
         <div className="price-tile">
-
-        
-          <CurrencyPairSelector></CurrencyPairSelector>
           <CurrencyPickerComponent symbol={this.state.symbol} 
                                   onUpdate={this.onCCYUpdate.bind(this)}/>
                            

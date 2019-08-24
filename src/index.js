@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import PriceTile from './components/price-tile/PriceTile'
 
-// import WorkspaceComponent from './components/workspace/WorkspaceComponent'
+import WorkspaceComponent from './components/workspace/WorkspaceComponent'
 import * as serviceWorker from './serviceWorker';
 
 // // sandbox hooks
@@ -11,8 +11,8 @@ import * as serviceWorker from './serviceWorker';
 // // import EffectHookExample from './sandbox/hooks/effect.hook.example';
 // //import HooksExamples from './sandbox/hooks/hooks.examples';
 
-// // ReactDOM.render(<PriceTileComponent />, document.getElementById('root'));
 ReactDOM.render(<PriceTile />, document.getElementById('root'));
+// ReactDOM.render(<WorkspaceComponent />, document.getElementById('root'));
 
 // // If you want your app to work offline and load faster, you can change
 // // unregister() to register() below. Note this comes with some pitfalls.
