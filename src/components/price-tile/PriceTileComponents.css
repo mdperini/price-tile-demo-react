@@ -1,11 +1,12 @@
+
 @import '../../../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
 @import '../../../node_modules//font-awesome/css/font-awesome.css';
 
 body {
   --odd-row-background-color: #CFD8DC;
   background: #000000;
-  /* color: #DDDDDD;
-  font-family: Arial, Helvetica, blottersans-serif; */
+  color: #DDDDDD;
+  /* font-family: Arial, Helvetica, blottersans-serif;  */
   font-family: 'Roboto', sans-serif;
   cursor: auto;
 }
@@ -23,7 +24,7 @@ body {
 
 .price-tile:hover {
   border: solid rgba(0, 0, 255, 1.0) 2px;
- }
+}
 
 .vi-chevron {
   margin-left: 1px;
@@ -60,7 +61,7 @@ select {
   margin-bottom: 5px;
   background: #000000;
   color: #ffffff;
- border: solid #696969 1px;
+border: solid #696969 1px;
 }
 
 .ccypair-picker {
@@ -100,7 +101,6 @@ input {
   border: solid #696969 1px;
 }
 
-
 .price-tile-quotes {
   display: flex;
   justify-content: space-between;
@@ -118,7 +118,7 @@ input {
   border: 1px solid rgba(119, 119, 119, 0.75);
   padding: 0px;
   width: 144px;
- }
+}
 
 .price-quote-inner:hover {
   border: solid blue 1px;
@@ -192,7 +192,7 @@ hr {
 }
 
 .statusBar {
-  color: rgba(119, 119, 119, 0.60);
+  color: rgba(119, 119, 119, 0.80);
   font-size: 70%;
   text-align: center;
 }
@@ -223,8 +223,6 @@ hr {
   
 #nav li:hover {border:1px white;} /* highlights current hovered list item and the parent list items when hovering over sub menues */
 
-
-
 /*--- Sublist Styles ---*/
 #nav ul {
   position:absolute;
@@ -243,4 +241,3 @@ hr {
   margin-top:-35px; /* aligns top of sub menu with top of list item */
   }
 
-  
