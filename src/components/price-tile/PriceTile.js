@@ -67,21 +67,9 @@ export default function PriceTile() {
 
       const subcribeToNotifications = () => {
         notificationService.getMessage().subscribe(message => {
-            alert(JSON.stringify(message));  
+            console.log(JSON.stringify(message));  
         });
       }
-
-    React.useEffect(() => {
-        const $symbol = 'EURJPY';
-      setSymbol($symbol);
-      setNotional(25000);
-      setBidRate(10.1750032);
-      setTermRate(10.1750032);
-      setDirectionBidRate('up');
-      setDirectionTermRate('down');
-      getLivePrices($symbol);
-      subcribeToNotifications();
-    }, []);   
 
     const onSymbolChange = newValue => {
         setSymbol(newValue);
@@ -98,10 +86,21 @@ export default function PriceTile() {
 
    const onSendQuote = newValue => {
        setSide(newValue);
-       postTransaction(symbol, newValue, notional);
- 
+       postTransaction(symbol, newValue === 'Sell'? 'SELL' : 'BUY', notional); 
    }  
-    
+  
+   React.useEffect(() => {
+      const $symbol = 'EURJPY';
+      setSymbol($symbol);
+      setNotional(25000);
+      setBidRate(10.1750032);
+      setTermRate(10.1750032);
+      setDirectionBidRate('up');
+      setDirectionTermRate('down');
+      getLivePrices($symbol);
+      subcribeToNotifications();
+  }, [getLivePrices]);   
+
     return (
         <div className="navbar-header">
             <div className="price-tile">        

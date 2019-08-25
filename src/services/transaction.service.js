@@ -22,10 +22,14 @@ const renderHttpPostConfig = data => {
 export async function postData(url = '', data = {}) {
     // Default options are marked with *
       try {
-      const response = await fetch(url, renderHttpPostConfig(data));
-      //handle success
-      console.log(response);
-      notificationService.sendMessage('order was executed!');
+        console.log(JSON.stringify(renderHttpPostConfig(data)));
+      await fetch(url, renderHttpPostConfig(data))
+      .then(response =>  {
+          return response.json();
+        })
+        .then(result => {
+          notificationService.sendMessage(`order was executed! result ${JSON.stringify(result)}`);
+        });    
     }
     catch (errorResponse) {
       //handle error
@@ -42,6 +46,6 @@ export async function postData(url = '', data = {}) {
       amount
     };
 
-    //  console.log(JSON.stringify(payload));
+    // console.log(JSON.stringify(payload));
     postData('http://localhost:3383/transactions', payload);  
   }
