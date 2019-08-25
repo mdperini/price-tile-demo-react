@@ -23,7 +23,7 @@
     "uuid": "^3.3.2"
   },
   "scripts": {
-    "start": "set PORT=3006 && react-scripts start",
+    "start": "export PORT=3006 && react-scripts start",
     "startmac": "export PORT=3006 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

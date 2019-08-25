@@ -1,6 +1,8 @@
 import React from "react";
 import Loading from "../../sandbox/hooks/Loading";
-import { HTTPGetConfig } from '../services/ccypair.config'
+// import { HTTPGetConfig } from '../services/ccypair.config'
+
+import getCCYPairs from '../../services/ccypair.service';
 
 export const CurrencyPairSelector = params => {
   const [ccyPairs, setCCYPairs] = React.useState([]);
@@ -8,14 +10,11 @@ export const CurrencyPairSelector = params => {
 
   React.useEffect(() => {
     setLoading(true);
-    fetch(HTTPGetConfig.URL, HTTPGetConfig.GetConfig)
-    .then(response =>  {
-      return response.json();
-    })
-    .then(result => {
-      setCCYPairs(result);
+    getCCYPairs( (ccyPairs) => {
+      setCCYPairs(ccyPairs);
       setLoading(false);
-    });    
+    })
+
     
   }, []);
 

@@ -32,7 +32,7 @@ export default function PriceTile() {
 
     const unsubscribePriceSubscription = () => {
         if (priceSubscription) {
-        priceSubscription.unsubscribe();
+          priceSubscription.unsubscribe();
         }
     }
 
@@ -54,7 +54,7 @@ export default function PriceTile() {
         unsubscribePriceSubscription();
         priceSubscription = subscribeForLivePrices(symbol)
             .subscribe((x) => {
-                console.log(`price {x}`);
+                console.log(`price {JSON.stringify(x)}`);
                 setPrevPrice();
                 setBidRate(x.bidRate.toFixed(5));
                 setBidRateFull(x.bidRate.toFixed(12));
@@ -65,77 +65,80 @@ export default function PriceTile() {
         });
       }
 
+      const formatSym = symbol => {
+        getLivePrices(symbol);
+        return symbol;
+      }
+
       const subcribeToNotifications = () => {
         notificationService.getMessage().subscribe(message => {
             console.log(JSON.stringify(message));  
         });
       }
 
-    const onSymbolChange = newValue => {
+     const onSymbolChange = newValue => {
         setSymbol(newValue);
-        getLivePrices(newValue);
-    }
-
-    const onNotionalChange = newValue => {
-        setNotional(newValue);
-    }
-   
-    const renderSide = side => {
-        return `${side} ${symbol ?symbol.substr(0, 3) : ''}`;
       }
 
-   const onSendQuote = newValue => {
-       setSide(newValue);
-       postTransaction(symbol, newValue === 'Sell'? 'SELL' : 'BUY', notional); 
-   }  
-  
-   React.useEffect(() => {
-      const $symbol = 'EURJPY';
-      setSymbol($symbol);
-      setNotional(25000);
-      setBidRate(10.1750032);
-      setTermRate(10.1750032);
-      setDirectionBidRate('up');
-      setDirectionTermRate('down');
-      getLivePrices($symbol);
-      subcribeToNotifications();
-  }, [getLivePrices]);   
+      const onNotionalChange = newValue => {
+          setNotional(newValue);
+      }
+    
+      const renderSide = side => {
+          return `${side} ${symbol ?symbol.substr(0, 3) : ''}`;
+      }
 
-    return (
-        <div className="navbar-header">
-            <div className="price-tile">        
-                <CurrencyPairSelector 
-                    symbol={symbol}
-                    onChange={onSymbolChange} >                        
-                </CurrencyPairSelector>
-                <Notional notional={notional}
-                    onChange={onNotionalChange} />
-                      <div className="price-quotes">
-              <PriceQuote price={bidRate}
-                                   subTitle={renderSide(Buy)}
-                                   side={Buy} 
-                                   direction={directionBidRate}
-                                   onClick={onSendQuote}/>
-              <PriceQuote price={termRate}
-                                   subTitle={renderSide(Sell)}
-                                   side={Sell} 
-                                   direction={directionTermRate}
-                                   onClick={onSendQuote}/>
+      const onSendQuote = newValue => {
+          setSide(newValue);
+          postTransaction(symbol, newValue === 'Sell'? 'SELL' : 'BUY', notional); 
+      }  
+  
+      React.useEffect(() => {
+          const $symbol = 'EURJPY';
+          setSymbol($symbol);
+          setNotional(25000);
+          setBidRate(10.1750032);
+          setTermRate(10.1750032);
+          setDirectionBidRate('up');
+          setDirectionTermRate('down');
+          subcribeToNotifications();
+      }, []);   
+
+      return (
+          <div className="navbar-header">
+              <div className="price-tile">        
+                  <CurrencyPairSelector 
+                      symbol={symbol}
+                      onChange={onSymbolChange} >                        
+                  </CurrencyPairSelector>
+                  <Notional notional={notional}
+                      onChange={onNotionalChange} />
+                        <div className="price-quotes">
+                <PriceQuote price={bidRate}
+                                    subTitle={renderSide(Buy)}
+                                    side={Buy} 
+                                    direction={directionBidRate}
+                                    onClick={onSendQuote}/>
+                <PriceQuote price={termRate}
+                                    subTitle={renderSide(Sell)}
+                                    side={Sell} 
+                                    direction={directionTermRate}
+                                    onClick={onSendQuote}/>
+            </div>
+              </div>
+              <div className="statusBar">
+                  <StatusBarNew status={formatSym(symbol)}/>
+                  <span>&nbsp;</span> 
+                  <StatusBarNew status={notional}/>
+                  <span>&nbsp;</span> 
+                  <StatusBarNew status={side} />
+                  <span>&nbsp;</span>
+                  <span>&nbsp;</span>
+                  <span className={directionBidRate}><StatusBarNew status={bidRateFull}/></span>
+                  <span>&nbsp;</span>
+                  <span>&nbsp;</span>
+                  <span className={directionTermRate}><StatusBarNew status={termRateFull}/></span>        
+              </div>
           </div>
-            </div>
-            <div className="statusBar">
-                <StatusBarNew status={symbol}/>
-                <span>&nbsp;</span> 
-                <StatusBarNew status={notional}/>
-                <span>&nbsp;</span> 
-                <StatusBarNew status={side} />
-                <span>&nbsp;</span>
-                <span>&nbsp;</span>
-                <span className={directionBidRate}><StatusBarNew status={bidRateFull}/></span>
-                <span>&nbsp;</span>
-                <span>&nbsp;</span>
-                <span className={directionTermRate}><StatusBarNew status={termRateFull}/></span>        
-            </div>
-        </div>
-    )
+      )
   }

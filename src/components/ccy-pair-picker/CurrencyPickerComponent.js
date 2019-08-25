@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid'
 
+import getCCYPairs from '../../services/ccypair.service';
+
 export default class CurrencyPickerComponent extends React.Component {
   symbol = this.props.symbol;
   constructor(props) {
@@ -11,36 +13,19 @@ export default class CurrencyPickerComponent extends React.Component {
     };    
   }
 
-  async fetchCCYPairs(url = '') {
-    // Default options are marked with *
-      await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'userid': 'maria'
-        },
-        redirect: 'follow',
-        referrer: 'no-referrer'
-      })
-      .then(response =>  {
-        return response.json();
-      })
-      .then(data => {
-       const ccyPairs = data.slice();
-        this.updateCCYPairs(ccyPairs)
-      });      
-  }
-
-  updateCCYPairs(ccyPairs) {
-    this.setState({ ccyPairs });
-  }
-
   componentDidMount() {
     console.log(`this.props.symbol ${this.props.symbol}`);
-    this.fetchCCYPairs('http://localhost:3383/currencypairs');
+    getCCYPairs( (ccyPairs) => {
+      this.setState({ ccyPairs });
+    })
+    
+    // async function add (x, y) {
+    //   return x + y
+    // }
+    
+    // add(2,3).then((result) => {
+    //   console.log(result) // 5
+    // })
   }
 
   renderSymbol(symbol) {

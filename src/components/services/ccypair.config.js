@@ -1,5 +1,7 @@
 export const HTTPGetConfig = {
-    URL: 'http://localhost:3383/currencypairs',
+    URL_CCYPAIRS: 'http://localhost:3383/currencypairs',
+    URL_PREFERENCES: 'http://localhost:3383/preferences',
+
     GetConfig : {
       method: 'GET',
       mode: 'cors',
