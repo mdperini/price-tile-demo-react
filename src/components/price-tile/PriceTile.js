@@ -4,8 +4,8 @@ import { Notional } from '../notional/Notional';
 import { StatusBarNew } from '../statusbar/StatusBarNew';
 import { PriceQuote } from '../price-quote/PriceQuote';
 
-import { getPriceSubString, subscribeForLivePrices } from '../../services/pricing.service';
-import { postTransaction } from '../../services/transaction.service';
+import { subscribeForLivePrices } from '../../services/pricing.service';
+import postTransaction from '../../services/transaction.service';
 import notificationService from '../../services/notification.service';
 
 // import NumberFormat from 'react-number-format';
@@ -90,7 +90,10 @@ export default function PriceTile() {
 
       const onSendQuote = newValue => {
           setSide(newValue);
-          postTransaction(symbol, newValue === 'Sell'? 'SELL' : 'BUY', notional); 
+          postTransaction(symbol, newValue === 'Sell'? 'SELL' : 'BUY', notional, (result) => {
+            console.log(result);
+          });
+        
       }  
   
       React.useEffect(() => {

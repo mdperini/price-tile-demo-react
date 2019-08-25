@@ -107,7 +107,7 @@ export default class WorkspaceComponent extends React.Component {
       this.savePreferences(layoutConfig);
     }
 
-    onSendQuote(priceTile) {
+    onSendQuote(result) {
       notificationService.sendMessage('Order was executed!');
     }
 

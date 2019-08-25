@@ -8,7 +8,7 @@ import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
 
 import StatusBar from '../statusbar/StatusBar';
 import './PriceTileComponents.css';
-import { postTransaction } from '../../services/transaction.service';
+import postTransaction from '../../services/transaction.service';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
@@ -49,13 +49,17 @@ export default class PriceTileComponent extends React.Component {
     this.resetPrices(); 
     this.getLivePrices(symbol);
     this.props.onUpdate({'id': this.state.id, symbol});
- }  
+  }  
 
   onNotionalUpdate (notional) { this.setState({ notional }) }
 
   onSendQuote(side) { 
     this.setState({ side });
-    postTransaction(this.state.symbol, side, this.state.notional);
+    postTransaction(this.state.symbol, side, this.state.notional, (result) => {
+      console.log(result);
+      this.props.onSendQuote(result);
+    });
+    
   }
 
   getLivePrices(symbol) {
@@ -116,8 +120,7 @@ export default class PriceTileComponent extends React.Component {
         <div className="price-tile">
           <CurrencyPickerComponent symbol={this.state.symbol} 
                                   onUpdate={this.onCCYUpdate.bind(this)}/>
-                           
-          <div className="bars">
+            <div className="bars">
               <ul id="nav">
                 <li>
                   <i className="fa fa-bars"></i>           

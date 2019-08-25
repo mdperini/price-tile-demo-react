@@ -18,14 +18,6 @@ export default class CurrencyPickerComponent extends React.Component {
     getCCYPairs( (ccyPairs) => {
       this.setState({ ccyPairs });
     })
-    
-    // async function add (x, y) {
-    //   return x + y
-    // }
-    
-    // add(2,3).then((result) => {
-    //   console.log(result) // 5
-    // })
   }
 
   renderSymbol(symbol) {
@@ -45,12 +37,11 @@ export default class CurrencyPickerComponent extends React.Component {
         <div className="navbar-header">
           <div className="velocity-icon vi-chevron"></div>  
         </div>
-
-          <select className="ccypair-picker" 
-                  value={this.props.symbol} 
-                  name="ccypairs" 
-                  ref='ccypairs'
-                  onChange={this.update.bind(this)}>{options}</select>
+        <select className="ccypair-picker" 
+                value={this.props.symbol} 
+                name="ccypairs" 
+                ref='ccypairs'
+                onChange={this.update.bind(this)}>{options}</select>
       </div>           
     )
   }

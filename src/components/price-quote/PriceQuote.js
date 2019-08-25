@@ -4,7 +4,6 @@ import { renderPips } from '../../services/pricing.service';
 export const PriceQuote = params => {
 
   const handleClick = event => {
-    // Here, we invoke the callback with the new value
     params.onClick(params.side);
   }
 

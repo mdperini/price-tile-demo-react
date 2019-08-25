@@ -1,5 +1,3 @@
-import notificationService from './notification.service';
-
 const userid = 'maria'
 
 const renderHttpPostConfig = data => {
@@ -19,7 +17,7 @@ const renderHttpPostConfig = data => {
     }
   }
 
-export async function postData(url = '', data = {}) {
+async function postData(url = '', data = {}, callbackFunc) {
     // Default options are marked with *
       try {
         console.log(JSON.stringify(renderHttpPostConfig(data)));
@@ -28,17 +26,15 @@ export async function postData(url = '', data = {}) {
           return response.json();
         })
         .then(result => {
-          notificationService.sendMessage(`order was executed! result ${JSON.stringify(result)}`);
+          callbackFunc(result);
         });    
     }
     catch (errorResponse) {
-      //handle error
-      console.log(errorResponse);
-      notificationService.sendMessage('order failed???');
+      callbackFunc(errorResponse);
     }      
   }
 
-  export function postTransaction(symbol, side, amount) {
+  export default function postTransaction(symbol, side, amount, callbackFunc) {
     const payload = {
       symbol: symbol,
       priceType: 'SPOT',
@@ -47,5 +43,5 @@ export async function postData(url = '', data = {}) {
     };
 
     // console.log(JSON.stringify(payload));
-    postData('http://localhost:3383/transactions', payload);  
+    postData('http://localhost:3383/transactions', payload, callbackFunc);  
   }

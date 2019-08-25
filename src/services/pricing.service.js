@@ -1,7 +1,6 @@
 import * as nes from '@hapi/nes/lib/client';
 import { Subject } from 'rxjs';
 
-
 export const renderPips = (price, part) => {
   if (!price) {
     // display dashes until data is received
