@@ -167,12 +167,12 @@ input {
   color:blue;
 }
 
-.price-tile-pips-sm {
+.pips-sm {
   font-size: 16px;
   vertical-align: top;
 }
 
-.price-tile-pips-lg {
+.pips-lg {
   font-size: 48px;
   font-weight: bold;
 }

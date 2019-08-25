@@ -1,26 +1,10 @@
 import React from 'react';
+import { renderPips } from '../../services/pricing.service';
 
 export default class PriceQuoteComponent extends React.Component {
   side = this.props.side;
 
-  getPriceSubString(price, part) {
-    if (!price) {
-      // display dashes until data is received
-      return '--';
-    }
-
-    const strPrice = price.toString();
-
-    if (part === 1) {
-      return strPrice.substring(0, 4);
-
-     } else if (part === 2) {
-      return strPrice.substring(4, 4 + 2);
-     }
-
-    return strPrice.substring(4 + 2, strPrice.length);
-  }  
-
+  23
   render () {
   
     return (
@@ -30,11 +14,11 @@ export default class PriceQuoteComponent extends React.Component {
                className="side">{this.props.subTitle}
           </div>
           <div className="pips">          
-            <span className="price-tile-pips-sm">{this.getPriceSubString(this.props.price, 1)}</span>
-            <span className="price-tile-pips-lg">
-                <span className={this.props.direction}>{this.getPriceSubString(this.props.price, 2)}</span>
+            <span className="pips-sm">{renderPips(this.props.price, 1)}</span>
+            <span className="pips-lg">
+                <span className={this.props.direction}>{renderPips(this.props.price, 2)}</span>
                 </span>
-            <span className="price-tile-pips-sm">{this.getPriceSubString(this.props.price, 3)}</span>
+            <span className="pips-sm">{renderPips(this.props.price, 3)}</span>
           </div>
         </div>           
       </div>           

@@ -1,6 +1,24 @@
 import * as nes from '@hapi/nes/lib/client';
 import { Subject } from 'rxjs';
 
+
+export const renderPips = (price, part) => {
+  if (!price) {
+    // display dashes until data is received
+    return '--';
+  }
+
+  const strPrice = price.toString();
+
+  if (part === 1) {
+    return strPrice.substring(0, 4);
+   } else if (part === 2) {
+    return strPrice.substring(4, 4 + 2);
+   }
+
+  return strPrice.substring(4 + 2, strPrice.length);
+}  
+
 let client;
 
 export async function connect() {

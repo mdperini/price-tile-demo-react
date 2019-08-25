@@ -1,7 +1,5 @@
 import React from "react";
 import Loading from "../../sandbox/hooks/Loading";
-// import { HTTPGetConfig } from '../services/ccypair.config'
-
 import getCCYPairs from '../../services/ccypair.service';
 
 export const CurrencyPairSelector = params => {
@@ -14,8 +12,6 @@ export const CurrencyPairSelector = params => {
       setCCYPairs(ccyPairs);
       setLoading(false);
     })
-
-    
   }, []);
 
   if (loading === true) {

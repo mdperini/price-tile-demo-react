@@ -4,7 +4,7 @@ import { Notional } from '../notional/Notional';
 import { StatusBarNew } from '../statusbar/StatusBarNew';
 import { PriceQuote } from '../price-quote/PriceQuote';
 
-import { subscribeForLivePrices } from '../../services/pricing.service';
+import { getPriceSubString, subscribeForLivePrices } from '../../services/pricing.service';
 import { postTransaction } from '../../services/transaction.service';
 import notificationService from '../../services/notification.service';
 
