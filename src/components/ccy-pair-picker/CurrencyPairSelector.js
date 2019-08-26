@@ -24,14 +24,19 @@ export const CurrencyPairSelector = params => {
   }
 
   return (
-    <select className="ccypair-picker" 
+      <div>
+        <div className="navbar-header">
+          <div className="velocity-icon vi-chevron"></div>  
+        </div>
+        <select className="ccypair-picker" 
             value={params.symbol}
             name="ccypairs" 
             onChange={handleChange}>
-        {ccyPairs.map(({ symbol }) => (
-          <option key={symbol} value={symbol}>{symbol}</option >
-        ))}
-    </select>
+            {ccyPairs.map(({ symbol }) => (
+              <option key={symbol} value={symbol}>{symbol}</option >
+          ))}
+        </select>
+      </div>
   );  
 }
 
