@@ -61,7 +61,7 @@ select {
   margin-bottom: 5px;
   background: #000000;
   color: #ffffff;
-border: solid #696969 1px;
+  border: solid #696969 1px;
 }
 
 .ccypair-picker {
@@ -114,6 +114,7 @@ input {
   margin-left: 1px;
   margin-right: 4px;
 }
+
 .price-quote-inner {
   border: 1px solid rgba(119, 119, 119, 0.75);
   padding: 0px;

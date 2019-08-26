@@ -8,7 +8,7 @@ import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
 
 import StatusBar from '../statusbar/StatusBar';
 import './PriceTileComponents.css';
-import postTransaction from '../../services/transaction.service';
+import { postTransaction } from '../../services/transaction.service';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
@@ -65,17 +65,17 @@ export default class PriceTileComponent extends React.Component {
   getLivePrices(symbol) {
     this.unsubscribePriceSubscription();
     this.priceSubscription = subscribeForLivePrices(symbol)
-    .subscribe((x) => {
-      this.setPrevPrice();
-      this.setState({bidRate: x.bidRate.toFixed(5) });
-      this.setState({bidRateFull: x.bidRate.toFixed(12) });
-      this.setState({termRate: x.termRate.toFixed(5) });
-      this.setState({termRateFull: x.termRate.toFixed(12) });
-      this.setState({directionBidRate: 
-        this.setDirection(this.state.prevBidRate, this.state.bidRate) });
-      this.setState({directionTermRate: 
-        this.setDirection(this.state.prevTermRate, this.state.termRate) });
-    });
+        .subscribe((x) => {
+          this.setPrevPrice();
+          this.setState({bidRate: x.bidRate.toFixed(5) });
+          this.setState({bidRateFull: x.bidRate.toFixed(12) });
+          this.setState({termRate: x.termRate.toFixed(5) });
+          this.setState({termRateFull: x.termRate.toFixed(12) });
+          this.setState({directionBidRate: 
+            this.setDirection(this.state.prevBidRate, this.state.bidRate) });
+          this.setState({directionTermRate: 
+            this.setDirection(this.state.prevTermRate, this.state.termRate) });
+        });
   }
 
   setPrevPrice() {
@@ -120,19 +120,19 @@ export default class PriceTileComponent extends React.Component {
         <div className="price-tile">
           <CurrencyPickerComponent symbol={this.state.symbol} 
                                   onUpdate={this.onCCYUpdate.bind(this)}/>
-            <div className="bars">
-              <ul id="nav">
-                <li>
-                  <i className="fa fa-bars"></i>           
-                  <ul>
-                    <li className="close">  
-                      <div onClick={this.click.bind(this)}>
-                        <i className="fa fa-close"></i>
-                      </div>
-                    </li>
-                  </ul>
-                </li>                      
-              </ul>
+          <div className="bars">
+            <ul id="nav">
+              <li>
+                <i className="fa fa-bars"></i>           
+                <ul>
+                  <li className="close">  
+                    <div onClick={this.click.bind(this)}>
+                      <i className="fa fa-close"></i>
+                    </div>
+                  </li>
+                </ul>
+              </li>                      
+            </ul>
           </div>
           <NotionalInputComponent notional={this.state.notional} 
                                   onUpdate={this.onNotionalUpdate.bind(this)}/>

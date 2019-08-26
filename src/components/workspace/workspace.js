@@ -45,37 +45,40 @@ export const Workspace = () => {
         saveUserPreferences(layoutConfig);
     }
 
+    const onRemoved  = id => {
+      const tmp = layoutConfig.filter((x) => x.key !== id);
+      saveUserPreferences(tmp);      
+    }
+
     const renderPriceTiles = layoutConfig => {
         if (!layoutConfig) {
             return;
         }
 
         const priceTiles = layoutConfig.map((priceTile) => {
-        console.log(`priceTile ${JSON.stringify(priceTile)}`)
         return (
             <PriceTile 
                 key={priceTile.key}
                 id={priceTile.key}
                 symbol={priceTile.symbol}
-                notional={25000} />
+                onClick={onRemoved}
+                notional={2500} />
         );
         });      
   
         return priceTiles;
     }
 
-      return (
-        <div>
-          <div className="price-tiles"> 
-            {renderPriceTiles(layoutConfig)}
-            <span className="add" onClick={onAdd}>
-                  <i className="fa fa-plus-circle fa-5x add-inner"></i>
-            </span>
-          </div>
-          <hr></hr>
-        </div>                     
-      );
-
-     
+    return (
+      <div>
+        <div className="price-tiles"> 
+          {renderPriceTiles(layoutConfig)}
+          <span className="add" onClick={onAdd}>
+                <i className="fa fa-plus-circle fa-5x add-inner"></i>
+          </span>
+        </div>
+        <hr></hr>
+      </div>                     
+    ); 
 }
 

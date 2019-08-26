@@ -20,7 +20,7 @@ export const renderPips = (price, part) => {
 
 let client;
 
-export async function connect() {
+async function connect() {
     if (!client) {
       client = new nes.Client('ws://localhost:3383');
       await client.connect();

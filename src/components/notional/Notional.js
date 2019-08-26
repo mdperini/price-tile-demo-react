@@ -1,7 +1,6 @@
 import React from "react";
 
 export const Notional = params => {
-
     const handleChange = event => {
         params.onChange(event.target.value);
     }
