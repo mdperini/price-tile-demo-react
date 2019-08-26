@@ -1,3 +1,4 @@
+import notificationService from './notification.service';
 import { httpGetConfig, renderHTTPPostConfig } from './http.config';
 import moment  from 'moment';
 
@@ -13,6 +14,7 @@ async function postData(url = '', data = {}, callbackFunc) {
         })
         .then(result => {
           callbackFunc(result);
+          notificationService.sendMessage('Order was executed!');
         });    
     }
     catch (errorResponse) {

@@ -2,7 +2,6 @@ import React from 'react';
 import uuid from 'uuid'
 import PriceTileComponent from '../price-tile/PriceTileComponent';
 import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
-import notificationService from '../../services/notification.service';
 import { restorePreferences, savePreferences } from '../../services/preferences.service';
 
 import './WorkspaceComponent.css';
@@ -49,10 +48,6 @@ export default class WorkspaceComponent extends React.Component {
         this.saveUserPreferences(layoutConfig);
     }
 
-    onSendQuote(result) {
-      notificationService.sendMessage('Order was executed!');
-    }
-
     onRemove(priceTile) {
       const layoutConfig = this.state.layoutConfig.filter((x) => x.key !== priceTile);
       this.saveUserPreferences(layoutConfig);      
@@ -91,7 +86,6 @@ export default class WorkspaceComponent extends React.Component {
                 id={priceTile.key}
                 symbol={priceTile.symbol}
                 notional={25000}
-                onSendQuote={this.onSendQuote.bind(this)}
                 onClick={this.onRemove.bind(this)}
                 onUpdate={this.onSave.bind(this)} />
         );

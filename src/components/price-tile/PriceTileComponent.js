@@ -57,7 +57,6 @@ export default class PriceTileComponent extends React.Component {
     this.setState({ side });
     postTransaction(this.state.symbol, side, this.state.notional, (result) => {
       console.log(result);
-      this.props.onSendQuote(result);
     });
     
   }
