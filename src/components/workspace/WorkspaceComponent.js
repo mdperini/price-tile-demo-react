@@ -3,7 +3,7 @@ import uuid from 'uuid'
 import PriceTileComponent from '../price-tile/PriceTileComponent';
 import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
 import notificationService from '../../services/notification.service';
-import { getPreferences, savePreferences } from '../../services/preferences.service';
+import { restorePreferences, savePreferences } from '../../services/preferences.service';
 
 import './WorkspaceComponent.css';
 
@@ -16,7 +16,7 @@ export default class WorkspaceComponent extends React.Component {
     }
 
     getUserPerferences () {
-      getPreferences((data) => {
+      restorePreferences((data) => {
         this.setState({ layoutConfig: data });
       })
     }

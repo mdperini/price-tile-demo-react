@@ -13,7 +13,6 @@ async function fetchPreferences(url = '', callbackFunc) {
         });      
   }
 
-  
   async function postData (url = '', data = {}, callbackFunc) {
     await fetch(url, renderHTTPPostConfig(data))
     .then(response =>  {
@@ -24,7 +23,7 @@ async function fetchPreferences(url = '', callbackFunc) {
     });      
   }
 
-  export const getPreferences = callbackFunc => {
+  export const restorePreferences = callbackFunc => {
     fetchPreferences(url, callbackFunc);
   }
 

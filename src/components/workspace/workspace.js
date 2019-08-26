@@ -1,7 +1,8 @@
 import React from "react";
+import uuid from 'uuid'
 import Loading from "../../sandbox/hooks/Loading";
 import PriceTile from '../price-tile/PriceTile';
-import getUserPreferences from '../../services/preferences.service';
+import { restorePreferences, savePreferences } from '../../services/preferences.service';
 
 import './WorkspaceComponent.css';
 
@@ -9,24 +10,45 @@ export const Workspace = () => {
   const [layoutConfig, setLayoutConfig] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    setLoading(true);
-    getUserPreferences( (data) => {
+  const getUserPerferences = () => {
+    restorePreferences( (data) => {
       setLayoutConfig(data);
       setLoading(false);
     });
-    
+  }
+
+  const saveUserPreferences = layoutConfig => {
+    savePreferences(layoutConfig, (result) => {
+      getUserPerferences();
+    })  
+  }
+
+  React.useEffect(() => {
+    setLoading(true);
+    getUserPerferences();
   }, []);
 
   if (loading === true) {
     return <Loading />;
   }
 
+    const onAdd  = event => {
+      const v1 = uuid.v1();
+
+      layoutConfig.push(
+        {
+          key: v1,
+          id: v1,
+          symbol: 'EURUSD'
+        });
+
+        saveUserPreferences(layoutConfig);
+    }
+
     const renderPriceTiles = layoutConfig => {
         if (!layoutConfig) {
             return;
         }
-
 
         const priceTiles = layoutConfig.map((priceTile) => {
         console.log(`priceTile ${JSON.stringify(priceTile)}`)
@@ -46,7 +68,7 @@ export const Workspace = () => {
         <div>
           <div className="price-tiles"> 
             {renderPriceTiles(layoutConfig)}
-            <span className="add">
+            <span className="add" onClick={onAdd}>
                   <i className="fa fa-plus-circle fa-5x add-inner"></i>
             </span>
           </div>
