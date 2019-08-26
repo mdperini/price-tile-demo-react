@@ -58,7 +58,6 @@ export default class PriceTileComponent extends React.Component {
     postTransaction(this.state.symbol, side, this.state.notional, (result) => {
       console.log(result);
     });
-    
   }
 
   getLivePrices(symbol) {

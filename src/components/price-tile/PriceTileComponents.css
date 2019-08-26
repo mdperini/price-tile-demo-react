@@ -16,7 +16,7 @@ body {
 }
 
 .price-tile {
-  border: solid rgba(0, 0, 255, 0.50) 1px;
+  border: solid rgba(0, 0, 255, 0.75) 1px;
   padding: 5px;
   width: 300px;
   position: relative;

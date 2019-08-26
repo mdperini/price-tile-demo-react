@@ -7,8 +7,6 @@ import { PriceQuote } from '../price-quote/PriceQuote';
 import { subscribeForLivePrices } from '../../services/pricing.service';
 import { postTransaction } from '../../services/transaction.service';
 
-// import NumberFormat from 'react-number-format';
-
 import './PriceTileComponents.css';
 
 const Buy = 'Buy';
