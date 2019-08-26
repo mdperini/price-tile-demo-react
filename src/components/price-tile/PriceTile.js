@@ -6,8 +6,7 @@ import { PriceQuote } from '../price-quote/PriceQuote';
 
 import { subscribeForLivePrices } from '../../services/pricing.service';
 import { postTransaction } from '../../services/transaction.service';
-import notificationService from '../../services/notification.service';
-  
+
 // import NumberFormat from 'react-number-format';
 
 import './PriceTileComponents.css';
@@ -74,12 +73,6 @@ export default function PriceTile(params) {
       return symbol;
     }
 
-    const subcribeToNotifications = () => {
-      notificationService.getMessage().subscribe(message => {
-       console.log(JSON.stringify(message));  
-      });
-    }
-
     const onSymbolChange = newValue => {
       setSymbol(newValue);
     }
@@ -111,7 +104,6 @@ export default function PriceTile(params) {
         setTermRate(10.1750032);
         setDirectionBidRate('up');
         setDirectionTermRate('down');
-        subcribeToNotifications();
     }, []);   
 
     return (

@@ -28,8 +28,8 @@ export default class TransactionGridComponent extends React.Component {
     }
 
     refresh() {
-    retrieveTransactions( (rowData) => {
-        this.setState({ rowData });
+        retrieveTransactions( (rowData) => {
+            this.setState({ rowData });
         })
     }
     
