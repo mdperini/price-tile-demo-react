@@ -3,89 +3,32 @@ import uuid from 'uuid'
 import PriceTileComponent from '../price-tile/PriceTileComponent';
 import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
 import notificationService from '../../services/notification.service';
+import { getPreferences, savePreferences } from '../../services/preferences.service';
+
 import './WorkspaceComponent.css';
-
-const preferences = 'http://localhost:3383/preferences';
-const userid = 'maria';
-
-const httpGetConfig =  {
-  method: 'GET',
-  mode: 'cors',
-  cache: 'no-cache',
-  credentials: 'same-origin',
-  headers: {
-    'Content-Type': 'application/json',
-    'userid': userid
-  },
-  redirect: 'follow',
-  referrer: 'no-referrer'
-}
 
 export default class WorkspaceComponent extends React.Component {
    constructor (props) {
         super(props)
         this.state =  {  
-            layoutConfig: undefined  
+            layoutConfig: []  
         }
     }
 
-    async fetchUserPreferences(url = '') {
-        // Default options are marked with *
-          await fetch(url,httpGetConfig)
-          .then(response =>  {
-            return response.json();
-          })
-          .then(data => {
-            if (!data) {
-              console.log(`No user preferences for maria`);
-              return;
-            }
-
-            const layoutConfig = data;
-            this.setState({ layoutConfig });
-          });      
-      }
-
-    componentDidMount() {
-        console.log(`WorkspaceComponent`);
-        this.fetchUserPreferences(preferences);
+    getUserPerferences () {
+      getPreferences((data) => {
+        this.setState({ layoutConfig: data });
+      })
     }
 
-    renderHTTPPostConfig(data) {
-      return  {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'userid': userid
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: 'follow',
-        referrer: 'no-referrer',
-        body: JSON.stringify(data),
-      };      
-    }
-
-    async postData(url = '', data = {}) {
-        try {
-        const response = await fetch(url, this.renderHTTPPostConfig(data));
-        // handle success
-        this.fetchUserPreferences(preferences);
-        console.log(response);
-      }
-      catch (response_1) {
-        // handle error
-        console.log(response_1);
-      }      
-    }
-
-    savePreferences(layoutConfig) {
-      this.postData('http://localhost:3383/preferences', layoutConfig);  
+    saveUserPreferences(layoutConfig) {
+      savePreferences(layoutConfig, (result) => {
+        this.getUserPerferences();
+      })  
     }  
-     
-    componentWillUnmount() {
+    
+    componentDidMount() {
+      this.getUserPerferences();
     }
 
     onAdd() {
@@ -103,8 +46,7 @@ export default class WorkspaceComponent extends React.Component {
           symbol: 'EURUSD'
         });
 
-     
-      this.savePreferences(layoutConfig);
+        this.saveUserPreferences(layoutConfig);
     }
 
     onSendQuote(result) {
@@ -113,7 +55,7 @@ export default class WorkspaceComponent extends React.Component {
 
     onRemove(priceTile) {
       const layoutConfig = this.state.layoutConfig.filter((x) => x.key !== priceTile);
-      this.savePreferences(layoutConfig);      
+      this.saveUserPreferences(layoutConfig);      
     }
 
     onSave(pricetile) {
@@ -132,7 +74,7 @@ export default class WorkspaceComponent extends React.Component {
                         'key': pricetile.id
                      });
 
-        this.savePreferences(layouts);
+        this.saveUserPreferences(layouts);
       }      
     }    
     

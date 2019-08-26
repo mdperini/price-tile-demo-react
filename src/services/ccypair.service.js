@@ -1,17 +1,8 @@
+import { httpGetConfig } from './http.config';
+
 async function fetchCCYPairs(url = '', callbackFunc) {
     // Default options are marked with *
-      await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'userid': 'maria'
-        },
-        redirect: 'follow',
-        referrer: 'no-referrer'
-      })
+      await fetch(url, httpGetConfig) 
       .then(response =>  {
         return response.json();
       })

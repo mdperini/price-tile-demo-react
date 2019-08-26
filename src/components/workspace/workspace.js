@@ -1,7 +1,9 @@
 import React from "react";
 import Loading from "../../sandbox/hooks/Loading";
-import { HTTPGetConfig } from '../services/ccypair.config'
 import PriceTile from '../price-tile/PriceTile';
+import getUserPreferences from '../../services/preferences.service';
+
+import './WorkspaceComponent.css';
 
 export const Workspace = () => {
   const [layoutConfig, setLayoutConfig] = React.useState([]);
@@ -9,14 +11,10 @@ export const Workspace = () => {
 
   React.useEffect(() => {
     setLoading(true);
-    fetch(HTTPGetConfig.URL_PREFERENCES, HTTPGetConfig.GetConfig)
-    .then(response =>  {
-      return response.json();
-    })
-    .then(result => {
-        setLayoutConfig(result);
-        setLoading(false);
-    });    
+    getUserPreferences( (data) => {
+      setLayoutConfig(data);
+      setLoading(false);
+    });
     
   }, []);
 
