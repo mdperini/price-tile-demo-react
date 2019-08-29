@@ -1,7 +1,8 @@
 import React from "react";
 import Loading from "../../sandbox/hooks/Loading";
 import getCCYPairs from '../../services/ccypair.service';
-import { formatCCYPairSymbol } from '../../services/ccypair.service';
+import { renderSymbol } from '../../common/format';
+
 export const CurrencyPairSelector = params => {
   const [ccyPairs, setCCYPairs] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -15,7 +16,7 @@ export const CurrencyPairSelector = params => {
   }, []);
 
   if (loading === true) {
-   return <Loading />;
+    return <Loading />;
   }
 
   const handleChange = event => {
@@ -23,21 +24,19 @@ export const CurrencyPairSelector = params => {
   }
 
   return (
-
       <div>
-       <div className="navbar-header">
-          <div className="velocity-icon vi-chevron"></div> 
+        <div className="navbar-header">
+          <div className="velocity-icon vi-chevron"></div>  
         </div>
-        <select className="ccypair-picker"
-            value={params.symbol}
-            name="ccypairs"
-            onChange={handleChange}>
-            {ccyPairs.map(({ symbol }) => (
-              <option key={symbol} value={symbol}>{formatCCYPairSymbol(symbol)}</option >
+        <select className="ccypair-picker" 
+                value={params.symbol}
+                name="ccypairs" 
+                onChange={handleChange}>
+                  {ccyPairs.map(({ symbol }) => (
+            <option key={symbol} value={symbol}>{renderSymbol(symbol)}</option >
           ))}
         </select>
       </div>
-  ); 
+  );  
 }
 
- 
