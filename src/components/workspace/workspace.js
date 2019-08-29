@@ -1,61 +1,32 @@
-mport React from "react";
-
+import React from "react";
 import uuid from 'uuid'
-
 import Loading from "../../sandbox/hooks/Loading";
-
 import PriceTile from '../price-tile/PriceTile';
-
 import { TransactionGrid } from '../transaction-grid/transaction.grid';
-
-import { restorePreferences, savePreferences } from '../../services/preferences.service';
-
- 
+import { restorePreferences, savePreferences } from '../../services/preferences.service'; 
 
 import './WorkspaceComponent.css';
 
- 
-
 export const Workspace = () => {
-
   const [layoutConfig, setLayoutConfig] = React.useState([]);
-
   const [loading, setLoading] = React.useState(true);
 
- 
-
   const getUserPerferences = () => {
-
-    restorePreferences( (data) => {
-
-      setLayoutConfig(data);
-
+    restorePreferences( (layout) => {
+      setLayoutConfig(layout);
       setLoading(false);
-
-    });
-
+     });
   }
-
- 
 
   const saveUserPreferences = layoutConfig => {
-
     savePreferences(layoutConfig, (result) => {
-
-      getUserPerferences();
-
+        getUserPerferences();
     }) 
-
   }
 
- 
-
   React.useEffect(() => {
-
     setLoading(true);
-
     getUserPerferences();
-
   }, []);
 
  
