@@ -21,24 +21,36 @@ export const renderPips = (price, part) => {
 let client;
 
 async function connect() {
-    if (!client) {
-      client = new nes.Client('ws://localhost:3383');
-      await client.connect();
-    }
-
-    return client;
+  if (!client) {
+    client = new nes.Client('ws://localhost:3383');
+    await client.connect();
   }
+
+  return client;
+}
 
 export function subscribeForLivePrices(symbol) {
-    const subject = new Subject();
-    console.log('getLivePrices', symbol);
-   
-    connect().then(() => {
-      const handler = (update, flags) => {
-        subject.next(update);
-      };
-      client.subscribe('/price/' + symbol, handler);
-    });
+  const subject = new Subject();
+  console.log(`subscribeForLivePrices =>${symbol}`);
+  
+  connect().then(() => {
+    const handler = (update, flags) => {
+      subject.next(update);
+    };
+    client.subscribe('/price/' + symbol, handler);
+  });
 
-    return subject;
-  }
+  return subject;
+}
+
+export function unsubscribeForLivePrices(symbol) {
+    const handler = (update, flags) => {
+      console.log(`unsubscribeForLivePrices =>${symbol} ${update} ${flags}`);
+    };
+
+    if (client) {
+      const topic = '/price/' + symbol;
+      client.unsubscribe(topic, handler);
+      console.log(`unsubscribeForLivePrices =>${topic}`);
+    }   
+}

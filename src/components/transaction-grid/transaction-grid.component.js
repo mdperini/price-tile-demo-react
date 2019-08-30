@@ -12,7 +12,7 @@ export default class TransactionGridComponent extends React.Component {
         super(props);
         this.state = {
         }
-     } 
+    } 
   
     componentDidMount() {
         this.setState({columnDefs: renderColumnDefinitions()});
@@ -24,7 +24,12 @@ export default class TransactionGridComponent extends React.Component {
         this.subscription = notificationService.getMessage().subscribe(message => {
             this.refresh();          
         });
+    }
 
+    componentWillUnmount() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     refresh() {

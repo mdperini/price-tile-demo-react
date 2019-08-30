@@ -24,10 +24,12 @@ export const TransactionGrid = params => {
     });
   }
 
+  console.log('Michael D.');
+  subcribeToNotifications();
+
   React.useEffect(() => {
     setColumnDefs(renderColumnDefinitions());
     setDefaultColDef( agDefaultColDef);
-    subcribeToNotifications();
     refresh();
   }, []);
 

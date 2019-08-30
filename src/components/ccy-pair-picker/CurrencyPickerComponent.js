@@ -9,23 +9,22 @@ export default class CurrencyPickerComponent extends React.Component {
   symbol = this.props.symbol;
   constructor(props) {
     super(props);
-    const [loading, setLoading] = React.useState(true);
     this.state = {
-        ccyPairs: []
+        ccyPairs: [],
+        loading: true
     };    
   }
 
-  
-
   componentDidMount() {
-    if (React.useState.loading === true) {
+    if (this.state.loading === true) {
       return <Loading />;
      }
    
     console.log(`this.props.symbol ${this.props.symbol}`);
-    this.setLoading(true);
+    this.setState({ loading: true });
     getCCYPairs( (ccyPairs) => {
       this.setState({ ccyPairs });
+      this.setState({ loading: false });
     })
   }
 

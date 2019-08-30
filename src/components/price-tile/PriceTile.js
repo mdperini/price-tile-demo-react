@@ -1,9 +1,11 @@
 import React from 'react';
 import { CurrencyPairSelector } from '../ccy-pair-picker/CurrencyPairSelector';
 import { Notional } from '../notional/Notional';
-import { StatusBarNew } from '../statusbar/StatusBarNew';
+import { StatusBar } from '../statusbar/StatusBar';
 import { PriceQuote } from '../price-quote/PriceQuote';
-import { subscribeForLivePrices } from '../../services/pricing.service';
+import { subscribeForLivePrices,
+         unsubscribeForLivePrices 
+       } from '../../services/pricing.service';
 import { postTransaction } from '../../services/transaction.service';
 
 import './PriceTileComponents.css';
@@ -12,7 +14,7 @@ const Buy = 'Buy';
 const Sell = 'Sell';
 
 export default function PriceTile(params) {
-    let [needPrices, SetNeedPrices] = React.useState('true');
+    let [isActive, setIsActive] = React.useState(false);
     let [symbol, setSymbol] = React.useState('');
     let [side, setSide] = React.useState('');
     let [notional, setNotional] = React.useState('');
@@ -29,6 +31,7 @@ export default function PriceTile(params) {
 
     const unsubscribePriceSubscription = () => {
       if (priceSubscription) {
+        unsubscribeForLivePrices(symbol);
         priceSubscription.unsubscribe();
       }
     }
@@ -48,11 +51,12 @@ export default function PriceTile(params) {
     }
 
     const getLivePrices = symbol => {
-      if (!symbol || !needPrices) {
+      if (!symbol) {
         return;
       }
 
-      SetNeedPrices(false);
+      setIsActive(true);
+
       unsubscribePriceSubscription();
       priceSubscription = subscribeForLivePrices(symbol)
           .subscribe((x) => {
@@ -66,14 +70,11 @@ export default function PriceTile(params) {
               setDirectionTermRate(setDirection(prevTermRate, termRate));
         });
     }
-
-    const formatSym = symbol => {
-      getLivePrices(symbol);
-      return symbol;
-    }
+    
+    if (!isActive)
+      getLivePrices(params.symbol);
 
     const onSymbolChange = newValue => {
-      SetNeedPrices(true);
       getLivePrices(symbol);
       setSymbol(newValue);
       params.onChange({ id:  params.id, symbol: newValue});
@@ -87,7 +88,7 @@ export default function PriceTile(params) {
       return `${side} ${symbol ?symbol.substr(0, 3) : ''}`;
     }
 
-    const clickHandler = event => {
+    const onClickCloseHandler = event => {
       unsubscribePriceSubscription();
       params.onClick(params.id);
     }
@@ -103,10 +104,10 @@ export default function PriceTile(params) {
       <div className="navbar-header">
         <div className="price-tile">       
           <CurrencyPairSelector
-             symbol={formatSym(params.symbol)}
+             symbol={params.symbol}
              onChange={onSymbolChange} >                       
           </CurrencyPairSelector>
-          <div className="close" onClick={clickHandler}>
+          <div className="close" onClick={onClickCloseHandler}>
                   <i className="fa fa-close"></i>
           </div>
           <Notional notional={params.notional}
@@ -125,17 +126,17 @@ export default function PriceTile(params) {
             </div>
         </div>
         <div className="statusBar">
-            <StatusBarNew status={symbol}/>
+            <StatusBar status={symbol}/>
             <span>&nbsp;</span>
-            <StatusBarNew status={notional}/>
+            <StatusBar status={notional}/>
             <span>&nbsp;</span>
-            <StatusBarNew status={side} />
-            <span>&nbsp;</span>
-            <span>&nbsp;</span>
-            <span className={directionBidRate}><StatusBarNew status={bidRateFull}/></span>
+            <StatusBar status={side} />
             <span>&nbsp;</span>
             <span>&nbsp;</span>
-            <span className={directionTermRate}><StatusBarNew status={termRateFull}/></span>       
+            <span className={directionBidRate}><StatusBar status={bidRateFull}/></span>
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
+            <span className={directionTermRate}><StatusBar status={termRateFull}/></span>       
           </div>
         </div>
     )
