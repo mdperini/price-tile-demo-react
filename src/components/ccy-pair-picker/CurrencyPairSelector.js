@@ -1,7 +1,9 @@
 import React from "react";
-import Loading from "../../sandbox/hooks/Loading";
+
+import Loading from "../../common/Loading";
 import getCCYPairs from '../../services/ccypair.service';
-import { formatCCYPairSymbol } from '../../services/ccypair.service';
+import { formatCCYPairSymbol } from '../../services/formatter.util';
+
 export const CurrencyPairSelector = params => {
   const [ccyPairs, setCCYPairs] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -23,7 +25,6 @@ export const CurrencyPairSelector = params => {
   }
 
   return (
-
       <div>
        <div className="navbar-header">
           <div className="velocity-icon vi-chevron"></div> 

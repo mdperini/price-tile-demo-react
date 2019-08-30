@@ -1,6 +1,6 @@
 import React from "react";
 import uuid from 'uuid'
-import Loading from "../../sandbox/hooks/Loading";
+import Loading from "../../common/Loading";
 import PriceTile from '../price-tile/PriceTile';
 import { TransactionGrid } from '../transaction-grid/transaction.grid';
 import { restorePreferences, savePreferences } from '../../services/preferences.service'; 
