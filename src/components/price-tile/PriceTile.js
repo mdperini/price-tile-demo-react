@@ -17,22 +17,22 @@ export default function PriceTile(params) {
     let [isActive, setIsActive] = React.useState(false);
     let [symbol, setSymbol] = React.useState('');
     let [side, setSide] = React.useState('');
-    let [notional, setNotional] = React.useState('');
-    let [bidRate, setBidRate] = React.useState('');
-    let [termRate, setTermRate] = React.useState('');
-    let [bidRateFull, setBidRateFull] = React.useState('');
-    let [termRateFull, setTermRateFull] = React.useState('');
-    let [prevBidRate, setPrevBidRate] = React.useState('');
-    let [prevTermRate, setPrevTermRate] = React.useState('');
+    let [notional, setNotional] = React.useState(0);
+    let [bidRate, setBidRate] = React.useState(0);
+    let [termRate, setTermRate] = React.useState(0);
+    let [bidRateFull, setBidRateFull] = React.useState(0);
+    let [termRateFull, setTermRateFull] = React.useState(0);
+    let [prevBidRate, setPrevBidRate] = React.useState(0);
+    let [prevTermRate, setPrevTermRate] = React.useState(0);
     let [directionBidRate, setDirectionBidRate] = React.useState('');
     let [directionTermRate, setDirectionTermRate] = React.useState('');
-
-    let priceSubscription;
+    let [priceSubscription, setPriceSubscription] = React.useState(undefined);
 
     const unsubscribePriceSubscription = () => {
       if (priceSubscription) {
         unsubscribeForLivePrices(symbol);
         priceSubscription.unsubscribe();
+        setPriceSubscription(undefined);
       }
     }
 
@@ -69,12 +69,14 @@ export default function PriceTile(params) {
               setDirectionBidRate(setDirection(prevBidRate, bidRate));
               setDirectionTermRate(setDirection(prevTermRate, termRate));
         });
+        setPriceSubscription(priceSubscription);
     }
     
     if (!isActive)
       getLivePrices(params.symbol);
 
     const onSymbolChange = newValue => {
+      setIsActive(false);
       getLivePrices(symbol);
       setSymbol(newValue);
       params.onChange({ id:  params.id, symbol: newValue});

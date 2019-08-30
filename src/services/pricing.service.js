@@ -48,7 +48,7 @@ export function unsubscribeForLivePrices(symbol) {
       console.log(`unsubscribeForLivePrices =>${symbol} ${update} ${flags}`);
     };
 
-    if (client) {
+    if (client || symbol) {
       const topic = '/price/' + symbol;
       client.unsubscribe(topic, handler);
       console.log(`unsubscribeForLivePrices =>${topic}`);
