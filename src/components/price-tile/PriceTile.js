@@ -76,9 +76,9 @@ export default function PriceTile(params) {
       getLivePrices(params.symbol);
 
     const onSymbolChange = newValue => {
-      setIsActive(false);
-      getLivePrices(symbol);
       setSymbol(newValue);
+      setIsActive(false);
+      getLivePrices(newValue);
       params.onChange({ id:  params.id, symbol: newValue});
     }
 
@@ -106,7 +106,7 @@ export default function PriceTile(params) {
       <div className="navbar-header">
         <div className="price-tile">       
           <CurrencyPairSelector
-             symbol={params.symbol}
+             symbol={symbol}
              onChange={onSymbolChange} >                       
           </CurrencyPairSelector>
           <div className="close" onClick={onClickCloseHandler}>

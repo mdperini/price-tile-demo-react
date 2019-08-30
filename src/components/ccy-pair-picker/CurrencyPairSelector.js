@@ -33,9 +33,15 @@ export const CurrencyPairSelector = params => {
             value={params.symbol}
             name="ccypairs"
             onChange={handleChange}>
-            {ccyPairs.map(({ symbol }) => (
-              <option key={symbol} value={symbol}>{formatCCYPairSymbol(symbol)}</option >
-          ))}
+            {ccyPairs.map(({ symbol }) => 
+                (
+                  <option key={symbol} 
+                          value={symbol}>
+                          {formatCCYPairSymbol(symbol)}
+                  </option >
+                )
+              )
+            }
         </select>
       </div>
   ); 
