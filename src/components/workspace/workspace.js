@@ -13,14 +13,21 @@ export const Workspace = () => {
 
   const getUserPerferences = () => {
     restorePreferences( (layout) => {
+      if (!layout || !Array.isArray(layout)) return;
+
+      layout.map((tile) => {
+        alert(`${tile.id} ${tile.params}`);
+        return tile;
+      });
+      
       setLayoutConfig(layout);
       setLoading(false);
-     });
+    });
   }
 
   const saveUserPreferences = layoutConfig => {
     savePreferences(layoutConfig, (result) => {
-        getUserPerferences();
+      getUserPerferences();
     }) 
   }
 
@@ -36,14 +43,8 @@ export const Workspace = () => {
   const onAdd  = event => {
     const v1 = uuid.v1();
       
-    layoutConfig.push(
-    {
-      key: v1,
-      id: v1,
-      symbol: 'EURUSD'
-    });
-
-      saveUserPreferences(layoutConfig);  
+    layoutConfig.push({ key: v1, id: v1, symbol: 'EURUSD' });
+    saveUserPreferences(layoutConfig);  
   }
 
   const onSave  = params => {
@@ -52,7 +53,13 @@ export const Workspace = () => {
       return;
     }
 
-    matchingLayout.symbol = params.symbol;
+    layoutConfig.map((tile) => {
+      if (tile.id === params.id) {
+        tile.symbol = params.symbol;
+      }
+      return tile;
+    });
+   
     saveUserPreferences(layoutConfig);
   }
 

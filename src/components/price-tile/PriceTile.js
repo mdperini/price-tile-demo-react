@@ -55,8 +55,6 @@ export default function PriceTile(params) {
         return;
       }
 
-      setIsActive(true);
-
       unsubscribePriceSubscription();
       priceSubscription = subscribeForLivePrices(symbol)
           .subscribe((x) => {
@@ -69,6 +67,8 @@ export default function PriceTile(params) {
               setDirectionBidRate(setDirection(prevBidRate, bidRate));
               setDirectionTermRate(setDirection(prevTermRate, termRate));
         });
+
+        setIsActive(true);
         setPriceSubscription(priceSubscription);
     }
     
@@ -78,8 +78,8 @@ export default function PriceTile(params) {
     const onSymbolChange = newValue => {
       setSymbol(newValue);
       setIsActive(false);
+      params.onChange({ id:  params.id, symbol: newValue });
       getLivePrices(newValue);
-      params.onChange({ id:  params.id, symbol: newValue});
     }
 
     const onNotionalChange = newValue => {
