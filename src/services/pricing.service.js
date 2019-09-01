@@ -35,6 +35,7 @@ export function subscribeForLivePrices(symbol) {
   
   connect().then(() => {
     const handler = (update, flags) => {
+      console.log(`price tick =>${JSON.stringify(update)}`);
       subject.next(update);
     };
     client.subscribe('/price/' + symbol, handler);
@@ -52,5 +53,7 @@ export function unsubscribeForLivePrices(symbol) {
       const topic = '/price/' + symbol;
       client.unsubscribe(topic, handler);
       console.log(`unsubscribeForLivePrices =>${topic}`);
+      client.disconnect();
+      client = undefined;
     }   
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import { subscribeForLivePrices } from '../../services/pricing.service';
+import { subscribeForLivePrices, unsubscribeForLivePrices } from '../../services/pricing.service';
 import NumberFormat from 'react-number-format';
 
 import CurrencyPickerComponent from '../ccy-pair-picker/CurrencyPickerComponent';
 import NotionalInputComponent from '../notional/NotionalInputComponent';
 import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
 
-import StatusBar from '../statusbar/StatusBar';
+import { StatusBar } from '../statusbar/StatusBar';
 import './PriceTileComponents.css';
 import { postTransaction } from '../../services/transaction.service';
 
@@ -92,7 +92,9 @@ export default class PriceTileComponent extends React.Component {
 
   unsubscribePriceSubscription() {
     if (this.priceSubscription) {
+      unsubscribeForLivePrices(this.state.symbol);
       this.priceSubscription.unsubscribe();
+      this.priceSubscription = undefined;
     }
   }
 
@@ -168,6 +170,7 @@ export default class PriceTileComponent extends React.Component {
 
   click() {
     console.log(`click ${this.state.id}`)
+    this.unsubscribePriceSubscription();
     this.props.onClick(this.state.id);
   }
 }

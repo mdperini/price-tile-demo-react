@@ -16,10 +16,6 @@ export default class CurrencyPickerComponent extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.loading === true) {
-      return <Loading />;
-     }
-   
     console.log(`this.props.symbol ${this.props.symbol}`);
     this.setState({ loading: true });
     getCCYPairs( (ccyPairs) => {
@@ -27,6 +23,11 @@ export default class CurrencyPickerComponent extends React.Component {
       this.setState({ loading: false });
     })
   }
+
+
+  change(event){
+    this.setState({symbol: event});
+  } 
 
   renderSymbol(symbol) {
     return `${symbol.substring(0, 3)}/${symbol.substring(3, 6)}`;
@@ -41,6 +42,7 @@ export default class CurrencyPickerComponent extends React.Component {
     });
 
     return (
+      this.state.loading ? <Loading /> :
       <div>
         <div className="navbar-header">
           <div className="velocity-icon vi-chevron"></div>  
@@ -49,13 +51,13 @@ export default class CurrencyPickerComponent extends React.Component {
                 value={this.props.symbol} 
                 name="ccypairs" 
                 ref='ccypairs'
-                onChange={this.update.bind(this)}>{options}</select>
+                onChange={this.change.bind(this)}>{options}</select>
       </div>           
     )
   }
 
-  update () {
-    var ccypairs = ReactDOM.findDOMNode(this.refs.ccypairs)
-    this.props.onUpdate(ccypairs.value);
-  }
+  // update () {
+  //   var ccypairs = ReactDOM.findDOMNode(this.refs.ccypairs)
+  //   this.props.onUpdate(ccypairs.value);
+  // }
 }

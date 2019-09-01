@@ -85,7 +85,7 @@ export default class WorkspaceComponent extends React.Component {
                 key={priceTile.key}
                 id={priceTile.key}
                 symbol={priceTile.symbol}
-                notional={25000}
+                notional={10000}
                 onClick={this.onRemove.bind(this)}
                 onUpdate={this.onSave.bind(this)} />
         );
