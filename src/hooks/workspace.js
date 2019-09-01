@@ -1,11 +1,11 @@
 import React from "react";
 import uuid from 'uuid'
 import Loading from "../common/Loading";
-import PriceTile from '../components/price-tile/PriceTile';
+import PriceTile from './PriceTile';
 import { TransactionGrid } from './transaction.grid';
 import { restorePreferences, savePreferences } from '../services/preferences.service'; 
 
-import './WorkspaceComponent.css';
+import '../components/workspace/WorkspaceComponent.css';
 
 export const Workspace = () => {
   const [layoutConfig, setLayoutConfig] = React.useState([]);
@@ -16,7 +16,7 @@ export const Workspace = () => {
       if (!layout || !Array.isArray(layout)) return;
 
       layout.map((tile) => {
-        alert(`${tile.id} ${tile.params}`);
+        // alert(`${tile.id} ${tile.symbol}`);
         return tile;
       });
       

@@ -1,14 +1,14 @@
 import React from 'react';
-import { CurrencyPairSelector } from '../ccy-pair-picker/CurrencyPairSelector';
-import { Notional } from '../notional/Notional';
-import { StatusBar } from '../statusbar/StatusBar';
-import { PriceQuote } from '../price-quote/PriceQuote';
+import { CurrencyPairSelector } from './CurrencyPairSelector';
+import { Notional } from './Notional';
+import { StatusBar } from '../components/statusbar/StatusBar';
+import { PriceQuote } from './PriceQuote';
 import { subscribeForLivePrices,
          unsubscribeForLivePrices 
-       } from '../../services/pricing.service';
-import { postTransaction } from '../../services/transaction.service';
+       } from '../services/pricing.service';
+import { postTransaction } from '../services/transaction.service';
 
-import './PriceTileComponents.css';
+import '../components/price-tile/PriceTileComponents.css';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
@@ -102,11 +102,16 @@ export default function PriceTile(params) {
       });
     } 
 
+    React.useEffect(() => {
+      setSymbol(params.symbol);
+      setNotional(params.notional);
+    }, [params.notional, params.symbol]);
+
     return (
       <div className="navbar-header">
         <div className="price-tile">       
           <CurrencyPairSelector
-             symbol={symbol}
+             symbol={params.symbol}
              onChange={onSymbolChange} >                       
           </CurrencyPairSelector>
           <div className="close" onClick={onClickCloseHandler}>
