@@ -1,5 +1,5 @@
 import React from "react";
-import { renderPips } from '../../services/pricing.service';
+import { renderPips } from '../services/pricing.service';
 
 export const PriceQuote = params => {
   const handleClick = event => {

@@ -1,8 +1,8 @@
 import React from "react";
 
-import Loading from "../../common/Loading";
-import getCCYPairs from '../../services/ccypair.service';
-import { formatCCYPairSymbol } from '../../services/formatter.util';
+import Loading from "../common/Loading";
+import getCCYPairs from '../services/ccypair.service';
+import { formatCCYPairSymbol } from '../services/formatter.util';
 
 export const CurrencyPairSelector = params => {
   const [ccyPairs, setCCYPairs] = React.useState([]);
