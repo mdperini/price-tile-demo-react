@@ -58,8 +58,8 @@
   }
 
   .ag-row:hover {
-    border-top: 1px solid rgba(13, 189, 255, 0.80);
-    border-bottom: 1px solid rgba(13, 189, 255, 0.80) !important;
+    border-top: 1px solid rgba(13, 189, 255, 0.90);
+    border-bottom: 1px solid rgba(13, 189, 255, 0.90) !important;
     box-shadow:none;
     font-size: 110%;
   }
@@ -69,7 +69,7 @@
   }
   
   .ag-row:last-of-type:hover {
-    border-color:  #0dbdff !important;
+    border-color:  rgba(13, 189, 255, 1) !important;
   }
   
   .ag-cell {
@@ -91,7 +91,7 @@
   }
   
   hr {
-    border:solid blue 1px;
+    border:solid  #4a4a4a 1px;
     margin-top: 1em;
     margin-bottom: 1em;
   }

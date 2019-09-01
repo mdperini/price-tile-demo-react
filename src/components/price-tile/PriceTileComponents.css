@@ -5,6 +5,7 @@
 body {
   --odd-row-background-color: #CFD8DC;
   --foreground-color:  rgba(255, 255, 255, 0.80);
+  --accent-color: rgba(13, 189, 255, 1);
   background: 	rgb(1, 1, 58); /* rgb(0,49,83); */
   color: var(--foreground-color);
   /* font-family: Arial, Helvetica, blottersans-serif;  */
@@ -30,7 +31,7 @@ body {
 }
 
 .price-tile:hover {
-  border: solid rgba(0, 0, 255, 1.0) 2px;
+  border: solid var(--accent-color) 2px;
 }
 
 select {
@@ -55,15 +56,16 @@ select {
   border: 1px solid rgba(119, 119, 119, 0.75);
   margin-bottom: 2px;
   display: flex;
+  background: transparent;
   justify-content: flex-start;
 }
 
 .ccypair-picker:hover, .notional:hover {
-  border: solid rgba(0, 0, 255, 1.0) 1px;
+  border: solid var(--accent-color) 1px;
   cursor: pointer;
 }
 
-.ccypair-input, .notional {
+.notional {
   border: 1px solid rgba(119, 119, 119, 0.75);
   padding-left: 2px;
   width: 30%;
@@ -82,7 +84,7 @@ input {
   font-weight: 400;  
   margin-top: 5px;
   margin-bottom: 5px;
-  background: #000000;
+  background: transparent;
   color: var(--foreground-color);
   border: solid #696969 1px;
 }
@@ -108,8 +110,8 @@ input {
 }
 
 .price-quote-inner:hover {
-  border: solid blue 1px;
-  background: linear-gradient(black, blue);
+  border: solid var(--accent-color) 2px;
+  background: linear-gradient(black, rgb(152, 152, 250));
   cursor: url(../../assets/Target.cur), auto;
 }
 
@@ -138,13 +140,10 @@ input {
   color: rgba(255, 255, 255, 0.50);
 }
 
-.bars:hover {
-  color: rgba(13, 189, 255, 0.80)
-}
 
 .close {
   cursor: pointer;
-  padding: 4px;
+  top: 10px;
   position: absolute;
   color: lightcoral;
   right: 4px;
@@ -152,9 +151,9 @@ input {
 }
 
 .close:hover {
-  border: solid blue 1px;
-  background: 1px rgba(0, 0, 255, 0.50);
-
+  color: var(--foreground-color);
+  border: solid red 1px;
+  background: 1px rgba(255, 0, 0, 0.50);
 }
 
 .pips-sm {

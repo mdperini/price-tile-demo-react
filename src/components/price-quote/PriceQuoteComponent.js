@@ -5,7 +5,7 @@ export default class PriceQuoteComponent extends React.Component {
   side = this.props.side;
 
   onClick = event => {
-    this.props.onClick(event.target.value === 'Sell'? 'SELL' : 'BUY');
+    this.props.onClick(this.props.side === 'Sell'? 'SELL' : 'BUY');
   }
 
   render () {

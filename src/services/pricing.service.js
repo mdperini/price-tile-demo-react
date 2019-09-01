@@ -53,7 +53,7 @@ export function unsubscribeForLivePrices(symbol) {
       const topic = '/price/' + symbol;
       client.unsubscribe(topic, handler);
       console.log(`unsubscribeForLivePrices =>${topic}`);
-      client.disconnect();
-      client = undefined;
+      // client.disconnect();
+      // client = undefined;
     }   
 }
