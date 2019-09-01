@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react';
 
 import Loading from "../../common/Loading";
 import uuid from 'uuid'
@@ -19,14 +18,14 @@ export default class CurrencyPickerComponent extends React.Component {
     console.log(`this.props.symbol ${this.props.symbol}`);
     this.setState({ loading: true });
     getCCYPairs( (ccyPairs) => {
+
       this.setState({ ccyPairs });
       this.setState({ loading: false });
     })
   }
 
-
-  change(event){
-    this.setState({symbol: event});
+  onChange(event) {
+    this.props.onChange(event.target.value);
   } 
 
   renderSymbol(symbol) {
@@ -45,19 +44,13 @@ export default class CurrencyPickerComponent extends React.Component {
       this.state.loading ? <Loading /> :
       <div>
         <div className="navbar-header">
-          <div className="velocity-icon vi-chevron"></div>  
+          <div className="icon-style fa fa-bullseye fa-lg"></div>  
         </div>
         <select className="ccypair-picker" 
                 value={this.props.symbol} 
                 name="ccypairs" 
-                ref='ccypairs'
-                onChange={this.change.bind(this)}>{options}</select>
+                onChange={this.onChange.bind(this)}>{options}</select>
       </div>           
     )
   }
-
-  // update () {
-  //   var ccypairs = ReactDOM.findDOMNode(this.refs.ccypairs)
-  //   this.props.onUpdate(ccypairs.value);
-  // }
 }

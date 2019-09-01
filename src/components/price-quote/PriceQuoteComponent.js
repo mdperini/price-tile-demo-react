@@ -4,9 +4,13 @@ import { renderPips } from '../../services/pricing.service';
 export default class PriceQuoteComponent extends React.Component {
   side = this.props.side;
 
+  onClick = event => {
+    this.props.onClick(event.target.value === 'Sell'? 'SELL' : 'BUY');
+  }
+
   render () {
     return (
-      <div className="price-quote" onClick={this.update.bind(this)}>
+      <div className="price-quote" onClick={this.onClick.bind(this)}>
         <div className="price-quote-inner">
           <div ref='selectedSide'  
                className="side">{this.props.subTitle}
@@ -21,10 +25,6 @@ export default class PriceQuoteComponent extends React.Component {
         </div>           
       </div>           
     )
-  }
-
-  update () {
-    this.props.onUpdate(this.side === 'Sell'? 'SELL' : 'BUY');
   }
 }
 

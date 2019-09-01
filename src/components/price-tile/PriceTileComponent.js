@@ -51,7 +51,7 @@ export default class PriceTileComponent extends React.Component {
     this.props.onUpdate({'id': this.state.id, symbol});
   }  
 
-  onNotionalUpdate (notional) { this.setState({ notional }) }
+  onChangeNotional (notional) { this.setState({ notional }) }
 
   onSendQuote(side) { 
     this.setState({ side });
@@ -119,40 +119,28 @@ export default class PriceTileComponent extends React.Component {
       <div className="navbar-header">
         <div className="price-tile">
           <CurrencyPickerComponent symbol={this.state.symbol} 
-                                  onUpdate={this.onCCYUpdate.bind(this)}/>
-          <div className="bars">
-            <ul id="nav">
-              <li>
-                <i className="fa fa-bars"></i>           
-                <ul>
-                  <li className="close">  
-                    <div onClick={this.click.bind(this)}>
-                      <i className="fa fa-close"></i>
-                    </div>
-                  </li>
-                </ul>
-              </li>                      
-            </ul>
+                                   onChange={this.onCCYUpdate.bind(this)}/>
+          <div className="close" onClick={this.click.bind(this)}>
+            <i className="fa fa-close"></i>
           </div>
           <NotionalInputComponent notional={this.state.notional} 
-                                  onUpdate={this.onNotionalUpdate.bind(this)}/>
+                                  onChange={this.onChangeNotional.bind(this)}/>
           <div className="price-quotes">
               <PriceQuoteComponent price={this.state.bidRate}
                                    subTitle={this.renderSide(Buy)}
                                    side={Buy} 
                                    direction={this.state.directionBidRate}
-                                   onUpdate={this.onSendQuote.bind(this)}/>
+                                   onClick={this.onSendQuote.bind(this)}/>
               <PriceQuoteComponent price={this.state.termRate}
                                    subTitle={this.renderSide(Sell)}
                                    side={Sell} 
                                    direction={this.state.directionTermRate}
-                                   onUpdate={this.onSendQuote.bind(this)}/>
+                                   onClick={this.onSendQuote.bind(this)}/>
           </div>
        </div>
        <div className="statusBar">
         <StatusBar data={(this.renderSymbol(this.state.symbol))}/>
         <span>&nbsp;</span>
-        
         <StatusBar data={(<NumberFormat value={this.state.notional} 
                                  displayType={'text'}
                                  readOnly 

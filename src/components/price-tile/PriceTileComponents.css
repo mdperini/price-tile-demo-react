@@ -4,8 +4,9 @@
 
 body {
   --odd-row-background-color: #CFD8DC;
-  background: #000000;
-  color: #DDDDDD;
+  --foreground-color:  rgba(255, 255, 255, 0.80);
+  background: 	rgb(1, 1, 58); /* rgb(0,49,83); */
+  color: var(--foreground-color);
   /* font-family: Arial, Helvetica, blottersans-serif;  */
   font-family: 'Roboto', sans-serif;
   cursor: auto;
@@ -13,6 +14,12 @@ body {
 
 .navbar-header {
   float: left;
+}
+
+.icon-style {
+  color:rgba(255, 0, 0, 0.75);
+  margin-top: 6px;
+  margin-right: 3px;
 }
 
 .price-tile {
@@ -24,27 +31,6 @@ body {
 
 .price-tile:hover {
   border: solid rgba(0, 0, 255, 1.0) 2px;
-}
-
-.vi-chevron {
-  margin-left: 1px;
-  margin-top: 6px;
-  width: 17px;
-  height: 11px;
-}
-
-.vi-chevron {
-  width: 17px;
-  height: 11px;
-  background-image: url("data:image/svg+xml;utf8, \
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 19'> \
-      <path fill='red' d='M 0.37,0 C0.37,0 13.83,0 13.83,0 13.83,0 30,9.57 30,9.57 30,9.57 13.60,19 13.60,19 13.60,19 0,19 0,19 0,19 16.01,9.50 16.01,9.50 16.01,9.50 0.37,0 0.37,0 z'/> \
-  </svg>");
-}
-
-.vi-chevron {
-  width: 30px;
-  height: 20px;
 }
 
 select {
@@ -60,7 +46,7 @@ select {
 select {
   margin-bottom: 5px;
   background: #000000;
-  color: #ffffff;
+  color: var(--foreground-color);
   border: solid #696969 1px;
 }
 
@@ -97,7 +83,7 @@ input {
   margin-top: 5px;
   margin-bottom: 5px;
   background: #000000;
-  color: #ffffff;
+  color: var(--foreground-color);
   border: solid #696969 1px;
 }
 
@@ -151,6 +137,7 @@ input {
   top: 0px;
   color: rgba(255, 255, 255, 0.50);
 }
+
 .bars:hover {
   color: rgba(13, 189, 255, 0.80)
 }
@@ -165,7 +152,9 @@ input {
 }
 
 .close:hover {
-  color:blue;
+  border: solid blue 1px;
+  background: 1px rgba(0, 0, 255, 0.50);
+
 }
 
 .pips-sm {
