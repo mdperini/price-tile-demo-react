@@ -38,40 +38,40 @@ const addSubscribers = (symbol) => {
   }
   
   priceSubscribers.set(symbol, ++count);
-
-  console.log(`Add Subscribers symbol ${priceSubscribers.get(symbol)} # of ${count}`);
+  // console.log(`Add Subscribers symbol ${priceSubscribers.get(symbol)} # of ${count}`);
 }
 
 const removeSubscribers = (symbol) => {
   let count = priceSubscribers.get(symbol);
-  if (isNaN(count)) {
+  if (isNaN(count) || count === 0) {
     return;
   }
   
   priceSubscribers.set(symbol, --count);
 
-  console.log(`Remove Subscribers symbol ${priceSubscribers.get(symbol)} remaining ${count}`);
+  // console.log(`Remove Subscribers symbol ${priceSubscribers.get(symbol)} remaining ${count}`);
 }
 
 export function subscribeForLivePrices(symbol) {
   const subject = new Subject();
   addSubscribers(symbol);
   connect().then(() => {
-    const handler = (update, flags) => {
-      if (isNaN(priceSubscribers.get(symbol)))
+    const tickHandler = (update, flags) => {
+      const count = priceSubscribers.get(symbol);
+      if (isNaN(count) || count < 1)
         return;
         
         console.log(`price tick =>${JSON.stringify(update)}`);
         subject.next(update);
     };
 
-    client.subscribe('/price/' + symbol, handler);
+    client.subscribe('/price/' + symbol, tickHandler);
   });
 
   return subject;
 }
 
 export function unsubscribeForLivePrices(symbol) {
-    if (symbol) 
-      removeSubscribers(symbol);    
+  if (symbol) 
+    removeSubscribers(symbol);    
 }
