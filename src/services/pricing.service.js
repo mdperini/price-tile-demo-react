@@ -31,7 +31,6 @@ async function connect() {
   return client;
 }
 
-
 const addSubscribers = (symbol) => {
   let count = priceSubscribers.get(symbol);
   if (isNaN(count)) {
@@ -40,7 +39,7 @@ const addSubscribers = (symbol) => {
   
   priceSubscribers.set(symbol, ++count);
 
-  console.log(`Add Subscribers ${priceSubscribers.get(symbol)} ${count}`);
+  console.log(`Add Subscribers symbol ${priceSubscribers.get(symbol)} # of ${count}`);
 }
 
 const removeSubscribers = (symbol) => {
@@ -51,20 +50,21 @@ const removeSubscribers = (symbol) => {
   
   priceSubscribers.set(symbol, --count);
 
-  console.log(`Remove Subscribers ${priceSubscribers.get(symbol)} ${count}`);
+  console.log(`Remove Subscribers symbol ${priceSubscribers.get(symbol)} remaining ${count}`);
 }
-
 
 export function subscribeForLivePrices(symbol) {
   const subject = new Subject();
   addSubscribers(symbol);
-  console.log(`subscribeForLivePrices =>${symbol} ${JSON.stringify(priceSubscribers)}`);
   connect().then(() => {
     const handler = (update, flags) => {
-      console.log(`price tick =>${JSON.stringify(update)}`);
-      subject.next(update);
-
+      if (isNaN(priceSubscribers.get(symbol)))
+        return;
+        
+        console.log(`price tick =>${JSON.stringify(update)}`);
+        subject.next(update);
     };
+
     client.subscribe('/price/' + symbol, handler);
   });
 
@@ -72,17 +72,6 @@ export function subscribeForLivePrices(symbol) {
 }
 
 export function unsubscribeForLivePrices(symbol) {
-    const handler = (update, flags) => {
-      console.log(`unsubscribeForLivePrices =>${symbol} ${update} ${flags}`);
-    };
-
-    if (client || symbol) {
-      removeSubscribers(symbol);
-      const count = priceSubscribers.get(symbol);
-      if (isNaN(count) || count === 0) {
-        const topic = '/price/' + symbol;
-        client.unsubscribe(topic, handler);
-        console.log(`unsubscribeForLivePrices =>${topic}`);
-      }
-    }   
+    if (symbol) 
+      removeSubscribers(symbol);    
 }

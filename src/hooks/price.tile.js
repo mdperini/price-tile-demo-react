@@ -1,8 +1,8 @@
 import React from 'react';
-import { CurrencyPairSelector } from './CurrencyPairSelector';
-import { Notional } from './Notional';
+import { CurrencyPairSelector } from './currencypair.selector';
+import { Notional } from './notional';
 import { StatusBar } from '../components/statusbar/StatusBar';
-import { PriceQuote } from './PriceQuote';
+import { PriceQuote } from './price.quote';
 import { subscribeForLivePrices,
          unsubscribeForLivePrices 
        } from '../services/pricing.service';
@@ -14,7 +14,7 @@ const Buy = 'Buy';
 const Sell = 'Sell';
 
 export default function PriceTile(params) {
-    let [isActive, setIsActive] = React.useState(false);
+    let [streamingPrices, setStreamingPrices] = React.useState(false);
     let [symbol, setSymbol] = React.useState('');
     let [side, setSide] = React.useState('');
     let [notional, setNotional] = React.useState(0);
@@ -58,7 +58,6 @@ export default function PriceTile(params) {
       unsubscribePriceSubscription();
       priceSubscription = subscribeForLivePrices(symbol)
           .subscribe((x) => {
-              console.log(`price ${JSON.stringify(x)}`);
               setPrevPrice();
               setBidRate(x.bidRate.toFixed(5));
               setBidRateFull(x.bidRate.toFixed(12));
@@ -68,23 +67,23 @@ export default function PriceTile(params) {
               setDirectionTermRate(setDirection(prevTermRate, termRate));
         });
 
-        setIsActive(true);
+        setStreamingPrices(true);
         setPriceSubscription(priceSubscription);
     }
     
-    if (!isActive)
+    if (!streamingPrices)
       getLivePrices(params.symbol);
 
     const onSymbolChange = newValue => {
       setSymbol(newValue);
-      setIsActive(false);
+      setStreamingPrices(false);
       params.onChange({ id:  params.id, symbol: newValue, notional });
       getLivePrices(newValue);
     }
 
     const onNotionalChange = newValue => {
       setNotional(newValue);
-    //  params.onChange({ id:  params.id, symbol, newValue });
+      params.onChange({ id:  params.id, symbol, notional });
     }
 
     const renderSide = (symbol, side) => {

@@ -59,6 +59,13 @@ const renderDate = x => {
     return moment.utc(x).format("DD-MMM-YYYY HH:mm:ss")
 }
 
+//{"symbol":"USDCAD",
+// "priceType":"SPOT",
+// "side":"SELL",
+// "amount":10000,
+// "date":"2019-09-02T01:45:19.595Z",
+// "rate":0.009276085679492126,
+// "total":92.76085679492125}
 export function renderColumnDefinitions() {
     return [{
         headerName: "Symbol", 
@@ -78,19 +85,16 @@ export function renderColumnDefinitions() {
     {
         headerName: "Notional", 
         field: "amount",             
-        type: 'currency',                
         valueFormatter: (data) => numberWithCommas(data.value)
     },
     {
         headerName: "Rate", 
         field: "rate",
-        type: 'price',     
         valueFormatter: (data) => data.value.toFixed(5)
     },
     {
         headerName: "Trade Date", 
         field: "date",
-        type: 'date',
         valueFormatter: (data) => renderDate(data.value),
         sort: 'desc'
     }

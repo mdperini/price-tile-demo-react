@@ -1,7 +1,7 @@
 import React from "react";
 import uuid from 'uuid'
 import Loading from "../common/Loading";
-import PriceTile from './PriceTile';
+import PriceTile from './price.tile';
 import { TransactionGrid } from './transaction.grid';
 import { restorePreferences, savePreferences } from '../services/preferences.service'; 
 
