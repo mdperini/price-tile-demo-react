@@ -26,8 +26,8 @@ export const CurrencyPairSelector = params => {
 
   return (
       <div>
-       <div className="navbar-header">
-          <div className="velocity-icon vi-chevron"></div> 
+         <div className="navbar-header">
+          <div className="icon-style fa fa-paper-plane-o fa-lg"></div>  
         </div>
         <select className="ccypair-picker"
             value={params.symbol}

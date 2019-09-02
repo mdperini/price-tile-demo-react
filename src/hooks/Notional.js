@@ -2,6 +2,7 @@ import React from "react";
 
 export const Notional = params => {
     const handleChange = event => {
+        console.log(event.target.value);
         params.onChange(event.target.value);
     }
 

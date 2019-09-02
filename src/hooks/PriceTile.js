@@ -78,12 +78,13 @@ export default function PriceTile(params) {
     const onSymbolChange = newValue => {
       setSymbol(newValue);
       setIsActive(false);
-      params.onChange({ id:  params.id, symbol: newValue });
+      params.onChange({ id:  params.id, symbol: newValue, notional });
       getLivePrices(newValue);
     }
 
     const onNotionalChange = newValue => {
       setNotional(newValue);
+      params.onChange({ id:  params.id, symbol: newValue, notional });
     }
 
     const renderSide = side => {

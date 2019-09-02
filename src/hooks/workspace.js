@@ -16,7 +16,7 @@ export const Workspace = () => {
       if (!layout || !Array.isArray(layout)) return;
 
       layout.map((tile) => {
-        // alert(`${tile.id} ${tile.symbol}`);
+        console.log(`${tile.id} ${tile.symbol} ${tile.notional}`);
         return tile;
       });
       
@@ -43,7 +43,7 @@ export const Workspace = () => {
   const onAdd  = event => {
     const v1 = uuid.v1();
       
-    layoutConfig.push({ key: v1, id: v1, symbol: 'EURUSD' });
+    layoutConfig.push({ key: v1, id: v1, symbol: 'EURUSD', notional: 10000 });
     saveUserPreferences(layoutConfig);  
   }
 
@@ -56,6 +56,7 @@ export const Workspace = () => {
     layoutConfig.map((tile) => {
       if (tile.id === params.id) {
         tile.symbol = params.symbol;
+        tile.notional = params.notional;       
       }
       return tile;
     });
@@ -79,9 +80,9 @@ export const Workspace = () => {
               key={priceTile.key}
               id={priceTile.key}
               symbol={priceTile.symbol}
+              notional={priceTile.notional}
               onClick={onRemoved}
-              onChange={onSave}
-              notional={2500} />
+              onChange={onSave} />
         );
       });     
 
