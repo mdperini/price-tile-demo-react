@@ -84,11 +84,11 @@ export default function PriceTile(params) {
 
     const onNotionalChange = newValue => {
       setNotional(newValue);
-      params.onChange({ id:  params.id, symbol: newValue, notional });
+    //  params.onChange({ id:  params.id, symbol, newValue });
     }
 
-    const renderSide = side => {
-      return `${side} ${symbol ?symbol.substr(0, 3) : ''}`;
+    const renderSide = (symbol, side) => {
+      return !symbol ? side : `${side} ${symbol ?symbol.substr(0, 3) : ''}`;
     }
 
     const onClickCloseHandler = event => {
@@ -122,12 +122,12 @@ export default function PriceTile(params) {
                      onChange={onNotionalChange} />
           <div className="price-quotes">
             <PriceQuote price={bidRate}
-                        subTitle={renderSide(Buy)}
+                        subTitle={renderSide(params.symbol, Buy)}
                         side={Buy}
                         direction={directionBidRate}
                         onClick={onSendQuote} />
             <PriceQuote price={termRate}
-                        subTitle={renderSide(Sell)}
+                        subTitle={renderSide(params.symbol, Sell)}
                         side={Sell}
                         direction={directionTermRate}
                         onClick={onSendQuote}/>

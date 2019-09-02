@@ -16,7 +16,7 @@ export const Workspace = () => {
       if (!layout || !Array.isArray(layout)) return;
 
       layout.map((tile) => {
-        console.log(`${tile.id} ${tile.symbol} ${tile.notional}`);
+        console.log(`${tile.id} ${tile.symbol}`);
         return tile;
       });
       
@@ -56,8 +56,8 @@ export const Workspace = () => {
     layoutConfig.map((tile) => {
       if (tile.id === params.id) {
         tile.symbol = params.symbol;
-        tile.notional = params.notional;       
       }
+
       return tile;
     });
    
@@ -80,7 +80,7 @@ export const Workspace = () => {
               key={priceTile.key}
               id={priceTile.key}
               symbol={priceTile.symbol}
-              notional={priceTile.notional}
+              notional={10000}
               onClick={onRemoved}
               onChange={onSave} />
         );

@@ -45,9 +45,9 @@ export function subscribeForLivePrices(symbol) {
 }
 
 export function unsubscribeForLivePrices(symbol) {
-    const handler = (update, flags) => {
-      console.log(`unsubscribeForLivePrices =>${symbol} ${update} ${flags}`);
-    };
+    // const handler = (update, flags) => {
+    //   console.log(`unsubscribeForLivePrices =>${symbol} ${update} ${flags}`);
+    // };
 
     if (client || symbol) {
       const topic = '/price/' + symbol;
