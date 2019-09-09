@@ -17,6 +17,9 @@
 }
 
 .add-inner:hover {
-  color: blue;  
+  --color-secondary: #101d2c;
+  --color-grey-light-1: #f9f7f6;
+  color: var(--color-grey-light-1); 
+
 }
 

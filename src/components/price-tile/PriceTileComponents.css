@@ -3,11 +3,24 @@
 @import '../../../node_modules//font-awesome/css/font-awesome.css';
 
 body {
+  --color-primary: #c69963;
+  --color-primary-dark: #B28451;
+  
+  --color-secondary: #101d2c;
+  --color-secondary-dark: rgb(1, 1, 58);
+  
+  --color-grey-light-1: #f9f7f6;
+  --color-grey-light-2: #aaa;
+  
+  --color-grey-dark-1: #54483A;
+  --color-grey-dark-2: #6D5D4B;
+  
   --odd-row-background-color: #CFD8DC;
   --foreground-color:  rgba(255, 255, 255, 0.80);
+  
   --accent-color: rgba(13, 189, 255, 1);
-  background: 	rgb(1, 1, 58); /* rgb(0,49,83); */
-  color: var(--foreground-color);
+  background: var(--color-grey-dark-1); /* rgb(0,49,83); */
+  color: var(--color-grey-light-1);
   /* font-family: Arial, Helvetica, blottersans-serif;  */
   font-family: 'Roboto', sans-serif;
   cursor: auto;
@@ -18,13 +31,14 @@ body {
 }
 
 .icon-style {
-  color:rgba(255, 0, 0, 0.75);
+  color:var(--color-primary);
   margin-top: 6px;
   margin-right: 3px;
 }
 
 .price-tile {
   border: solid rgba(0, 0, 255, 0.75) 1px;
+  background: var(--color-secondary);
   padding: 5px;
   width: 300px;
   position: relative;
@@ -47,7 +61,7 @@ select {
 select {
   margin-bottom: 5px;
   background: #000000;
-  color: var(--foreground-color);
+  color: var(--color-grey-light-1);
   border: solid #696969 1px;
 }
 
@@ -62,6 +76,7 @@ select {
 
 .ccypair-picker:hover, .notional:hover {
   border: solid var(--accent-color) 1px;
+  color: var(--color-grey-light-2);
   cursor: pointer;
 }
 
@@ -85,7 +100,7 @@ input {
   margin-top: 5px;
   margin-bottom: 5px;
   background: transparent;
-  color: var(--foreground-color);
+  color: var(--color-grey-light-1);
   border: solid #696969 1px;
 }
 
@@ -111,6 +126,7 @@ input {
 
 .price-quote-inner:hover {
   border: solid var(--accent-color) 2px;
+  color: var(--color-grey-light-1);
   background: linear-gradient(black, rgb(152, 152, 250));
   cursor: url(../../assets/Target.cur), auto;
 }

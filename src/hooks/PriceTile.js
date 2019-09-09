@@ -1,10 +1,8 @@
 import React from 'react';
-import { CurrencyPairSelector } from './currencypair.selector';
-import { Notional } from './notional.input';
-import   { useState, useEffect } from 'react';
-
+import { CurrencyPairSelector } from './CurrencyPairSelector';
+import { Notional } from './Notional';
 import { StatusBar } from '../components/statusbar/StatusBar';
-import { PriceQuote } from './price.quote';
+import { PriceQuote } from './PriceQuote';
 import { subscribeForLivePrices,
          unsubscribeForLivePrices 
        } from '../services/pricing.service';
@@ -16,16 +14,18 @@ const Buy = 'Buy';
 const Sell = 'Sell';
 
 export default function PriceTile(params) {
-    let [streamingPrices, setStreamingPrices] = useState(false);
-    let [symbol, setSymbol] = useState('');
-    let [side, setSide] = useState('');
-    let [notional, setNotional] = useState(0);
-    let [bidRate, setBidRate] = useState(0);
-    let [termRate, setTermRate] = useState(0);
-    let [bidRateFull, setBidRateFull] = useState(0);
+    let [streamingPrices, setStreamingPrices] = React.useState(false);
+    let [symbol, setSymbol] = React.useState('');
+    let [side, setSide] = React.useState('');
+    let [notional, setNotional] = React.useState(0);
+    let [bidRate, setBidRate] = React.useState(0);
+    let [termRate, setTermRate] = React.useState(0);
+    let [bidRateFull, setBidRateFull] = React.useState(0);
     let [termRateFull, setTermRateFull] = React.useState(0);
     let [prevBidRate, setPrevBidRate] = React.useState(0);
     let [prevTermRate, setPrevTermRate] = React.useState(0);
+    let [directionBidRate, setDirectionBidRate] = React.useState('');
+    let [directionTermRate, setDirectionTermRate] = React.useState('');
     let [priceSubscription, setPriceSubscription] = React.useState(undefined);
 
     const unsubscribePriceSubscription = () => {
@@ -36,9 +36,19 @@ export default function PriceTile(params) {
       }
     }
 
-    
-    const renderDirection= (prev, curr) => {
-      return prev < curr ? 'up' : 'down';
+    const setPrevPrice = () => {
+      if (bidRate) {
+        setPrevBidRate(bidRate);
+      }
+
+      if (termRate) {
+          setPrevTermRate(termRate);
+      }
+    }
+
+    const setDirection = (prev, curr) => {
+      console.log(`prev < curr ${prev < curr}`);
+      return prev < curr ? 'up' : 'down'; 
     }
 
     const getLivePrices = symbol => {
@@ -47,15 +57,15 @@ export default function PriceTile(params) {
       }
 
       unsubscribePriceSubscription();
-      // eslint-disable-next-line no-const-assign
       priceSubscription = subscribeForLivePrices(symbol)
           .subscribe((x) => {
-              setPrevBidRate(bidRate);
+              setPrevPrice();
               setBidRate(x.bidRate.toFixed(5));
               setBidRateFull(x.bidRate.toFixed(12));
-              setPrevTermRate(termRate);
               setTermRate(x.termRate.toFixed(5));
               setTermRateFull(x.termRate.toFixed(12));
+              setDirectionBidRate(setDirection(prevBidRate, bidRate));
+              setDirectionTermRate(setDirection(prevTermRate, termRate));
         });
 
         setStreamingPrices(true);
@@ -92,8 +102,8 @@ export default function PriceTile(params) {
         console.log(result);
       });
     } 
-  
-    useEffect(() => {
+
+    React.useEffect(() => {
       setSymbol(params.symbol);
       setNotional(params.notional);
     }, [params.notional, params.symbol]);
@@ -114,12 +124,12 @@ export default function PriceTile(params) {
             <PriceQuote price={bidRate}
                         subTitle={renderSide(params.symbol, Buy)}
                         side={Buy}
-                        direction={renderDirection(prevBidRate, bidRate)}
+                        direction={directionBidRate}
                         onClick={onSendQuote} />
             <PriceQuote price={termRate}
                         subTitle={renderSide(params.symbol, Sell)}
                         side={Sell}
-                        direction={renderDirection(prevTermRate, termRate)}
+                        direction={directionTermRate}
                         onClick={onSendQuote}/>
             </div>
         </div>
@@ -131,10 +141,10 @@ export default function PriceTile(params) {
             <StatusBar status={side} />
             <span>&nbsp;</span>
             <span>&nbsp;</span>
-            <span><StatusBar status={bidRateFull}/></span>
+            <span className={directionBidRate}><StatusBar status={bidRateFull}/></span>
             <span>&nbsp;</span>
             <span>&nbsp;</span>
-            <span><StatusBar status={termRateFull}/></span>       
+            <span className={directionTermRate}><StatusBar status={termRateFull}/></span>       
           </div>
         </div>
     )

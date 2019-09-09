@@ -38,7 +38,6 @@ const addSubscribers = (symbol) => {
   }
   
   priceSubscribers.set(symbol, ++count);
-  // console.log(`Add Subscribers symbol ${priceSubscribers.get(symbol)} # of ${count}`);
 }
 
 const removeSubscribers = (symbol) => {
@@ -48,8 +47,6 @@ const removeSubscribers = (symbol) => {
   }
   
   priceSubscribers.set(symbol, --count);
-
-  // console.log(`Remove Subscribers symbol ${priceSubscribers.get(symbol)} remaining ${count}`);
 }
 
 export function subscribeForLivePrices(symbol) {

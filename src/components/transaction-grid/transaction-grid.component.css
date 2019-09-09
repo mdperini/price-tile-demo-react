@@ -6,7 +6,10 @@
 
 
 .blotter {
-    margin: 5px;
+  --color-secondary-dark: rgb(1, 1, 58);
+  margin: 5px;
+  background: var(--color-secondary-dark);
+  
   }
   
   .ag-grid-react {
@@ -58,6 +61,8 @@
   }
 
   .ag-row:hover {
+    --color-grey-light-1: #f9f7f6;
+    color: var(--color-grey-light-1);
     border-top: 1px solid rgba(13, 189, 255, 0.90);
     border-bottom: 1px solid rgba(13, 189, 255, 0.90) !important;
     box-shadow:none;
