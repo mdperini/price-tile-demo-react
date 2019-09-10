@@ -9,13 +9,15 @@ export const PriceQuote = params => {
     params.onClick(params.side);
   }
  
-  const renderDirection= (prev, curr) => {
+  const renderDirection= (side, prev, curr) => {
     if (!curr) {
       return '';
     }
 
     const direction = prev <= curr ? 'up' : 'down';
-    console.log(`prev ${prev} curr ${curr} ${direction}`);
+    if (side === 'Buy') {
+      console.log(`prev ${prev} curr ${curr} ${direction}`);
+    }
     return direction;
   }
 
@@ -34,7 +36,7 @@ export const PriceQuote = params => {
         <div className="pips">
           <span className="pips-sm">{renderPips(params.price, 1)}</span>
           <span className="pips-lg">
-          <span className={renderDirection(prevPrice, priceFull)}>{renderPips(params.price, 2)}</span>
+          <span className={renderDirection(params.side, prevPrice, priceFull)}>{renderPips(params.price, 2)}</span>
           </span>
           <span className="pips-sm">{renderPips(params.price, 3)}</span>
         </div>
