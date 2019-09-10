@@ -24,8 +24,6 @@ export default function PriceTile(params) {
     let [termRate, setTermRate] = useState(0);
     let [bidRateFull, setBidRateFull] = useState(0);
     let [termRateFull, setTermRateFull] = React.useState(0);
-    let [prevBidRate, setPrevBidRate] = React.useState(0);
-    let [prevTermRate, setPrevTermRate] = React.useState(0);
     let [priceSubscription, setPriceSubscription] = React.useState(undefined);
 
     const unsubscribePriceSubscription = () => {
@@ -34,11 +32,6 @@ export default function PriceTile(params) {
         priceSubscription.unsubscribe();
         setPriceSubscription(undefined);
       }
-    }
-
-    
-    const renderDirection= (prev, curr) => {
-      return prev < curr ? 'up' : 'down';
     }
 
     const getLivePrices = symbol => {
@@ -50,10 +43,8 @@ export default function PriceTile(params) {
       // eslint-disable-next-line no-const-assign
       priceSubscription = subscribeForLivePrices(symbol)
           .subscribe((x) => {
-              setPrevBidRate(bidRate);
               setBidRate(x.bidRate.toFixed(5));
               setBidRateFull(x.bidRate.toFixed(12));
-              setPrevTermRate(termRate);
               setTermRate(x.termRate.toFixed(5));
               setTermRateFull(x.termRate.toFixed(12));
         });
@@ -112,14 +103,14 @@ export default function PriceTile(params) {
                      onChange={onNotionalChange} />
           <div className="price-quotes">
             <PriceQuote price={bidRate}
+                        priceFull={bidRateFull}
                         subTitle={renderSide(params.symbol, Buy)}
                         side={Buy}
-                        direction={renderDirection(prevBidRate, bidRate)}
                         onClick={onSendQuote} />
             <PriceQuote price={termRate}
+                        priceFull={termRateFull}
                         subTitle={renderSide(params.symbol, Sell)}
                         side={Sell}
-                        direction={renderDirection(prevTermRate, termRate)}
                         onClick={onSendQuote}/>
             </div>
         </div>

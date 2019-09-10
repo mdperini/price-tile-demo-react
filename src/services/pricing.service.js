@@ -58,7 +58,7 @@ export function subscribeForLivePrices(symbol) {
       if (isNaN(count) || count < 1)
         return;
         
-        console.log(`price tick =>${JSON.stringify(update)}`);
+        // console.log(`price tick =>${JSON.stringify(update)}`);
         subject.next(update);
     };
 
