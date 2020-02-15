@@ -21,7 +21,7 @@
     "roboto-fontface": "^0.10.0",
     "rxjs": "^6.5.2",
     "uuid": "^3.3.2",
-    "yarn": "^1.17.3"
+    "yarn": "^1.22.0"
   },
   "scripts": {
     "start": "export PORT=3006 && react-scripts start",
