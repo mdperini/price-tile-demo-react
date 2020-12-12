@@ -96,9 +96,7 @@ export default function PriceTile(params) {
              symbol={params.symbol}
              onChange={onSymbolChange} >                       
           </CurrencyPairSelector>
-          <div className="close" onClick={onClickCloseHandler}>
-                  <i className="fa fa-close"></i>
-          </div>
+          <div className="close" onClick={onClickCloseHandler}>&times;</div>
           <Notional notional={params.notional}
                      onChange={onNotionalChange} />
           <div className="price-quotes">

@@ -42,10 +42,7 @@ export default class CurrencyPickerComponent extends React.Component {
 
     return (
       this.state.loading ? <Loading /> :
-      <div>
-        <div className="navbar-header">
-          <div className="icon-style fa fa-bullseye fa-lg"></div>  
-        </div>
+      <div>        
         <select className="ccypair-picker" 
                 value={this.props.symbol} 
                 name="ccypairs" 

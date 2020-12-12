@@ -6,9 +6,9 @@
 
 
 .blotter {
-  --color-secondary-dark: rgb(1, 1, 58);
+  --color-dark: #000000;
   margin: 5px;
-  background: var(--color-secondary-dark);
+  background: var(--color-dark);
   
   }
   

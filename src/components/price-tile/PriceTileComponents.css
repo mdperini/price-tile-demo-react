@@ -6,7 +6,9 @@ body {
   --color-primary: #c69963;
   --color-primary-dark: #B28451;
   
-  --color-secondary: #101d2c;
+  --color-dark: #000000;
+  
+  --color-secondary: #111111;
   --color-secondary-dark: rgb(1, 1, 58);
   
   --color-grey-light-1: #f9f7f6;
@@ -19,7 +21,7 @@ body {
   --foreground-color:  rgba(255, 255, 255, 0.80);
   
   --accent-color: rgba(13, 189, 255, 1);
-  background: var(--color-grey-dark-1); /* rgb(0,49,83); */
+  background: var(--color-dark); /* rgb(0,49,83); */
   color: var(--color-grey-light-1);
   /* font-family: Arial, Helvetica, blottersans-serif;  */
   font-family: 'Roboto', sans-serif;
@@ -37,7 +39,7 @@ body {
 }
 
 .price-tile {
-  border: solid rgba(0, 0, 255, 0.75) 1px;
+  border: solid #7c7c7c 1px;
   background: var(--color-secondary);
   padding: 5px;
   width: 300px;
@@ -66,7 +68,6 @@ select {
 }
 
 .ccypair-picker {
-  margin-left: 8px;
   border: 1px solid rgba(119, 119, 119, 0.75);
   margin-bottom: 2px;
   display: flex;
@@ -160,8 +161,10 @@ input {
 .close {
   cursor: pointer;
   top: 10px;
+  width: 4px 10px 10px 10px;
+  height: 4px 10px 10px 10px;
   position: absolute;
-  color: lightcoral;
+  color: var(--color-grey-light-2);
   right: 4px;
   top: -1px;
 }
