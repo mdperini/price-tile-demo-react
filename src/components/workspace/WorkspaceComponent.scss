@@ -1,0 +1,32 @@
+@import '../../../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
+@import '../../../node_modules//font-awesome/css/font-awesome.css';
+
+body {
+  --color-dark: #000000;
+  --color-dark-2: #111111;
+  background-color: var(--color-dark);
+  --color-grey-light-1: #C7CDD1;
+  color: var(--color-grey-light-1);
+  font-family: Arial, Helvetica, blottersans-serif;   
+}
+
+.tiles {
+  
+  display: flex;
+/* or inline-flex */
+  flex-wrap: wrap;
+
+  &__add {
+    cursor: pointer; 
+  }
+  
+  &__add-inner {
+    margin: 30px;
+    color: green; 
+    &:hover {
+      --color-secondary: #101d2c;
+      --color-grey-light-1: #f9f7f6;
+      color: var(--color-grey-light-1);     
+    }
+  }    
+}

@@ -2,76 +2,123 @@
 @import '../../../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
 @import '../../../node_modules//font-awesome/css/font-awesome.css';
 
-body {
-  --color-primary: #c69963;
-  --color-primary-dark: #B28451;
+.price-tile { 
+   --color-grey-light-1: #C7CDD1;
+   --accent-color: rgba(13, 189, 255, 1);
+   --accent-color-3: rgba(13, 189, 255, .3);
+   --accent-color-5: rgba(13, 189, 255, .5);
+   --accent-color-7: rgba(0,189, 255, .7);;
   
-  --color-dark: #000000;
-  
-  --color-secondary: #111111;
-  --color-secondary-dark: rgb(1, 1, 58);
-  
-  --color-grey-light-1: #f9f7f6;
-  --color-grey-light-2: #aaa;
-  
-  --color-grey-dark-1: #54483A;
-  --color-grey-dark-2: #6D5D4B;
-  
-  --odd-row-background-color: #CFD8DC;
-  --foreground-color:  rgba(255, 255, 255, 0.80);
-  
-  --accent-color: rgba(13, 189, 255, 1);
-  background: var(--color-dark); /* rgb(0,49,83); */
-  color: var(--color-grey-light-1);
-  /* font-family: Arial, Helvetica, blottersans-serif;  */
-  font-family: 'Roboto', sans-serif;
   cursor: auto;
-}
 
-.navbar-header {
   float: left;
-}
-
-.icon-style {
-  color:var(--color-primary);
-  margin-top: 6px;
-  margin-right: 3px;
-}
-
-.price-tile {
-  border: solid #7c7c7c 1px;
-  background: var(--color-secondary);
-  padding: 5px;
-  width: 300px;
+  border: 1px solid var(--accent-color-5);
+  
+  padding: 0px;
+  height: 157px;
+  width: 234px;
   position: relative;
-}
+  margin-right: 3px;
+  margin-top: 4px;
+  &:hover {
+    border: solid var(--accent-color) 1px;
+  }
 
-.price-tile:hover {
-  border: solid var(--accent-color) 2px;
+  &__liquidity {
+    text-align: center;    
+    font-size: 10px;
+  }
+
+  &__row1, 
+  &__row2 {
+    margin-top: 12px;  
+    margin-left: 10px;
+    margin-right: 4px;
+  }
+
+  &__spot {
+    margin-left: 14px;
+  }
+
+  &__base {
+    color: var(--accent-color);
+  }
+
+  &__ask {
+    margin-left: -10px;
+    margin-right: 6px;
+  }
+
+  
+  &__row2 {
+    margin-top: 8px;  
+  }
+
+  &__flex-sp {
+    font-size: 12px;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+  }
+  
+  &__notional {
+    border: 1px solid var(--color-dark);
+    padding-left: 2px;
+    width: 40%; 
+    background: inherit;
+    color: var(--color-grey-light-1);
+    position: relative;
+    bottom: 4px;
+    text-align: right; 
+    outline: none;
+    &:hover {
+      border: solid var(--accent-color) 1px;
+    }  
+  }
+
+  &__liquidity-txt {
+    margin-left: 4px;
+    margin-right: 4px;
+    background: var(--color-dark-2);
+  }
 }
 
 select {
-  margin-left: 6px;
+  margin-left: 2px;
   left: 130px;
   width: 120px;
-  height: 30px;
+  height: 23px;
   border: solid rgba(119,119, 119, 0.50) 1px;
   font-size: 120%;
   font-weight: 600;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+  outline: none;
 }
 
 select {
+  padding-left: 2px;
   margin-bottom: 5px;
   background: #000000;
   color: var(--color-grey-light-1);
   border: solid #696969 1px;
 }
 
+.select { 
+  background: var(--color-dark); 
+  overflow: hidden; 
+}
+
 .ccypair-picker {
-  border: 1px solid rgba(119, 119, 119, 0.75);
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 1px solid var(--color-dark);
   margin-bottom: 2px;
   display: flex;
-  background: transparent;
+  background: inherit;
   justify-content: flex-start;
 }
 
@@ -79,30 +126,6 @@ select {
   border: solid var(--accent-color) 1px;
   color: var(--color-grey-light-2);
   cursor: pointer;
-}
-
-.notional {
-  border: 1px solid rgba(119, 119, 119, 0.75);
-  padding-left: 2px;
-  width: 30%;
-}
-
-.div-notional {
-  margin-left: 2px;
-}
-
-.notional {
-  width: 98%;
-}
-
-input {
-  font-size: 140%;
-  font-weight: 400;  
-  margin-top: 5px;
-  margin-bottom: 5px;
-  background: transparent;
-  color: var(--color-grey-light-1);
-  border: solid #696969 1px;
 }
 
 .price-tile-quotes {
@@ -120,16 +143,14 @@ input {
 }
 
 .price-quote-inner {
-  border: 1px solid rgba(119, 119, 119, 0.75);
+  border: solid 1px var(--color-dark);
   padding: 0px;
-  width: 144px;
-}
-
-.price-quote-inner:hover {
-  border: solid var(--accent-color) 2px;
-  color: var(--color-grey-light-1);
-  background: linear-gradient(black, rgb(152, 152, 250));
-  cursor: url(../../assets/Target.cur), auto;
+  width: 108px;
+  &:hover {
+    border: solid var(--accent-color) 1px;
+    background: var(--accent-color-3);
+    cursor: url(../../assets/Target.cur), auto;
+  }  
 }
 
 .side {
@@ -142,11 +163,6 @@ input {
   padding: 2px;
 }
 
-.ccypair-select {
-  margin-top: -5px;
-  margin-left: 40px;
-}
-
 .bars {
   cursor: pointer;
   padding: 1px;
@@ -157,7 +173,6 @@ input {
   color: rgba(255, 255, 255, 0.50);
 }
 
-
 .close {
   cursor: pointer;
   top: 10px;
@@ -167,22 +182,35 @@ input {
   color: var(--color-grey-light-2);
   right: 4px;
   top: -1px;
+  &:hover {
+    color: var(--foreground-color);
+    border: solid red 1px;
+    background: 1px rgba(255, 0, 0, 0.50);
+  }  
 }
 
-.close:hover {
-  color: var(--foreground-color);
-  border: solid red 1px;
-  background: 1px rgba(255, 0, 0, 0.50);
-}
-
-.pips-sm {
-  font-size: 16px;
+.pips-sm, .pips-sm-r {
+  font-size: 15px;
+  font-weight: bold;
   vertical-align: top;
+  padding-right: 2px;  
+  position: relative;  
+}
+
+.pips-sm {  
+  right: 6px;
+}
+
+.pips-sm-r {  
+  left: 2px;
 }
 
 .pips-lg {
-  font-size: 48px;
+  font-size: 42px;
   font-weight: bold;
+  position: relative;  
+  top: 5px;
+  right: 8px;
 }
 
 .down {
@@ -200,7 +228,7 @@ hr {
 }
 
 .statusBar {
-  color: rgba(119, 119, 119, 0.80);
+  color: red;
   font-size: 70%;
   text-align: center;
 }

@@ -80,7 +80,7 @@ export const Workspace = () => {
               key={priceTile.key}
               id={priceTile.key}
               symbol={priceTile.symbol}
-              notional={10000}
+              notional={1000000}
               onClick={onRemoved}
               onChange={onSave} />
         );
