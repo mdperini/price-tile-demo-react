@@ -42,8 +42,8 @@ export default class CurrencyPickerComponent extends React.Component {
 
     return (
       this.state.loading ? <Loading /> :
-      <div class="select">        
-        <select className="ccypair-picker" 
+      <div className="ccypair-picker__div">        
+        <select className="ccypair-picker__select" 
                 value={this.props.symbol} 
                 name="ccypairs" 
                 onChange={this.onChange.bind(this)}>{options}</select>

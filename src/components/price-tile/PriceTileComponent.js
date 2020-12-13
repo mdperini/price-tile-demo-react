@@ -123,36 +123,36 @@ export default class PriceTileComponent extends React.Component {
           <div className="close" onClick={this.click.bind(this)}>
             <i className="fa fa-bars"></i>
           </div>
-          <div class="price-tile__liquidity">
-            <span class="price-tile__liquidity-txt">131M</span>
-            <span class="price-tile__liquidity-txt">131M</span>
+          <div className="price-tile__liquidity">
+            <span className="price-tile__liquidity-txt">131M</span>
+            <span className="price-tile__liquidity-txt">131M</span>
           </div>
           <div className="price-quotes">
               <PriceQuoteComponent price={this.state.bidRate}
-                                   subTitle={this.renderSide(Buy)}
-                                   side={Buy} 
+                                   subTitle={this.renderSide(Sell)}
+                                   side={Sell} 
                                    direction={this.state.directionBidRate}
                                    onClick={this.onSendQuote.bind(this)}/>
               <PriceQuoteComponent price={this.state.termRate}
-                                   subTitle={this.renderSide(Sell)}
-                                   side={Sell} 
+                                   subTitle={this.renderSide(Buy)}
+                                   side={Buy} 
                                    direction={this.state.directionTermRate}
                                    onClick={this.onSendQuote.bind(this)}/>
           </div>
-            <div class="price-tile__row1 price-tile__flex-sp">              
+            <div className="price-tile__row1 price-tile__flex-sp">              
               <div>
                 <span>SW</span>
-                <span class="price-tile__spot">SPOT</span>
+                <span className="price-tile__spot">SPOT</span>
               </div>              
               <div>23 Nov 20</div>
             </div>
-            <div class="price-tile__row2 price-tile__flex-sp">
+            <div className="price-tile__row2 price-tile__flex-sp">
               <div>BID</div>
-              <div class="price-tile__base">EUR</div>
+              <div className="price-tile__base">EUR</div>
                 <NotionalInputComponent notional={this.state.notional} 
                                     onChange={this.onChangeNotional.bind(this)}/>
               
-              <div class="price-tile__ask">ASK</div>
+              <div className="price-tile__ask">ASK</div>
           </div>        
           
           

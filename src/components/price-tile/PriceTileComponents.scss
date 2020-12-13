@@ -81,51 +81,50 @@
     margin-right: 4px;
     background: var(--color-dark-2);
   }
-}
 
-select {
-  margin-left: 2px;
-  left: 130px;
-  width: 120px;
-  height: 23px;
-  border: solid rgba(119,119, 119, 0.50) 1px;
-  font-size: 120%;
-  font-weight: 600;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  text-overflow: '';
-  outline: none;
-}
-
-select {
-  padding-left: 2px;
-  margin-bottom: 5px;
-  background: #000000;
-  color: var(--color-grey-light-1);
-  border: solid #696969 1px;
-}
-
-.select { 
-  background: var(--color-dark); 
-  overflow: hidden; 
+  
+  
+  &__ccypair-picker:hover {
+    border: solid var(--accent-color) 1px;
+    color: var(--color-grey-light-2);
+    cursor: pointer;
+  }  
+  
+  &__notional:hover {
+    border: solid var(--accent-color) 1px;
+    color: var(--color-grey-light-2);
+    cursor: pointer;
+  }  
 }
 
 .ccypair-picker {
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  border: 1px solid var(--color-dark);
-  margin-bottom: 2px;
-  display: flex;
-  background: inherit;
-  justify-content: flex-start;
-}
+  &__div { 
+    background: var(--color-dark); 
+    overflow: hidden; 
+    select {
+      height: 23px;
+      width: 40%;
+      font-size: 14px;
+      text-indent: 1px;
+      text-overflow: '';
+      outline: none;
+      padding-left: 4px;
+      color: var(--color-grey-light-1);
+      border: solid var(--color-dark) 1px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+  }
 
-.ccypair-picker:hover, .notional:hover {
-  border: solid var(--accent-color) 1px;
-  color: var(--color-grey-light-2);
-  cursor: pointer;
+  &__select {
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px solid var(--color-dark);
+    margin-bottom: 2px;
+    display: flex;
+    background: inherit;
+    justify-content: flex-start;
+  }
 }
 
 .price-tile-quotes {
