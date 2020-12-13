@@ -1,21 +1,21 @@
 import React from 'react';
 import { subscribeForLivePrices, unsubscribeForLivePrices } from '../services/pricing.service';
-import { faHome, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import NumberFormat from 'react-number-format';
 
-import CurrencyPickerComponent from './CurrencyPickerComponent';
-import NotionalInputComponent from './NotionalInputComponent';
-import PriceQuoteComponent from './PriceQuoteComponent';
+import CurrencyPicker from './CurrencyPicker';
+import NotionalInput from './NotionalInput';
+import PriceQuote from './PriceQuote';
 
 // import { StatusBar } from '../statusbar/StatusBar';
-import './PriceTileComponents.scss';
+import './price-tile.scss';
 import { postTransaction } from '../services/transaction.service';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
 
-export default class PriceTileComponent extends React.Component { 
+export default class PriceTile extends React.Component { 
   constructor (props) {
     super(props)
     this.state =  { symbol: this.props.symbol,
@@ -120,7 +120,7 @@ export default class PriceTileComponent extends React.Component {
   render () {
     return (
       <div className="price-tile">
-          <CurrencyPickerComponent symbol={this.state.symbol} 
+          <CurrencyPicker symbol={this.state.symbol} 
                                    onChange={this.onCCYUpdate.bind(this)}/>
           <div className="close" onClick={this.click.bind(this)}>
             <FontAwesomeIcon icon={faBars} />
@@ -130,12 +130,12 @@ export default class PriceTileComponent extends React.Component {
             <span className="price-tile__liquidity-txt">131M</span>
           </div>
           <div className="price-quotes">
-              <PriceQuoteComponent price={this.state.bidRate}
+              <PriceQuote price={this.state.bidRate}
                                    subTitle={this.renderSide(Sell)}
                                    side={Sell} 
                                    direction={this.state.directionBidRate}
                                    onClick={this.onSendQuote.bind(this)}/>
-              <PriceQuoteComponent price={this.state.termRate}
+              <PriceQuote price={this.state.termRate}
                                    subTitle={this.renderSide(Buy)}
                                    side={Buy} 
                                    direction={this.state.directionTermRate}
@@ -151,7 +151,7 @@ export default class PriceTileComponent extends React.Component {
             <div className="price-tile__row2 price-tile__flex-sp">
               <div>BID</div>
               <div className="price-tile__base">EUR</div>
-                <NotionalInputComponent notional={this.state.notional} 
+                <NotionalInput notional={this.state.notional} 
                                     onChange={this.onChangeNotional.bind(this)}/>
               
               <div className="price-tile__ask">ASK</div>

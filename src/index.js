@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 
 // Components
-import WorkspaceComponent from './components/WorkspaceComponent'
-ReactDOM.render(<WorkspaceComponent />, document.getElementById('root'));
+import Workspace from './components/Workspace'
+ReactDOM.render(<Workspace />, document.getElementById('root'));
 
 // Hooks
 // import { Workspace } from './hooks/workspace'

@@ -5,7 +5,7 @@ import PriceTile from './price.tile';
 import { TransactionGrid } from './transaction.grid';
 import { restorePreferences, savePreferences } from '../services/preferences.service'; 
 
-import '../components/workspace/WorkspaceComponent.css';
+import '../components/workspace/workspace.scss';
 
 export const Workspace = () => {
   const [layoutConfig, setLayoutConfig] = React.useState([]);

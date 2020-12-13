@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderPips } from '../services/pricing.service';
 
-export default class PriceQuoteComponent extends React.Component {
+export default class PriceQuote extends React.Component {
   side = this.props.side;
 
   onClick = event => {

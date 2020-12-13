@@ -5,9 +5,9 @@ import { renderColumnDefinitions, retrieveTransactions, agDefaultColDef } from '
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import './transaction-grid.component.css';
+import './transaction-grid.scss';
 
-export default class TransactionGridComponent extends React.Component {
+export default class TransactionGrid extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

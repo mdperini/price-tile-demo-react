@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class NotionalInputComponent extends React.Component {
+export default class NotionalInput extends React.Component {
   
  onChange = event => {
     this.props.onChange(event.target.value);

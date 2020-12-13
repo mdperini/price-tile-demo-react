@@ -1,12 +1,12 @@
 import React from 'react';
 import uuid from 'uuid'
-import PriceTileComponent from './PriceTileComponent';
-import TransactionGridComponent from './transaction-grid.component';
+import PriceTile from './PriceTile';
+import TransactionGrid from './Transaction-Grid';
 import { restorePreferences, savePreferences } from '../services/preferences.service';
 
-import './WorkspaceComponent.scss';
+import './workspace.scss';
 
-export default class WorkspaceComponent extends React.Component {
+export default class Workspace extends React.Component {
    constructor (props) {
         super(props)
         this.state =  {  
@@ -81,7 +81,7 @@ export default class WorkspaceComponent extends React.Component {
       const priceTiles = layoutConfig.map((priceTile) => {
         console.log(`priceTile ${JSON.stringify(priceTile)}`)
         return (
-          <PriceTileComponent 
+          <PriceTile 
                 key={priceTile.key}
                 id={priceTile.key}
                 symbol={priceTile.symbol}
@@ -105,7 +105,7 @@ export default class WorkspaceComponent extends React.Component {
               </span>
             </div>
             <hr></hr>
-            <TransactionGridComponent></TransactionGridComponent>
+            <TransactionGrid></TransactionGrid>
           </div>                     
         )
       }

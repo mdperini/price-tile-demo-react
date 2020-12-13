@@ -4,7 +4,7 @@ import Loading from "../common/Loading";
 import uuid from 'uuid'
 import getCCYPairs from '../services/ccypair.service';
 
-export default class CurrencyPickerComponent extends React.Component {
+export default class CurrencyPicker extends React.Component {
   symbol = this.props.symbol;
   constructor(props) {
     super(props);
