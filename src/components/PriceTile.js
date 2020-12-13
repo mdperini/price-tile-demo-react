@@ -122,7 +122,7 @@ export default class PriceTile extends React.Component {
       <div className="price-tile">
           <CurrencyPicker symbol={this.state.symbol} 
                                    onChange={this.onCCYUpdate.bind(this)}/>
-          <div className="close" onClick={this.click.bind(this)}>
+          <div className="price-tile__close" onClick={this.click.bind(this)}>
             <FontAwesomeIcon icon={faBars} />
           </div>
           <div className="price-tile__liquidity">

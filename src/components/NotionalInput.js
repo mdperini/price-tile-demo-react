@@ -8,7 +8,7 @@ export default class NotionalInput extends React.Component {
 
   render () {
       return (
-          <input className="price-tile__notional" 
+          <input className="notional" 
                  type='number'
                  onChange={this.onChange.bind(this)}
                  value={this.props.notional} />             

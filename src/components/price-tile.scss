@@ -6,7 +6,10 @@
    --accent-color: rgba(13, 189, 255, 1);
    --accent-color-3: rgba(13, 189, 255, .3);
    --accent-color-5: rgba(13, 189, 255, .5);
-   --accent-color-7: rgba(0,189, 255, .7);;
+   --accent-color-7: rgba(0,189, 255, .7);
+   --green-color: rgb(0, 255, 0);
+   --red-color: rgb(255, 0, 0);
+   --red-color-5: rgba(255, 0, 0, 0.50);
   
   cursor: auto;
 
@@ -47,7 +50,6 @@
     margin-left: -10px;
     margin-right: 6px;
   }
-
   
   &__row2 {
     margin-top: 8px;  
@@ -60,32 +62,55 @@
     justify-content: space-between;
   }
   
-  &__notional {
-    border: 1px solid var(--color-dark);
-    padding-left: 2px;
-    width: 40%; 
-    background: inherit;
-    color: var(--color-grey-light-1);
-    position: relative;
-    bottom: 4px;
-    text-align: right; 
-    outline: none;
-    &:hover {
-      border: solid var(--accent-color) 1px;
-    }  
-  }
-
+  
   &__liquidity-txt {
     margin-left: 4px;
     margin-right: 4px;
     background: var(--color-dark-2);
   }
 
-  &__notional:hover {
-    border: solid var(--accent-color) 1px;
+  
+  &__close {
+    cursor: pointer;    
+    width: 4px 10px 10px 10px;
+    height: 4px 10px 10px 10px;
+    border: solid  1px var(--color-dark-1);
+    position: absolute;
     color: var(--color-grey-light-2);
-    cursor: pointer;
+    right: 4px;
+    top: 3px;
+    &:hover {
+      color: var(--foreground-color);
+      border: solid  1px var(--red-color);
+      background: 1px var(--red-color-5);
+    }  
+  }
+}
+
+.notional {
+  border: 1px solid var(--color-dark);
+  padding-left: 2px;
+  width: 40%; 
+  background:  var(--color-dark);
+  color: var(--color-grey-light-1);
+  position: relative;
+  bottom: 4px;
+  text-align: right; 
+  outline: none;
+  &:hover {
+    border: solid var(--accent-color) 1px;
   }  
+}
+
+/* Always */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    opacity: 1;
+}
+/* On hover */
+input[type=number]:hover::-webkit-inner-spin-button, 
+input[type=number]:hover::-webkit-outer-spin-button { 
+    opacity: 1;
 }
 
 .ccypair-picker {
@@ -121,6 +146,8 @@
         cursor: pointer;
     }
   }
+
+  
 }
 
 .price-tile-quotes {
@@ -158,31 +185,6 @@
   padding: 2px;
 }
 
-.bars {
-  cursor: pointer;
-  padding: 1px;
-  padding-right: 7px;
-  position: absolute;
-  right: 1px;
-  top: 0px;
-  color: rgba(255, 255, 255, 0.50);
-}
-
-.close {
-  cursor: pointer;
-  top: 10px;
-  width: 4px 10px 10px 10px;
-  height: 4px 10px 10px 10px;
-  position: absolute;
-  color: var(--color-grey-light-2);
-  right: 4px;
-  top: -1px;
-  &:hover {
-    color: var(--foreground-color);
-    border: solid red 1px;
-    background: 1px rgba(255, 0, 0, 0.50);
-  }  
-}
 
 .pips-sm, .pips-sm-r {
   font-size: 15px;
@@ -209,10 +211,10 @@
 }
 
 .down {
-  color: red;
+  color: var(--red-color);
 }
 
 .up {
-  color: green;
+  color:var(--green-color);
 }
 
