@@ -5,7 +5,7 @@ import PriceTile from './price.tile';
 import { TransactionGrid } from './transaction.grid';
 import { restorePreferences, savePreferences } from '../services/preferences.service'; 
 
-import '../components/workspace/WorkspaceComponent.css';
+import '../components/workspace/workspace.scss';
 
 export const Workspace = () => {
   const [layoutConfig, setLayoutConfig] = React.useState([]);
@@ -80,7 +80,7 @@ export const Workspace = () => {
               key={priceTile.key}
               id={priceTile.key}
               symbol={priceTile.symbol}
-              notional={10000}
+              notional={1000000}
               onClick={onRemoved}
               onChange={onSave} />
         );

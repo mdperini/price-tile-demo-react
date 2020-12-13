@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Loading from "../../common/Loading";
+import Loading from "../common/Loading";
 import uuid from 'uuid'
-import getCCYPairs from '../../services/ccypair.service';
+import getCCYPairs from '../services/ccypair.service';
 
-export default class CurrencyPickerComponent extends React.Component {
+export default class CurrencyPicker extends React.Component {
   symbol = this.props.symbol;
   constructor(props) {
     super(props);
@@ -42,8 +42,8 @@ export default class CurrencyPickerComponent extends React.Component {
 
     return (
       this.state.loading ? <Loading /> :
-      <div>        
-        <select className="ccypair-picker" 
+      <div className="ccypair-picker__div">        
+        <select className="ccypair-picker__select" 
                 value={this.props.symbol} 
                 name="ccypairs" 
                 onChange={this.onChange.bind(this)}>{options}</select>

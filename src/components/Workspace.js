@@ -1,12 +1,12 @@
 import React from 'react';
 import uuid from 'uuid'
-import PriceTileComponent from '../price-tile/PriceTileComponent';
-import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
-import { restorePreferences, savePreferences } from '../../services/preferences.service';
+import PriceTile from './PriceTile';
+import TransactionGrid from './Transaction-Grid';
+import { restorePreferences, savePreferences } from '../services/preferences.service';
 
-import './WorkspaceComponent.css';
+import './workspace.scss';
 
-export default class WorkspaceComponent extends React.Component {
+export default class Workspace extends React.Component {
    constructor (props) {
         super(props)
         this.state =  {  
@@ -81,11 +81,11 @@ export default class WorkspaceComponent extends React.Component {
       const priceTiles = layoutConfig.map((priceTile) => {
         console.log(`priceTile ${JSON.stringify(priceTile)}`)
         return (
-          <PriceTileComponent 
+          <PriceTile 
                 key={priceTile.key}
                 id={priceTile.key}
                 symbol={priceTile.symbol}
-                notional={10000}
+                notional={1000000}
                 onClick={this.onRemove.bind(this)}
                 onUpdate={this.onSave.bind(this)} />
         );
@@ -97,15 +97,15 @@ export default class WorkspaceComponent extends React.Component {
     render () {
         return (
           <div>
-            <div className="price-tiles"> 
+            <div className="tiles"> 
               {this.renderPriceTiles(this.state.layoutConfig)}
-              <span className="add"
+              <span className="tiles__add"
                     onClick={this.onAdd.bind(this)}>
-                    <i className="fa fa-plus-circle fa-5x add-inner"></i>
+                    <i className="fa fa-plus-circle fa-5x tiles__add-inner"></i>
               </span>
             </div>
             <hr></hr>
-            <TransactionGridComponent></TransactionGridComponent>
+            <TransactionGrid></TransactionGrid>
           </div>                     
         )
       }

@@ -12,15 +12,15 @@ export const PriceQuote = params => {
   const renderDirection= (side, prev, curr) => {
     if (!curr) {
       return '';
-    }
-
+    }    
     const direction = prev <= curr ? 'up' : 'down';
+    console.log(`prev ${prev} curr ${curr} ${direction}`);
+
     if (side === 'Buy') {
       console.log(`prev ${prev} curr ${curr} ${direction}`);
     }
     return direction;
   }
-
 
   useEffect(() => {
     setPrevPrice(priceFull);

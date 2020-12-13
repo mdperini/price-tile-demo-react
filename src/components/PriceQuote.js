@@ -1,7 +1,7 @@
 import React from 'react';
-import { renderPips } from '../../services/pricing.service';
+import { renderPips } from '../services/pricing.service';
 
-export default class PriceQuoteComponent extends React.Component {
+export default class PriceQuote extends React.Component {
   side = this.props.side;
 
   onClick = event => {
@@ -20,7 +20,7 @@ export default class PriceQuoteComponent extends React.Component {
             <span className="pips-lg">
                 <span className={this.props.direction}>{renderPips(this.props.price, 2)}</span>
                 </span>
-            <span className="pips-sm">{renderPips(this.props.price, 3)}</span>
+            <span className="pips-sm-r">{renderPips(this.props.price, 3)}</span>
           </div>
         </div>           
       </div>           

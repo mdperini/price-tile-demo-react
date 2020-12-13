@@ -1,19 +1,21 @@
 import React from 'react';
-import { subscribeForLivePrices, unsubscribeForLivePrices } from '../../services/pricing.service';
-import NumberFormat from 'react-number-format';
+import { subscribeForLivePrices, unsubscribeForLivePrices } from '../services/pricing.service';
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import NumberFormat from 'react-number-format';
 
-import CurrencyPickerComponent from '../ccy-pair-picker/CurrencyPickerComponent';
-import NotionalInputComponent from '../notional/NotionalInputComponent';
-import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
+import CurrencyPicker from './CurrencyPicker';
+import NotionalInput from './NotionalInput';
+import PriceQuote from './PriceQuote';
 
-import { StatusBar } from '../statusbar/StatusBar';
-import './PriceTileComponents.css';
-import { postTransaction } from '../../services/transaction.service';
+// import { StatusBar } from '../statusbar/StatusBar';
+import './price-tile.scss';
+import { postTransaction } from '../services/transaction.service';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
 
-export default class PriceTileComponent extends React.Component { 
+export default class PriceTile extends React.Component { 
   constructor (props) {
     super(props)
     this.state =  { symbol: this.props.symbol,
@@ -114,44 +116,48 @@ export default class PriceTileComponent extends React.Component {
     return `${side} ${this.state.symbol ?this.state.symbol.substr(0, 3) : ''}`;
   }
 
+
   render () {
     return (
-      <div className="navbar-header">
-        <div className="price-tile">
-          <CurrencyPickerComponent symbol={this.state.symbol} 
+      <div className="price-tile">
+          <CurrencyPicker symbol={this.state.symbol} 
                                    onChange={this.onCCYUpdate.bind(this)}/>
-          <div className="close" onClick={this.click.bind(this)}>
-            <i className="fa fa-close"></i>
+          <div className="price-tile__close" onClick={this.click.bind(this)}>
+            <FontAwesomeIcon icon={faBars} />
           </div>
-          <NotionalInputComponent notional={this.state.notional} 
-                                  onChange={this.onChangeNotional.bind(this)}/>
+          <div className="price-tile__liquidity">
+            <span className="price-tile__liquidity-txt">131M</span>
+            <span className="price-tile__liquidity-txt">131M</span>
+          </div>
           <div className="price-quotes">
-              <PriceQuoteComponent price={this.state.bidRate}
-                                   subTitle={this.renderSide(Buy)}
-                                   side={Buy} 
-                                   direction={this.state.directionBidRate}
-                                   onClick={this.onSendQuote.bind(this)}/>
-              <PriceQuoteComponent price={this.state.termRate}
+              <PriceQuote price={this.state.bidRate}
                                    subTitle={this.renderSide(Sell)}
                                    side={Sell} 
+                                   direction={this.state.directionBidRate}
+                                   onClick={this.onSendQuote.bind(this)}/>
+              <PriceQuote price={this.state.termRate}
+                                   subTitle={this.renderSide(Buy)}
+                                   side={Buy} 
                                    direction={this.state.directionTermRate}
                                    onClick={this.onSendQuote.bind(this)}/>
           </div>
-       </div>
-       <div className="statusBar">
-        <StatusBar data={(this.renderSymbol(this.state.symbol))}/>
-        <span>&nbsp;</span>
-        <StatusBar data={(<NumberFormat value={this.state.notional} 
-                                 displayType={'text'}
-                                 readOnly 
-                                 thousandSeparator={true} />)}/>
-        <span>&nbsp;</span>
-        <StatusBar data={(this.state.side ? this.state.side : '')}/>
-        <span>&nbsp;</span>
-        <span className={this.state.directionBidRate}><StatusBar data={(this.state.bidRateFull ? this.state.bidRateFull : '--')}/></span>
-        <span>&nbsp;</span>
-        <span className={this.state.directionTermRate}><StatusBar data={(this.state.termRateFull ? this.state.termRateFull : '--')}/></span>        
-      </div>
+            <div className="price-tile__row1 price-tile__flex-sp">              
+              <div>
+                <span>SW</span>
+                <span className="price-tile__spot">SPOT</span>
+              </div>              
+              <div>23 Nov 20</div>
+            </div>
+            <div className="price-tile__row2 price-tile__flex-sp">
+              <div>BID</div>
+              <div className="price-tile__base">EUR</div>
+                <NotionalInput notional={this.state.notional} 
+                                    onChange={this.onChangeNotional.bind(this)}/>
+              
+              <div className="price-tile__ask">ASK</div>
+          </div>        
+          
+          
      </div>
     )
   }
