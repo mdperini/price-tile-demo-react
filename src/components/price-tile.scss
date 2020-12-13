@@ -1,0 +1,220 @@
+
+@import '../../node_modules/font-awesome/css/font-awesome.css';
+
+.price-tile { 
+   --color-grey-light-1: #C7CDD1;
+   --accent-color: rgba(13, 189, 255, 1);
+   --accent-color-3: rgba(13, 189, 255, .3);
+   --accent-color-5: rgba(13, 189, 255, .5);
+   --accent-color-7: rgba(0,189, 255, .7);
+   --green-color: rgb(0, 255, 0);
+   --red-color: rgb(255, 0, 0);
+   --red-color-5: rgba(255, 0, 0, 0.50);
+  
+  cursor: auto;
+
+  float: left;
+  border: 1px solid var(--accent-color-5);
+  
+  padding: 0px;
+  height: 157px;
+  width: 234px;
+  position: relative;
+  margin-right: 3px;
+  margin-top: 4px;
+  &:hover {
+    border: solid var(--accent-color) 1px;
+  }
+
+  &__liquidity {
+    text-align: center;    
+    font-size: 10px;
+  }
+
+  &__row1, 
+  &__row2 {
+    margin-top: 12px;  
+    margin-left: 10px;
+    margin-right: 4px;
+  }
+
+  &__spot {
+    margin-left: 14px;
+  }
+
+  &__base {
+    color: var(--accent-color);
+  }
+
+  &__ask {
+    margin-left: -10px;
+    margin-right: 6px;
+  }
+  
+  &__row2 {
+    margin-top: 8px;  
+  }
+
+  &__flex-sp {
+    font-size: 12px;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+  }
+  
+  
+  &__liquidity-txt {
+    margin-left: 4px;
+    margin-right: 4px;
+    background: var(--color-dark-2);
+  }
+
+  
+  &__close {
+    cursor: pointer;    
+    width: 4px 10px 10px 10px;
+    height: 4px 10px 10px 10px;
+    border: solid  1px var(--color-dark-1);
+    position: absolute;
+    color: var(--color-grey-light-2);
+    right: 4px;
+    top: 3px;
+    &:hover {
+      color: var(--foreground-color);
+      border: solid  1px var(--red-color);
+      background: 1px var(--red-color-5);
+    }  
+  }
+}
+
+.notional {
+  border: 1px solid var(--color-dark);
+  padding-left: 2px;
+  width: 40%; 
+  background:  var(--color-dark);
+  color: var(--color-grey-light-1);
+  position: relative;
+  bottom: 4px;
+  text-align: right; 
+  outline: none;
+  &:hover {
+    border: solid var(--accent-color) 1px;
+  }  
+}
+
+/* Always */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    opacity: 1;
+}
+/* On hover */
+input[type=number]:hover::-webkit-inner-spin-button, 
+input[type=number]:hover::-webkit-outer-spin-button { 
+    opacity: 1;
+}
+
+.ccypair-picker {
+  &__div { 
+    background: var(--color-dark); 
+    overflow: hidden; 
+    select {
+      height: 23px;
+      width: 40%;
+      font-size: 14px;
+      text-indent: 1px;
+      text-overflow: '';
+      outline: none;
+      padding-left: 4px;
+      color: var(--color-grey-light-1);
+      border: solid var(--color-dark) 1px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      
+    }   
+  }
+
+  &__select {
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px solid var(--color-dark);
+    margin-bottom: 2px;
+    display: flex;
+    background: inherit;
+    justify-content: flex-start;
+    &:hover {
+        border: solid var(--accent-color) 1px;
+        cursor: pointer;
+    }
+  }
+
+  
+}
+
+.price-tile-quotes {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-quote, .price-quotes {
+  display: flex;  
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 1px;
+  margin-left: 1px;
+  margin-right: 4px;
+}
+
+.price-quote-inner {
+  border: solid 1px var(--color-dark);
+  padding: 0px;
+  width: 108px;
+  &:hover {
+    border: solid var(--accent-color) 1px;
+    background: var(--accent-color-3);
+    cursor: url(./Target.cur), auto;
+  }  
+}
+
+.side {
+  font-size: 70%;
+  text-align: center;
+}
+
+.pips {
+  text-align: center;
+  padding: 2px;
+}
+
+
+.pips-sm, .pips-sm-r {
+  font-size: 15px;
+  font-weight: bold;
+  vertical-align: top;
+  padding-right: 2px;  
+  position: relative;  
+}
+
+.pips-sm {  
+  right: 6px;
+}
+
+.pips-sm-r {  
+  left: 2px;
+}
+
+.pips-lg {
+  font-size: 42px;
+  font-weight: bold;
+  position: relative;  
+  top: 5px;
+  right: 8px;
+}
+
+.down {
+  color: var(--red-color);
+}
+
+.up {
+  color:var(--green-color);
+}
+

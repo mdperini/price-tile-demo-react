@@ -1,13 +1,13 @@
 import React from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import notificationService from '../../services/notification.service';
-import { renderColumnDefinitions, retrieveTransactions, agDefaultColDef } from '../../services/transaction.service';
+import notificationService from '../services/notification.service';
+import { renderColumnDefinitions, retrieveTransactions, agDefaultColDef } from '../services/transaction.service';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import './transaction-grid.component.css';
+import './transaction-grid.scss';
 
-export default class TransactionGridComponent extends React.Component {
+export default class TransactionGrid extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

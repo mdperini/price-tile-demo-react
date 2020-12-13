@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class NotionalInputComponent extends React.Component {
+export default class NotionalInput extends React.Component {
   
  onChange = event => {
     this.props.onChange(event.target.value);
@@ -8,12 +8,10 @@ export default class NotionalInputComponent extends React.Component {
 
   render () {
       return (
-        <div className="div-notional">
           <input className="notional" 
                  type='number'
                  onChange={this.onChange.bind(this)}
                  value={this.props.notional} />             
-        </div>            
       )
     }
 }
