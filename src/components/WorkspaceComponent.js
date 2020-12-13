@@ -1,8 +1,8 @@
 import React from 'react';
 import uuid from 'uuid'
-import PriceTileComponent from '../price-tile/PriceTileComponent';
-import TransactionGridComponent from '../transaction-grid/transaction-grid.component';
-import { restorePreferences, savePreferences } from '../../services/preferences.service';
+import PriceTileComponent from './PriceTileComponent';
+import TransactionGridComponent from './transaction-grid.component';
+import { restorePreferences, savePreferences } from '../services/preferences.service';
 
 import './WorkspaceComponent.scss';
 

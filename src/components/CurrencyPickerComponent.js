@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Loading from "../../common/Loading";
+import Loading from "../common/Loading";
 import uuid from 'uuid'
-import getCCYPairs from '../../services/ccypair.service';
+import getCCYPairs from '../services/ccypair.service';
 
 export default class CurrencyPickerComponent extends React.Component {
   symbol = this.props.symbol;

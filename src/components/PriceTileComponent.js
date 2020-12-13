@@ -1,14 +1,16 @@
 import React from 'react';
-import { subscribeForLivePrices, unsubscribeForLivePrices } from '../../services/pricing.service';
+import { subscribeForLivePrices, unsubscribeForLivePrices } from '../services/pricing.service';
+import { faHome, faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import NumberFormat from 'react-number-format';
 
-import CurrencyPickerComponent from '../ccy-pair-picker/CurrencyPickerComponent';
-import NotionalInputComponent from '../notional/NotionalInputComponent';
-import PriceQuoteComponent from '../price-quote/PriceQuoteComponent';
+import CurrencyPickerComponent from './CurrencyPickerComponent';
+import NotionalInputComponent from './NotionalInputComponent';
+import PriceQuoteComponent from './PriceQuoteComponent';
 
 // import { StatusBar } from '../statusbar/StatusBar';
 import './PriceTileComponents.scss';
-import { postTransaction } from '../../services/transaction.service';
+import { postTransaction } from '../services/transaction.service';
 
 const Buy = 'Buy';
 const Sell = 'Sell';
@@ -121,7 +123,7 @@ export default class PriceTileComponent extends React.Component {
           <CurrencyPickerComponent symbol={this.state.symbol} 
                                    onChange={this.onCCYUpdate.bind(this)}/>
           <div className="close" onClick={this.click.bind(this)}>
-            <i className="fa fa-bars"></i>
+            <FontAwesomeIcon icon={faBars} />
           </div>
           <div className="price-tile__liquidity">
             <span className="price-tile__liquidity-txt">131M</span>
