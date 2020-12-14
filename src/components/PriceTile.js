@@ -4,6 +4,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import NumberFormat from 'react-number-format';
 
+import AccountPicker from './AccountPicker';
 import CurrencyPicker from './CurrencyPicker';
 import NotionalInput from './NotionalInput';
 import PriceQuote from './PriceQuote';
@@ -19,6 +20,7 @@ export default class PriceTile extends React.Component {
   constructor (props) {
     super(props)
     this.state =  { symbol: this.props.symbol,
+                    account: this.props.account,
                     id: this.props.id,
                     notional: this.props.notional,
                     side: undefined,
@@ -46,12 +48,17 @@ export default class PriceTile extends React.Component {
     this.setState({directionTermRate: undefined} );
   }
   
-  onCCYUpdate (symbol) {
+  onCCYPairUpdate(symbol) {
     this.setState({symbol: symbol });
     this.resetPrices(); 
     this.getLivePrices(symbol);
     this.props.onUpdate({'id': this.state.id, symbol});
   }  
+
+  onAccountUpdate(account) {
+    this.setState({account: account});
+    this.props.onUpdate({'id': this.state.id, account});
+  }
 
   onChangeNotional (notional) { this.setState({ notional }) }
 
@@ -120,10 +127,13 @@ export default class PriceTile extends React.Component {
   render () {
     return (
       <div className="price-tile">
+          <div className="flex">
           <CurrencyPicker symbol={this.state.symbol} 
-                                   onChange={this.onCCYUpdate.bind(this)}/>
+                                   onChange={this.onCCYPairUpdate.bind(this)}/>
+          
           <div className="price-tile__close" onClick={this.click.bind(this)}>
             <FontAwesomeIcon icon={faBars} />
+          </div>
           </div>
           <div className="price-tile__liquidity">
             <span className="price-tile__liquidity-txt">131M</span>
@@ -156,6 +166,12 @@ export default class PriceTile extends React.Component {
               
               <div className="price-tile__ask">ASK</div>
           </div>        
+          <AccountPicker account={this.state.account}
+                                   onChange={this.onAccountUpdate.bind(this)} />
+                                
+
+                    
+
           
           
      </div>
