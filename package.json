@@ -9,7 +9,7 @@
     "@hapi/nes": "^11.2.2",
     "ag-grid-community": "^21.2.2",
     "ag-grid-react": "^21.2.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "fetch": "^1.1.0",
     "font-awesome": "4.7.0",
