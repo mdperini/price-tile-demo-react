@@ -122,21 +122,18 @@ input[type=number]:hover::-webkit-outer-spin-button {
 .ccypair-picker {
   &__div { 
     background: var(--color-dark); 
-    min-width: 200px;
     overflow: hidden; 
     select {
       height: 23px;
-      width: 40%;
+      width: 80px;
       font-size: 14px;
-      text-indent: 1px;
       text-overflow: '';
       outline: none;
       padding-left: 4px;
       color: var(--color-grey-light-1);
       border: solid var(--color-dark) 1px;
       -webkit-appearance: none;
-      -moz-appearance: none;
-      
+      -moz-appearance: none;      
     }   
   }
 
@@ -158,22 +155,19 @@ input[type=number]:hover::-webkit-outer-spin-button {
 
 .account-picker {
   &__div { 
-    background: var(--color-dark); 
-    overflow: hidden; 
-    
+    background: blueviolet; // var(--color-dark); 
+    overflow: hidden;     
     select {
       height: 23px;
-      width: 40%;
+      width: 80px;
       font-size: 14px;
-      text-indent: 1px;
       text-overflow: '';
       outline: none;
       padding-left: 4px;
       color: var(--color-grey-light-1);
       border: solid var(--color-dark) 1px;
       -webkit-appearance: none;
-      -moz-appearance: none;
-      
+      -moz-appearance: none;      
     }   
   }
 

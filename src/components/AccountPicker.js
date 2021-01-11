@@ -16,7 +16,7 @@ export default  class AccountPicker extends React.Component {
     }
 
     componentDidMount() {
-        console.log(`props.account ${this.props.account}`);
+        console.log(`props.account ${JSON.stringify(this.props.account)}`);
         this.setState({ loading: true});
         getAccounts((accounts) =>{
             this.setState({ accounts });
@@ -30,7 +30,6 @@ export default  class AccountPicker extends React.Component {
 
     render() {
         const options = this.state.accounts.map((account) => {
-            console.log(`${JSON.stringify(account.name)}`)
             const key = account.key ? account.key : uuid.v1();
             return (
                 <option key={key} value={account.id}>{account.name}</option>
@@ -39,8 +38,8 @@ export default  class AccountPicker extends React.Component {
 
         return (
             this.state.loading? <Loading />  :
-            <div className="account-picker__div">
-                <select className="account-picker__select"
+            <div className="ccypair-picker__div">        
+            <select className="ccypair-picker__select" 
                         value={this.props.account}
                         name="accounts"
                         onChange={this.onChange.bind(this)}>{options}</select>

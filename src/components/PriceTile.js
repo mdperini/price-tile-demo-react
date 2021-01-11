@@ -130,6 +130,8 @@ export default class PriceTile extends React.Component {
           <div className="flex">
           <CurrencyPicker symbol={this.state.symbol} 
                                    onChange={this.onCCYPairUpdate.bind(this)}/>
+          <AccountPicker account={this.state.account}
+                                   onChange={this.onAccountUpdate.bind(this)} />
           
           <div className="price-tile__close" onClick={this.click.bind(this)}>
             <FontAwesomeIcon icon={faBars} />
@@ -166,14 +168,6 @@ export default class PriceTile extends React.Component {
               
               <div className="price-tile__ask">ASK</div>
           </div>        
-          <AccountPicker account={this.state.account}
-                                   onChange={this.onAccountUpdate.bind(this)} />
-                                
-
-                    
-
-          
-          
      </div>
     )
   }

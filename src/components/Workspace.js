@@ -42,7 +42,13 @@ export default class Workspace extends React.Component {
         {
           key: v1,
           id: v1,
-          symbol: 'EURUSD'
+          symbol: 'EURUSD',
+          account:  {  
+            "name": "Account 1",  
+            "id": "Account 1 Id",  
+            "basenumber": 800002001,  
+            "vehicle": "Account 1 Id"
+        }
         });
 
         this.saveUserPreferences(layoutConfig);
@@ -65,6 +71,7 @@ export default class Workspace extends React.Component {
         }
     
         layouts.push({
+                        'account': pricetile.account,
                         'symbol': pricetile.symbol,
                         'key': pricetile.id
                      });
@@ -85,6 +92,7 @@ export default class Workspace extends React.Component {
                 key={priceTile.key}
                 id={priceTile.key}
                 symbol={priceTile.symbol}
+                account={priceTile.account}
                 notional={1000000}
                 onClick={this.onRemove.bind(this)}
                 onUpdate={this.onSave.bind(this)} />
